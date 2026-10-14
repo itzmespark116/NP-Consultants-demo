@@ -1,0 +1,86 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ──────────────────────────────────── nav.css ─────────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Header is fixed; the nav inside is absolute and shrinks to a pill when      */
+/* [data-scrolled] is set on <header> (see modules/navbar.js).                 */
+
+main > header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: var(--z-nav);
+    pointer-events: none;
+    animation: nav-intro var(--transition-medium) var(--ease) backwards;
+}
+
+@keyframes nav-intro { from { opacity: 0; transform: translateY(calc(var(--offset-small) * -1)); } }
+
+header > nav {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    gap: var(--gap-xsmall);
+    width: 100%;
+    height: var(--nav-height);
+    padding: 0 var(--padding-small);
+    transform: translateX(-50%);
+    pointer-events: auto;
+    transition: top var(--transition-medium) var(--ease), width var(--transition-medium) var(--ease),
+                height var(--transition-medium) var(--ease), padding var(--transition-medium) var(--ease);
+}
+
+/* Glass sits on a pseudo-element so the mobile dropdown can blur the page itself */
+header > nav::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border: var(--border-width) solid transparent;
+    border-radius: 0;
+    pointer-events: none;
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+    transition: border-radius var(--transition-medium) var(--ease), background-color var(--transition-medium) var(--ease),
+                border-color var(--transition-medium) var(--ease), box-shadow var(--transition-medium) var(--ease),
+                backdrop-filter var(--transition-medium) var(--ease);
+}
+
+header[data-scrolled] > nav {
+    top: var(--gap-small);
+    width: min(var(--nav-width-scrolled), calc(100% - var(--gap-small) * 2));
+    height: var(--nav-height-scrolled);
+}
+
+header[data-scrolled] > nav::before {
+    border-color: var(--border);
+    border-radius: var(--border-radius-max);
+    background: var(--glass);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-rim);
+    opacity: var(--dim);
+}
+
+header nav * {
+    user-select: none;
+}
+
+nav > a {
+    margin-right: auto;
+    color: var(--color);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+nav > a > img { height: var(--logo-height); }
+
+nav a:focus-visible,
+nav button:focus-visible {
+    outline: var(--outline);
+    outline-offset: var(--outline-offset);
+    border-radius: var(--border-radius-small);
+}

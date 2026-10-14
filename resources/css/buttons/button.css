@@ -1,0 +1,106 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ────────────────────────────────── button.css ────────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Button : pill button with a soft accent tint, lift + glow and a shine sweep.   */
+/* Use    : class="button" (primary), class="button secondary", or disabled.       */
+/* Tokens : --accent-soft, --accent-strong, --glow, --shine*, --lift, --zoom-button, */
+/*          --press live in root.css. Entrance animation is left to the section.   */
+/* Shine  : drawn as a background layer, so text stays crisp and nothing is clipped. */
+/* Hit    : ::after extends the hover area by the lift so the cursor never flickers. */
+/* Note   : a disabled <a> needs aria-disabled="true" (no cursor, it has no hover). */
+
+.button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gap-xsmall);
+    min-height: var(--control-size);
+    padding: calc(var(--padding-small) - var(--padding-xsmall)) var(--padding-small);
+    border: var(--border-width) solid var(--border);
+    border-radius: var(--border-radius-max);
+    background-color: var(--accent-soft);
+    background-image: var(--shine);
+    background-repeat: no-repeat;
+    background-size: var(--shine-size);
+    background-position: var(--shine-from) 0;
+    color: var(--color-mute);
+    font-family: inherit;
+    font-size: var(--font-medium);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing);
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+        transform var(--transition-small) var(--ease),
+        background-color var(--transition-small) var(--ease),
+        background-position var(--transition-large) var(--ease),
+        color var(--transition-small) var(--ease),
+        box-shadow var(--transition-small) var(--ease);
+}
+
+.button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    bottom: var(--lift);
+}
+
+@media (hover: hover) {
+    .button:hover:not(:disabled):not([aria-disabled="true"]) {
+        background-color: var(--accent-strong);
+        background-position: var(--shine-to) 0;
+        color: var(--color);
+        transform: translateY(var(--lift)) scale(var(--zoom-button));
+        box-shadow: var(--shadow-small), var(--glow);
+    }
+}
+
+.button:active:not(:disabled):not([aria-disabled="true"]) {
+    transform: scale(var(--press));
+}
+
+.button:focus-visible {
+    outline: var(--outline);
+    outline-offset: var(--outline-offset);
+}
+
+.button:disabled,
+.button[aria-disabled="true"] {
+    opacity: var(--dim);
+    cursor: not-allowed;
+}
+
+a.button[aria-disabled="true"] {
+    pointer-events: none;
+}
+
+/* ─────────────────────────────────── Secondary ────────────────────────────────── */
+
+.button.secondary {
+    background-color: transparent;
+}
+
+@media (hover: hover) {
+    .button.secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+        background-color: var(--accent-soft);
+        border-color: var(--accent);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .button {
+        transition: none;
+    }
+
+    .button:hover:not(:disabled):not([aria-disabled="true"]),
+    .button:active:not(:disabled):not([aria-disabled="true"]) {
+        transform: none;
+        background-position: var(--shine-from) 0;
+    }
+}

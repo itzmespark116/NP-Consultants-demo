@@ -1,0 +1,171 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ───────────────────────────── homepage-banner.css ────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Written by homepage-banner.js. Intro: JS adds "animate", --i sets the order.     */
+/* The button animates through .actions, so button.css hover never clashes.         */
+/* Layout: the panel sits in the flow, centered vertically, with a left margin.      */
+
+.banner {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.banner video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    z-index: 0;
+}
+
+.banner .tint,
+.banner .fade {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.banner .tint {
+    background: var(--banner-tint);
+    z-index: 1;
+}
+
+.banner .fade {
+    background: var(--banner-fade);
+    z-index: 2;
+}
+
+.banner .content {
+    position: relative;
+    z-index: 3;
+    isolation: isolate;
+    width: var(--homepage-banner-width);
+    max-width: calc(100% - (var(--homepage-banner-left) * 2));
+    max-height: calc(100% - (var(--nav-height) * 2));
+    margin-left: var(--homepage-banner-left);
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: var(--homepage-banner-padding);
+    display: flex;
+    flex-direction: column;
+    background: var(--glass);
+    -webkit-backdrop-filter: var(--glass-blur-light);
+    backdrop-filter: var(--glass-blur-light);
+    border: var(--border-width) solid var(--border);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--glass-rim);
+}
+
+.banner .content :is(.label, h1, .description) {
+    margin: 0;
+}
+
+.banner .content * {
+    user-select: none;
+}
+
+.banner .content .label {
+    margin-bottom: var(--homepage-banner-label-gap);
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--accent) 90%, var(--color));
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-compact);
+}
+
+.banner .content h1 {
+    text-transform: uppercase;
+    text-wrap: balance;
+    font-weight: var(--font-weight-bold);
+    font-size: calc(var(--font-xlarge) * 1.85);
+    letter-spacing: var(--letter-spacing-xcompact);
+    line-height: 0.95;
+}
+
+.banner .content .description {
+    color: var(--color-mute);
+}
+
+.banner .content .description {
+    max-width: var(--homepage-banner-description-width);
+    margin-top: var(--homepage-banner-description-gap);
+    text-wrap: pretty;
+}
+
+.banner .content .actions {
+    align-self: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-xsmall);
+    margin-top: var(--homepage-banner-actions-gap);
+}
+
+/* ──────────────────────────────────── Intro ───────────────────────────────────── */
+/* Skipped for reduced motion, so content simply shows. */
+
+@media (prefers-reduced-motion: no-preference) {
+    .banner :is(.content, .label, h1, .description, .actions) {
+        opacity: 0;
+        transform: translateY(var(--offset-small));
+    }
+
+    .banner.animate :is(.content, .label, h1, .description, .actions) {
+        animation: banner-in var(--transition-large) var(--ease) calc(var(--stagger) * var(--i)) both;
+    }
+}
+
+@keyframes banner-in {
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ────────────────────────────────── Adaptive ──────────────────────────────────── */
+
+/* Phone: the panel spans the screen with equal side margins. */
+@media (max-width: 43.75rem) {
+    .banner .content {
+        width: auto;
+        max-width: none;
+        margin-right: var(--homepage-banner-left);
+    }
+}
+
+/* Very small phones: tighter panel padding. */
+@media (max-width: 25rem) {
+    .banner .content {
+        padding: var(--padding-medium);
+    }
+}
+
+/* Short screens (landscape phones): compact panel, no description. */
+@media (max-height: 37.5rem) {
+    .banner .content {
+        max-height: calc(100% - var(--gap-small) * 2);
+        padding: var(--padding-small);
+    }
+
+    .banner .content .label {
+        margin-bottom: var(--gap-xsmall);
+    }
+
+    .banner .content h1 {
+        font-size: var(--font-large);
+    }
+
+    .banner .content .description {
+        display: none;
+    }
+
+    .banner .content .actions {
+        margin-top: var(--gap-small);
+    }
+}

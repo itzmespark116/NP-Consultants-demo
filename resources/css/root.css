@@ -1,0 +1,256 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ─────────────────────────────────── root.css ─────────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Theme  : :root and :root.dark hold the dark palette and every shared token.  */
+/* :root.light only overrides what changes (colors, glass, shadows, tint).      */
+/* Toggle : add the class "light" or "dark" to <html> (see theme-init.js).      */
+/* Use    : var(--name) everywhere. Never hardcode a color, size or timing.     */
+/* Size   : n-small / n-medium / n-large (gap, padding, margin, border-radius). */
+
+:root,
+:root.dark {
+    /* Colors (dark palette) */
+    color-scheme: dark;
+    --base: #000000;
+    --background: #000000;
+    --color: #f4f5f8;
+    --color-mute: #9ca3af;
+    --accent: #4077ee;
+    --border: rgba(255, 255, 255, 0.12);
+
+    /* Glass */
+    --glass: rgba(255, 255, 255, 0.06);
+    --glass-strong: rgba(24, 24, 28, 0.82);
+    --glass-edge: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    --glass-drop: 0 8px 24px -8px rgba(0, 0, 0, 0.55);
+    --glass-blur: blur(14px) saturate(140%);
+    --glass-blur-light: blur(4px) saturate(140%);
+    --glass-rim: 0 0 8px rgba(0, 0, 0, .015), 0 2px 6px rgba(0, 0, 0, .04),
+        inset 3px 3px .5px -3.5px rgba(255, 255, 255, .045), inset -3px -3px .5px -3.5px rgba(255, 255, 255, .425),
+        inset 1px 1px 1px -.5px rgba(255, 255, 255, .3), inset -1px -1px 1px -.5px rgba(255, 255, 255, .3),
+        inset 0 0 6px 6px rgba(255, 255, 255, .06), inset 0 0 2px 2px rgba(255, 255, 255, .03),
+        0 0 12px rgba(0, 0, 0, .075);
+
+    /* Shadows */
+    --shadow-small: 0 6px 18px rgba(0, 0, 0, 0.35);
+    --shadow-large: 0 22px 48px rgba(0, 0, 0, 0.6);
+
+    /* Banner and gradients (built from the colors above) */
+    --banner-tint: rgba(0, 0, 0, 0.7);
+    --banner-fade: linear-gradient(180deg, var(--base) 1%, color-mix(in srgb, var(--base) 50%, transparent) 5%, transparent 20% 96%, var(--base));
+    --splitter: linear-gradient(90deg, transparent, var(--color) 3% 95%, transparent);
+    --overlay-fade: linear-gradient(to top, var(--background) 0%, color-mix(in srgb, var(--background) 40%, transparent) 55%, transparent 100%);
+
+    /* Fonts */
+    --font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-small: 0.9rem;
+    --font-medium: clamp(1rem, 1.2vw, 1.15rem);
+    --font-large: clamp(1rem, 1.5vw, 1.3rem);
+    --font-xlarge: clamp(2rem, 4vw, 3.2rem);
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 600;
+    --line-height-tight: 1;
+    --line-height-compact: 1.5;
+    --line-height-base: 1.85;
+    --letter-spacing: 0.01em;
+    --letter-spacing-compact: -0.01ch;
+    --letter-spacing-xcompact: -0.05ch;
+
+    /* Border radius */
+    --border-radius-small: 0.25rem;
+    --border-radius-medium: 0.5rem;
+    --border-radius-large: 1rem;
+    --border-radius-max: 9999px;
+
+    /* Gaps */
+    --gap-xsmall: 0.5rem;
+    --gap-small: clamp(0.875rem, 1.8vw, 1.5rem);
+    --gap-medium: clamp(1.75rem, 5vw, 3rem);
+    --gap-large: clamp(2rem, 4vw, 4rem);
+
+    /* Paddings */
+    --padding-xsmall: 0.625rem;
+    --padding-small: clamp(1rem, 2.2vw, 1.75rem);
+    --padding-medium: clamp(1.5rem, 5vw, 3.75rem);
+    --padding-large: clamp(2rem, 6vw, 5rem);
+
+    /* Margins */
+    --margin-small: 0.375rem;
+    --margin-medium: clamp(2rem, 5vw, 3.5rem);
+
+    /* Motion */
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --transition: 0.25s;
+    --transition-small: 0.35s;
+    --transition-medium: 0.5s;
+    --transition-large: 0.8s;
+    --stagger: 0.1s;
+    --offset-small: 1.5rem;
+    --offset-large: 2.5rem;
+    --zoom-small: 1.08;
+    --zoom-large: 1.18;
+    --dim: 0.6;
+    --enter-scale: 0.92;
+    --hover-scale: 1.02;
+    --hover-lift: -0.25rem;
+    --text-shift: 0.25rem;
+
+    /* Lines and focus */
+    --border-width: 1px;
+    --outline: 2px solid var(--accent);
+    --outline-offset: 0.125rem;
+
+    /* Layout */
+    --grid-height-large: 25rem;
+    --grid-height-medium: 14rem;
+    --grid-height-small: 10rem;
+
+    /* Scrollbar */
+    --scrollbar-size: 0.75rem;
+    --scrollbar-inset: 0.1875rem;
+    --scrollbar-thumb: color-mix(in srgb, var(--color) 22%, transparent);
+    --scrollbar-thumb-hover: color-mix(in srgb, var(--accent) 70%, transparent);
+
+    /* Intro */
+    --intro-duration: 1.2s;
+
+    /* Nav */
+    --nav-height: 4.25rem;
+    --nav-height-scrolled: 3.5rem;
+    --nav-width-scrolled: 54rem;
+    --control-size: 2.5625rem;
+    --icon-size: 1.25rem;
+    --logo-height: 2.625rem;
+    --line-thick: 0.125rem;
+    --glass-blur-small: blur(6px);
+    --border-radius-pill: 999px;
+    --mix-small: 5%;
+    --mix-medium: 10%;
+    --mix-large: 50%;
+    --mix-glass: 15%;
+    --mix-border: 35%;
+    --rotate: 45deg;
+    --press: 0.96;
+    --z-nav: 100;
+
+    /* Button */
+    --accent-soft: color-mix(in srgb, var(--accent) 30%, transparent);
+    --accent-strong: color-mix(in srgb, var(--accent) 55%, transparent);
+    --glow: 0 0 1.25rem color-mix(in srgb, var(--accent) 25%, transparent);
+    --shine: linear-gradient(120deg, transparent, color-mix(in srgb, var(--color) 25%, transparent), transparent);
+    --shine-size: 50% 100%;
+    --shine-from: -100%;
+    --shine-to: 200%;
+    --lift: -0.1rem;
+    --zoom-button: 1.04;
+
+    /* Homepage · Banner */
+    /* --homepage-banner-width: clamp(400px, 700px, 70vw); */
+    --homepage-banner-width: calc(auto + var(--padding-xsmall));
+    --homepage-banner-left: clamp(24px, 5vw, 120px);
+    --homepage-banner-padding: clamp(10px, 2rem ,40px);
+    --homepage-banner-label-gap: 12px;
+    --homepage-banner-description-gap: 28px;
+    --homepage-banner-description-width: 560px;
+    --homepage-banner-actions-gap: 36px;
+
+    /* Homepage · Services */
+    --homepage-services-title-padding: clamp(14px, 2vw, 20px);
+    --homepage-services-title-margin: clamp(20px, 3vw, 32px);
+    --homepage-services-text-padding: clamp(4px, 1vw, 20px);
+    --homepage-services-description-width: 720px;
+    --homepage-services-description-line-height: 1.8;
+    --homepage-services-button-margin: clamp(28px, 4vw, 44px);
+    --homepage-services-gap: clamp(10px, 1.5vw, 20px);
+    --homepage-services-offset-large: 30px;
+    --homepage-services-offset-small: 20px;
+    --homepage-services-image-zoom: 1.12;
+    --homepage-services-image-filter: brightness(1.05) saturate(1.1);
+    --homepage-services-image-transition: 0.6s;
+    --homepage-services-image-brightness: 0.5;
+    --homepage-services-grid-min: 600px;
+    --homepage-services-panel-padding: clamp(10px, 1.4vw, 18px);
+    --homepage-services-panel-title-size: clamp(0.95rem, 1.1vw, 1.1rem);
+    --homepage-services-panel-text-size: clamp(0.78rem, 0.95vw, 0.9rem);
+    --homepage-services-panel-zoom: 1.02;
+    --homepage-services-panel-press: 1.02;
+    --homepage-services-panel-shift: 0.2rem;
+    --homepage-services-panel-min: 90px;
+    --homepage-services-panel-shadow: 0 18px 40px color-mix(in srgb, var(--base) 40%, transparent), 0 0 26px color-mix(in srgb, var(--accent) 30%, transparent);
+
+    /* Backgrounds (built from --accent and --base, so both themes follow automatically) */
+    --edge-fade: linear-gradient(transparent, transparent);
+    --homepage-services-background:
+        var(--edge-fade),
+        radial-gradient(circle at left, color-mix(in srgb, var(--accent) 22%, var(--base)), var(--base) 65%),
+        radial-gradient(circle at right, color-mix(in srgb, var(--accent) 22%, var(--base)), var(--base) 65%),
+        var(--base);
+    --homepage-services-alt-background:
+        var(--edge-fade),
+        radial-gradient(circle at right, color-mix(in srgb, var(--accent) 28%, var(--base)), var(--base) 70%);
+    --homepage-about-background:
+        var(--edge-fade),
+        radial-gradient(circle at right, color-mix(in srgb, var(--accent) 25%, var(--base)), var(--base) 70%);
+    --homepage-projects-background:
+        var(--edge-fade),
+        radial-gradient(circle at left, color-mix(in srgb, var(--accent) 22%, var(--base)), var(--base) 65%),
+        radial-gradient(circle at right, color-mix(in srgb, var(--accent) 22%, var(--base)), var(--base) 65%),
+        var(--base);
+    --homepage-contact-background: color-mix(in srgb, var(--accent) 20%, var(--base) 80%);
+
+    /* Backgrounds · Pages */
+    --contact-banner-background: color-mix(in srgb, var(--base) 60%, transparent 40%);
+    --projects-banner-background: color-mix(in srgb, var(--base) 40%, transparent 60%);
+    --services-banner-background: color-mix(in srgb, var(--base) 40%, transparent 60%);
+    --contact-form-background: color-mix(in srgb, var(--accent) 40%, var(--base) 60%);
+    --admin-main-background:
+        radial-gradient(circle at left, color-mix(in srgb, var(--accent) 22%, transparent), transparent 50%),
+        radial-gradient(circle at right, color-mix(in srgb, var(--accent) 22%, transparent), transparent 50%),
+        var(--base);
+    --admin-webeditor-background:
+        radial-gradient(circle at left, color-mix(in srgb, var(--accent) 22%, transparent), transparent 50%),
+        radial-gradient(circle at right, color-mix(in srgb, var(--accent) 22%, transparent), transparent 50%),
+        var(--base);
+    --footer-background: #1f1f1f;
+}
+
+/* ───────────────────────────────── Light Theme ────────────────────────────────── */
+
+:root.light {
+    color-scheme: light;
+    --base: #ffffff;
+    --background: #ffffff;
+    --color: #0f172a;
+    --color-mute: #475569;
+    --border: rgba(15, 23, 42, 0.1);
+
+    --glass: rgba(255, 255, 255, 0.7);
+    --glass-strong: rgba(255, 255, 255, 0.92);
+    --glass-edge: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    --glass-drop: 0 8px 24px -8px rgba(15, 23, 42, 0.18);
+    --glass-rim: 0 0 6px rgba(0, 0, 0, .015), 0 2px 6px rgba(0, 0, 0, .04),
+        inset 3px 3px .5px -3px rgba(0, 0, 0, .45), inset -3px -3px .5px -3px rgba(0, 0, 0, .425),
+        inset 1px 1px 1px -.5px rgba(0, 0, 0, .3), inset -1px -1px 1px -.5px rgba(0, 0, 0, .3),
+        inset 0 0 6px 6px rgba(0, 0, 0, .06), inset 0 0 2px 2px rgba(0, 0, 0, .03),
+        0 0 12px rgba(255, 255, 255, .075);
+
+    --shadow-small: 0 6px 18px rgba(15, 23, 42, 0.12);
+    --shadow-large: 0 22px 48px rgba(15, 23, 42, 0.25);
+
+    --banner-tint: linear-gradient(180deg, var(--base) 1%, rgba(150, 150, 150, 0.4) 5% 96%, var(--base) 100%);
+
+    --homepage-services-image-brightness: 1.2;
+
+    --edge-fade: linear-gradient(to bottom, var(--base) 0%, transparent 12%, transparent 88%, var(--base) 100%);
+    --homepage-projects-background:
+        var(--edge-fade),
+        radial-gradient(circle at left, color-mix(in srgb, var(--accent) 22%, transparent), var(--base) 65%),
+        radial-gradient(circle at right, color-mix(in srgb, var(--accent) 22%, transparent), var(--base) 65%),
+        var(--base);
+    --homepage-contact-background: color-mix(in srgb, var(--accent) 40%, var(--base) 60%);
+    --footer-background: #e1e1e1;
+}

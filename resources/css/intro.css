@@ -1,0 +1,61 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ────────────────────────────────── intro.css ─────────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Intro  : <main> is hidden on load and .intro is shown for --intro-duration.   */
+/* Timing : set --intro-duration in root.css. intro.js adds .intro-done to <html>. */
+/* Motion : with prefers-reduced-motion the intro is skipped and <main> shows.   */
+
+main {
+    display: none;
+    transition: var(--transition-large);
+}
+
+.intro {
+    display: flex;
+    transition: var(--transition);
+    
+    height: 100vh;
+    height: 100dvh;
+    width: 100vw;
+    width: 100dvw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overscroll-behavior: none;
+    overflow: hidden;
+
+    animation: var(--intro-duration) intro ease forwards;
+}
+
+@keyframes intro {
+    0% {opacity: 1;}
+    100% {opacity: 0; background: transparent;}
+}
+
+.intro img {
+    height: 120px;
+}
+
+:root.intro-done main {
+    display: block;
+    transition: var(--transition);
+    scroll-behavior: smooth;
+    overscroll-behavior: auto;
+}
+
+:root.intro-done .intro {
+    display: none;
+    transition: var(--transition);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    main {
+        display: block;
+    }
+
+    .intro {
+        display: none;
+    }
+}

@@ -1,0 +1,88 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ──────────────────────────────── nav-links.css ───────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Desktop: pill with a sliding underline (--w --x --o set by nav-links.js).   */
+/* Mobile: the same <ul> becomes a dropdown opened by #navToggle.              */
+
+nav > ul {
+    order: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--gap-small);
+    height: var(--control-size);
+    margin: 0;
+    padding: 0 var(--padding-small);
+    list-style: none;
+    border: var(--border-width) solid var(--border);
+    border-radius: var(--border-radius-max);
+    background: color-mix(in srgb, var(--color) var(--mix-small), transparent);
+    /* background: var(--glass); */
+    box-shadow: var(--glass-rim);
+}
+
+nav ul a {
+    display: block;
+    padding: var(--padding-xsmall) 0;
+    color: var(--color-mute);
+    font-size: var(--font-small);
+    text-decoration: none;
+    transition: color var(--transition-small) var(--ease);
+}
+
+nav ul a:hover,
+nav ul a:focus-visible { color: var(--color); }
+nav ul a[aria-current="page"] { color: var(--accent); }
+
+nav > ul::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: var(--w, 0);
+    height: var(--line-thick);
+    border-radius: var(--line-thick);
+    background: var(--accent);
+    opacity: var(--o, 0);
+    transform: translateX(var(--x, 0));
+    transition: transform var(--transition-small) var(--ease), width var(--transition-small) var(--ease), opacity var(--transition-small) var(--ease);
+}
+
+@media (max-width: 720px) {
+    nav > ul {
+        position: absolute;
+        top: calc(100% + var(--gap-xsmall));
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        height: auto;
+        padding: var(--padding-xsmall);
+        border-radius: var(--border-radius-large);
+        background: var(--glass);
+        -webkit-backdrop-filter: var(--glass-blur);
+        backdrop-filter: var(--glass-blur);
+        box-shadow: var(--glass-drop);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(calc(var(--margin-small) * -1));
+        transition: opacity var(--transition-small) var(--ease), transform var(--transition-small) var(--ease),
+                    visibility 0s linear var(--transition-small);
+    }
+
+    header:not([data-scrolled]) > nav > ul { top: 100%; left: var(--padding-xsmall); right: var(--padding-xsmall); }
+
+    #navToggle[aria-expanded="true"] ~ ul {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        transition-delay: 0s;
+    }
+
+    nav > ul::after { display: none; }
+    nav ul a { padding: var(--padding-xsmall) var(--padding-small); border-radius: var(--border-radius-medium); }
+    nav ul a:hover { background: color-mix(in srgb, var(--color) var(--mix-medium), transparent); }
+    nav ul a[aria-current="page"] { background: color-mix(in srgb, var(--accent) var(--mix-medium), transparent); }
+}

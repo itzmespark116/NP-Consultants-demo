@@ -1,0 +1,281 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ──────────────────────────── homepage-services.css ───────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* <section class="services"> is written by homepage-services.js. Rules are scoped under .services. */
+/* Intro : h2, .description, .actions, .image and .item play the entrance (JS adds "animate").       */
+/* Hover : .panel and .image img. Panels sit in .item wrappers and the button in .actions, so the    */
+/*         finished intro never blocks hover. JS sets --i (stagger), --dir (slide side), --rows,     */
+/*         --count. Values come from root.css only.                                                  */
+
+.services {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    padding: var(--padding-large) var(--padding-medium);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    scroll-snap-align: start;
+    background: var(--homepage-services-background);
+}
+
+/* ─────────────────────────────────── Header ────────────────────────────────── */
+
+.services .title {
+    padding-bottom: var(--homepage-services-title-padding);
+    margin-bottom: var(--homepage-services-title-margin);
+    border-bottom: var(--border-width) solid var(--color);
+    border-image: var(--splitter) 1;
+}
+
+.services h2 {
+    margin: 0;
+    padding: 0 var(--homepage-services-text-padding);
+    color: var(--color);
+    font-size: var(--font-xlarge);
+    font-weight: var(--font-weight-light);
+    line-height: var(--line-height-tight);
+}
+
+.services .description {
+    max-width: var(--homepage-services-description-width);
+    margin: 0 0 var(--homepage-services-title-margin);
+    padding: 0 var(--homepage-services-text-padding);
+    color: var(--color-mute);
+    font-size: var(--font-medium);
+    line-height: var(--homepage-services-description-line-height);
+}
+
+.services .actions {
+    align-self: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-xsmall);
+    margin: 0 0 var(--homepage-services-button-margin) var(--homepage-services-text-padding);
+}
+
+/* ──────────────────────────────────── Grid ─────────────────────────────────── */
+
+.services .grid {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr);
+    grid-template-rows: repeat(var(--rows), minmax(0, 1fr));
+    gap: var(--homepage-services-gap);
+}
+
+.services .image {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-small);
+}
+
+.services .image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--homepage-services-image-transition) var(--ease-out), filter var(--transition-medium) ease;
+}
+
+.services .item {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+}
+
+.services .item:hover {
+    z-index: 1;
+}
+
+.services .panel {
+    height: 100%;
+    padding: var(--homepage-services-panel-padding);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--glass);
+    border: var(--border-width) solid var(--border);
+    border-radius: var(--border-radius-medium);
+    transition:
+        background var(--transition-small) ease,
+        border-color var(--transition-small) ease,
+        box-shadow var(--transition-small) var(--ease-out),
+        transform var(--transition-small) var(--ease-out);
+}
+
+.services .panel :is(h3, p) {
+    margin: 0;
+}
+
+.services .panel h3 {
+    margin-bottom: var(--margin-small);
+    color: var(--color);
+    font-size: var(--homepage-services-panel-title-size);
+    font-weight: var(--font-weight-medium);
+}
+
+.services .panel p {
+    color: var(--color-mute);
+    font-size: var(--homepage-services-panel-text-size);
+    line-height: var(--line-height-compact);
+}
+
+/* ──────────────────────────────────── Hover ────────────────────────────────── */
+
+.services .image:hover img {
+    transform: scale(var(--homepage-services-image-zoom));
+    filter: var(--homepage-services-image-filter);
+}
+
+/* Panels slide toward the centre image (--dir: -1 left column, 1 right column) */
+.services .panel:hover {
+    border-color: color-mix(in srgb, var(--accent) var(--mix-border), transparent);
+    background: color-mix(in srgb, var(--glass) 85%, var(--accent) var(--mix-glass));
+    box-shadow: var(--homepage-services-panel-shadow);
+    transform: translateX(calc(var(--dir) * -1 * var(--homepage-services-panel-shift))) scale(var(--homepage-services-panel-zoom));
+}
+
+.services .panel:active {
+    transform: translateX(calc(var(--dir) * -0.5 * var(--homepage-services-panel-shift))) scale(var(--homepage-services-panel-press));
+}
+
+/* ──────────────────────────────────── Intro ────────────────────────────────── */
+/* Skipped for reduced motion, so content simply shows. */
+
+@media (prefers-reduced-motion: no-preference) {
+    .services :is(h2, .description, .actions, .image, .item) {
+        opacity: 0;
+    }
+
+    .services h2 {
+        transform: translateY(calc(var(--homepage-services-offset-large) * -1));
+    }
+
+    .services .description {
+        transform: translateY(calc(var(--homepage-services-offset-small) * -1));
+    }
+
+    .services .actions {
+        transform: translateY(var(--homepage-services-offset-small));
+    }
+
+    .services .image {
+        transform: scale(var(--enter-scale));
+    }
+
+    .services .item {
+        transform: translateX(calc(var(--dir) * var(--homepage-services-offset-large)));
+    }
+
+    .services.animate :is(h2, .description, .actions) {
+        animation: services-in var(--transition-large) ease both;
+    }
+
+    .services.animate :is(.image, .item) {
+        animation: services-in var(--transition-large) var(--ease-out) both;
+    }
+
+    .services.animate h2 {
+        animation-delay: calc(var(--stagger) * 1.5);
+    }
+
+    .services.animate .description {
+        animation-delay: calc(var(--stagger) * 2.5);
+    }
+
+    .services.animate .actions {
+        animation-delay: calc(var(--stagger) * 3.5);
+    }
+
+    .services.animate .image {
+        animation-delay: calc(var(--stagger) * 2);
+    }
+
+    .services.animate .item {
+        animation-delay: calc(var(--stagger) * (var(--i) + 1.5));
+    }
+}
+
+@keyframes services-in {
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ────────────────────────────────── Responsive ─────────────────────────────── */
+/* Image leaves the grid and becomes the section background. */
+
+@media (max-width: 68.75rem) {
+    .services {
+        position: relative;
+        isolation: isolate;
+        height: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+
+    .services .grid {
+        grid-auto-flow: row;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: none;
+        grid-auto-rows: minmax(var(--homepage-services-panel-min), auto);
+        min-height: var(--homepage-services-grid-min);
+    }
+
+    .services .image {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        grid-column: auto;
+        grid-row: auto;
+        min-height: 0;
+        border-radius: 0;
+        box-shadow: none;
+        pointer-events: none;
+        filter: var(--glass-blur-light) brightness(var(--homepage-services-image-brightness));
+    }
+
+    /* Dim overlay for text readability */
+    .services .image::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: color-mix(in srgb, var(--homepage-services-background) 70%, transparent);
+    }
+
+    /* Background zooms while any panel is hovered; panels scale in place */
+    .services:has(.panel:hover) .image img {
+        transform: scale(var(--homepage-services-image-zoom));
+        filter: var(--homepage-services-image-filter);
+    }
+
+    .services .panel:hover {
+        transform: scale(var(--homepage-services-panel-zoom));
+    }
+
+    .services .panel:active {
+        transform: scale(var(--homepage-services-panel-press));
+    }
+}
+
+@media (max-width: 68.75rem) and (prefers-reduced-motion: no-preference) {
+    .services .item {
+        transform: translateY(var(--homepage-services-offset-small));
+    }
+}
+
+@media (max-width: 43.75rem) {
+    .services .grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "title": "About Us",
+
+    "text": "NP Consultants is a structural design and engineering consultancy established in 2010, providing comprehensive solutions across Sri Lanka and extending its services to international projects. With expertise in structural design, structural detailing, architectural and interior design, project management, and electrical and mechanical consultancy, we serve a diverse range of projects, from residential buildings to industrial facilities and specialised structures. Our experienced team is committed to delivering practical, reliable, and cost-effective solutions tailored to each client's requirements, with a strong focus on quality, structural integrity, and client satisfaction.",
+
+    "cards": [
+        { 
+            "title": "Structural Design", 
+            "text": "Innovative structural solutions focused on strength, safety, and precision.", 
+            "image": "/img/projects/project-1.jpg", "link": "/projects/" 
+        }, { 
+            "title": "Structural Detailing", 
+            "text": "Detailed structural drawings supporting accurate and efficient construction.", 
+            "image": "/img/projects/project-2.jpg", "link": "/projects/" 
+        }, { 
+            "title": "Architectural Design", 
+            "text": "Coordinated design and project management from concept to completion.", 
+            "image": "/img/projects/project-3.jpg", 
+            "link": "/projects/" 
+        }, { 
+            "title": "Engineering Consultancy", 
+            "text": "Practical engineering and architectural consultancy tailored to project requirements.", 
+            "image": "/img/projects/", 
+            "link": "/projects/#projects4" 
+        },  { 
+            "title": "Structural Engineering", 
+            "text": "Reliable engineering solutions designed around each project's requirements.", 
+            "image": "/img/projects/", 
+            "link": "/projects/" 
+        },  { 
+            "title": "Project Consultancy", 
+            "text": "Experienced guidance throughout the project lifecycle.", 
+            "image": "/img/projects/project-6.jpg", "link": "/projects/" 
+        }
+    ]
+}

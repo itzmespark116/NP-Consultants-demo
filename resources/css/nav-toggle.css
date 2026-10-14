@@ -1,0 +1,94 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ──────────────────────────────── nav-toggle.css ──────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Hamburger morphs into a close icon when aria-expanded="true". Mobile only.  */
+/* Markup : <button id="navToggle" aria-expanded="false"><span></span></button> */
+/* Bars   : span is the middle bar, ::before is the top bar, ::after the bottom. */
+/* Open   : middle bar fades out, top and bottom bars meet and rotate into an X.  */
+
+#navToggle {
+    order: 2;
+    display: none;
+    position: relative;
+    flex: none;
+    width: var(--control-size);
+    height: var(--control-size);
+    padding: 0;
+    border: var(--border-width) solid var(--border);
+    border-radius: var(--border-radius-max);
+    background: var(--glass);
+    box-shadow: var(--glass-rim);
+    color: var(--color);
+    cursor: pointer;
+    transition: var(--transition-small) var(--ease);
+}
+
+#navToggle:focus-visible {
+    outline: var(--outline);
+    outline-offset: var(--outline-offset);
+}
+
+#navToggle span,
+#navToggle span::before,
+#navToggle span::after {
+    position: absolute;
+    width: var(--icon-size);
+    height: var(--line-thick);
+    border-radius: var(--line-thick);
+    background: currentColor;
+    transition:
+        transform var(--transition-small) var(--ease),
+        top var(--transition-small) var(--ease),
+        background-color var(--transition-small) var(--ease);
+}
+
+#navToggle span {
+    inset-inline: 0;
+    margin-inline: auto;
+    top: calc(50% - var(--line-thick) / 2);
+}
+
+#navToggle span::before,
+#navToggle span::after {
+    content: "";
+    left: 0;
+}
+
+#navToggle span::before {
+    top: calc(var(--margin-small) * -1);
+}
+
+#navToggle span::after {
+    top: var(--margin-small);
+}
+
+#navToggle[aria-expanded="true"] span {
+    background: transparent;
+}
+
+#navToggle[aria-expanded="true"] span::before {
+    top: 0;
+    transform: rotate(var(--rotate));
+}
+
+#navToggle[aria-expanded="true"] span::after {
+    top: 0;
+    transform: rotate(calc(var(--rotate) * -1));
+}
+
+@media (max-width: 720px) {
+    #navToggle {
+        display: block;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    #navToggle,
+    #navToggle span,
+    #navToggle span::before,
+    #navToggle span::after {
+        transition: none;
+    }
+}

@@ -1,0 +1,16 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ──────────────────────────────── theme-init.js ───────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+
+/* File Type : Init */
+/* Load in <head> (no defer) so the theme class is set before first paint. */
+
+(() => {
+  let theme = null;
+  try { theme = localStorage.getItem("theme"); } catch {}
+  if (theme !== "dark" && theme !== "light") {
+    theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  document.documentElement.classList.add(theme);
+})();

@@ -1,0 +1,225 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ────────────────────────────── homepage-about.css ────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* <section class="about"> is written by homepage-about.js. Every rule is scoped under .about. */
+/* .title, .text and .item play the entrance (order from --i). JS adds "animate".     */
+/* Values come from root.css only.                                                    */
+
+.about {
+    height: 100dvh;
+    padding: var(--padding-large) var(--padding-medium);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    scroll-snap-align: start;
+    background: var(--homepage-about-background);
+}
+
+/* ─────────────────────────────────── Title ─────────────────────────────────── */
+
+.about .title {
+    padding-bottom: var(--padding-xsmall);
+    margin-bottom: var(--margin-medium);
+    border-bottom: var(--border-width) solid;
+    border-image: var(--splitter) 1;
+}
+
+.about h2 {
+    margin: 0;
+    padding-inline: var(--padding-xsmall);
+    font-size: var(--font-xlarge);
+    font-weight: var(--font-weight-light);
+    line-height: var(--line-height-tight);
+}
+
+/* ────────────────────────────────── Content ────────────────────────────────── */
+
+.about .content {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: var(--gap-large);
+    align-items: center;
+}
+
+.about .text {
+    padding-inline: var(--padding-xsmall);
+    color: var(--color-mute);
+    font-size: var(--font-medium);
+    line-height: var(--line-height-base);
+    letter-spacing: var(--letter-spacing);
+}
+
+.about .text p {
+    margin: 0;
+}
+
+/* ─────────────────────────────────── Cards ─────────────────────────────────── */
+
+.about .grid {
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: minmax(0, 1fr);
+    gap: var(--gap-small);
+}
+
+.about .item {
+    min-height: 0;
+}
+
+.about .card {
+    position: relative;
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    text-decoration: none;
+    background: var(--base);
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-small);
+    transition: box-shadow var(--transition-small) var(--ease);
+}
+
+.about .card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(var(--zoom-small));
+    transition: transform var(--transition-small) var(--ease), filter var(--transition-small) var(--ease);
+}
+
+.about .overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: var(--margin-small);
+    padding: var(--padding-small);
+    background: var(--overlay-fade);
+    opacity: 0;
+    transform: translateY(var(--offset-small));
+    transition: opacity var(--transition-small) var(--ease), transform var(--transition-small) var(--ease);
+}
+
+.about .overlay h3 {
+    margin: 0;
+    font-size: var(--font-large);
+    font-weight: var(--font-weight-normal);
+}
+
+.about .overlay p {
+    margin: 0;
+    color: var(--color-mute);
+    font-size: var(--font-small);
+    line-height: var(--line-height-base);
+}
+
+/* ──────────────────────────────────── Hover ────────────────────────────────── */
+
+.about .card:focus-visible {
+    outline: var(--outline);
+    outline-offset: var(--outline-offset);
+}
+
+.about .card:is(:hover, :focus-visible) {
+    box-shadow: var(--shadow-large);
+}
+
+.about .card:is(:hover, :focus-visible) img {
+    transform: scale(var(--zoom-large));
+    filter: brightness(var(--dim));
+}
+
+.about .card:is(:hover, :focus-visible) .overlay {
+    opacity: 1;
+    transform: none;
+}
+
+/* No hover on touch screens, so keep the overlay visible. */
+@media (hover: none) {
+    .about .overlay {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ───────────────────────────────── Entrance ────────────────────────────────── */
+/* Skipped for reduced motion, so content simply shows. */
+
+@media (prefers-reduced-motion: no-preference) {
+    .about :is(.title, .text, .item) {
+        opacity: 0;
+    }
+
+    .about .title {
+        transform: translateY(calc(var(--offset-large) * -1));
+    }
+
+    .about .text {
+        transform: translateX(calc(var(--offset-large) * -1));
+    }
+
+    .about .item {
+        transform: translateY(var(--offset-large));
+    }
+
+    .about.animate :is(.title, .text, .item) {
+        animation: about-in var(--transition-large) var(--ease) calc(var(--stagger) * var(--i)) both;
+    }
+}
+
+@keyframes about-in {
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ────────────────────────────────── Responsive ─────────────────────────────── */
+
+@media (max-width: 68.75rem) {
+    .about {
+        height: auto;
+        min-height: 100dvh;
+        overflow: visible;
+    }
+
+    .about .content {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--gap-medium);
+    }
+
+    .about .grid {
+        height: auto;
+        min-height: var(--grid-height-large);
+    }
+}
+
+/* One row of 3 cards, titles only. */
+/* Phone: one row, every card fills the width, swipe sideways through all of them. */
+    @media (max-width: 43.75rem) {
+        .about .grid {
+            grid-template-columns: none;
+            grid-template-rows: minmax(0, 1fr);
+            grid-auto-flow: column;
+            grid-auto-columns: 100%;
+            min-height: var(--grid-height-large);
+            overflow-x: auto;
+            overscroll-behavior-x: contain;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+
+        .about .grid::-webkit-scrollbar {
+            display: none;
+        }
+
+        .about .item {
+            min-width: 0;
+            scroll-snap-align: start;
+        }
+    }

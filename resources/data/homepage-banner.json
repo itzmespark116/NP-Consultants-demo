@@ -1,0 +1,13 @@
+{
+    "label": "NP Consultants",
+    "heading": "Structural",
+    "subheading": "Engineers",
+    "description": "Chartered Engineeins & Architects with years of experience",
+    "buttons": [
+        { "text": "Discover Our Story", "href": "#about-us", "type": "secondary", "icon": "↗" }
+    ],
+    "video": {
+        "src": "/resources/vid/banner-vid.mp4",
+        "poster": "/resources/img/posters/banner-poster.jpg"
+    }
+}

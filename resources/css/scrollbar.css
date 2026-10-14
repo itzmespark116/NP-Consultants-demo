@@ -1,0 +1,45 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ──────────────────────────────── scrollbar.css ───────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Scrollbar : glass thumb on a clear track, accent on hover.                    */
+/* Tokens    : --scrollbar-* live in root.css. Colors follow the light/dark theme. */
+/* Support   : Firefox uses scrollbar-color. Chrome, Edge, Safari use ::-webkit.   */
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+::-webkit-scrollbar {
+    width: var(--scrollbar-size);
+    height: var(--scrollbar-size);
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border: var(--scrollbar-inset) solid transparent;
+    border-radius: var(--border-radius-large);
+    background-clip: padding-box;
+    box-shadow: var(--glass-edge);
+}
+
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+    background: var(--scrollbar-thumb-hover);
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
