@@ -7,30 +7,33 @@
         { 
             "title": "Structural Design", 
             "text": "Innovative structural solutions focused on strength, safety, and precision.", 
-            "image": "/img/projects/project-1.jpg", "link": "/projects/" 
+            "image": "/resources/img/projects/project-1.jpg", 
+            "link": "/projects/" 
         }, { 
             "title": "Structural Detailing", 
             "text": "Detailed structural drawings supporting accurate and efficient construction.", 
-            "image": "/img/projects/project-2.jpg", "link": "/projects/" 
+            "image": "/resources/img/projects/project-2.jpg", 
+            "link": "/projects/" 
         }, { 
             "title": "Architectural Design", 
             "text": "Coordinated design and project management from concept to completion.", 
-            "image": "/img/projects/project-3.jpg", 
-            "link": "../projects/" 
+            "image": "/resources/img/projects/project-3.jpg", 
+            "link": "/projects/" 
         }, { 
             "title": "Engineering Consultancy", 
             "text": "Practical engineering and architectural consultancy tailored to project requirements.", 
-            "image": "/img/projects/", 
-            "link": "../projects/" 
+            "image": "/resources/img/projects/project-4.jpg", 
+            "link": "/projects/" 
         },  { 
             "title": "Structural Engineering", 
             "text": "Reliable engineering solutions designed around each project's requirements.", 
-            "image": "/img/projects/", 
-            "link": "../projects/" 
+            "image": "/resources/img/projects/project-5.jpg", 
+            "link": "/projects/" 
         },  { 
             "title": "Project Consultancy", 
             "text": "Experienced guidance throughout the project lifecycle.", 
-            "image": "/img/projects/project-6.jpg", "link": "/projects/" 
+            "image": "/resources/img/projects/project-6.jpg", 
+            "link": "/projects/" 
         }
     ]
 }

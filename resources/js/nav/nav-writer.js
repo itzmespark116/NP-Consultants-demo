@@ -6,7 +6,7 @@
 // Awaits nav-header.js (so #navLinks exists), then fills it from paths.json → nav.json.
 // Other modules that need the links must `await ready` first.
 
-import { getPath } from "../modules/paths.js";
+import { getPath, resolvePath } from "../modules/paths.js";
 import { headerReady } from "./nav-header.js";
 
 const escape = (s) =>
@@ -27,7 +27,7 @@ export const render = async () => {
 
     if (links.length) {
       menu.innerHTML = links
-        .map((l) => `<li><a href="${escape(l.href)}">${escape(l.label)}</a></li>`)
+        .map((l) => `<li><a href="${escape(resolvePath(l.href))}">${escape(l.label)}</a></li>`)
         .join("");
     }
   } catch (err) {

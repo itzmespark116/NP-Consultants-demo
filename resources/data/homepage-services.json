@@ -4,13 +4,13 @@
     "buttons": [
         {
             "text": "Read More",
-            "href": "../services/",
+            "href": "/services/",
             "type": "primary",
             "icon": "↗"
         }
     ],
     "image": {
-        "src": "../resources/images/services.jpg",
+        "src": "/resources/img/services.jpg",
         "alt": "Our engineering services"
     },
     "services": [

@@ -6,19 +6,44 @@
 // Loads /resources/data/paths.json and resolves all paths using the "prefix".
 // Handles nested objects (e.g. brand: { dark, light }) recursively.
 
-export function resolvePath(path, prefix = "") {
+let activePrefix = "";
+
+export function resolvePath(path, prefix = activePrefix) {
   if (!path || typeof path !== "string") return path;
-  if (!prefix) return path;
+
+  // Preserve in-page anchors, external protocols, and inline data/mail URLs
+  if (path.startsWith("#") || /^(https?:|\/\/|data:|mailto:|tel:|javascript:)/i.test(path)) {
+    return path;
+  }
+
+  const p = prefix || activePrefix;
+  if (!p) return path;
+
+  // Avoid duplicating prefix if path already has it
+  if (path.startsWith(p)) {
+    return path;
+  }
 
   if (path.startsWith("/")) {
-    return prefix.endsWith("/") ? prefix + path.slice(1) : prefix + path;
+    return p.endsWith("/") ? p + path.slice(1) : p + path;
   }
-  return prefix.endsWith("/") ? prefix + path : prefix + "/" + path;
+
+  if (path.startsWith("./")) {
+    const rest = path.slice(2);
+    return p.endsWith("/") ? p + rest : p + "/" + rest;
+  }
+
+  return p.endsWith("/") ? p + path : p + "/" + path;
+}
+
+export function getPrefix() {
+  return activePrefix;
 }
 
 function resolveObject(obj, prefix) {
   if (typeof obj === "string") return resolvePath(obj, prefix);
-  if (obj && typeof obj === "object" && !Array.isArray(obj)) {
+  if (Array.isArray(obj)) return obj.map((item) => resolveObject(item, prefix));
+  if (obj && typeof obj === "object") {
     const out = {};
     for (const [k, v] of Object.entries(obj)) {
       out[k] = resolveObject(v, prefix);
@@ -60,6 +85,7 @@ export async function getPaths() {
       }
 
       const prefix = data?.prefix ?? "";
+      activePrefix = prefix;
       const resolved = { prefix };
 
       for (const [key, value] of Object.entries(data || {})) {
@@ -82,6 +108,7 @@ if (typeof window !== "undefined") {
   window.getPaths = getPaths;
   window.getPath = getPath;
   window.resolvePath = resolvePath;
+  window.getPrefix = getPrefix;
 }
 
 export default getPaths;

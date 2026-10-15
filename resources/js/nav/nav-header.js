@@ -7,7 +7,7 @@
 // All asset paths come from paths.json via paths.js.
 // Must run before nav-writer.js, nav-links.js, nav-toggle.js, theme-switch.js.
 
-import { getPaths } from "../modules/paths.js";
+import { getPaths, resolvePath } from "../modules/paths.js";
 
 const escape = (s) =>
   String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -22,7 +22,7 @@ export const headerReady = (async () => {
   const brandLight = escape(paths.brand?.light ?? "");
   const iconLight  = escape(paths.icons?.lightMode ?? "");
   const iconDark   = escape(paths.icons?.darkMode  ?? "");
-  const homeHref   = escape(paths.home ?? "/home/");
+  const homeHref   = escape(paths.home ?? resolvePath("/home/"));
 
   // Inline placeholder SVG as default src (replaced immediately by theme-switch after load)
   const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%234077ee'/%3E%3C/svg%3E";
