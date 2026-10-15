@@ -15,12 +15,13 @@ The project is engineered with pure vanilla web standards—**semantic HTML5**, 
   - [4. Updating the About Section (`about.json`)](#4-updating-the-about-section-aboutjson)
   - [5. Updating Services (`homepage-services.json`)](#5-updating-services-homepage-servicesjson)
   - [6. Configuring Placeholder Fallbacks (`placeholders.json`)](#6-configuring-placeholder-fallbacks-placeholdersjson)
-  - [7. Managing Media Assets](#7-managing-media-assets)
+  - [7. Centralized Path Routing & Prefix (`paths.json`)](#7-centralized-path-routing--prefix-pathsjson)
+  - [8. Managing Media Assets](#8-managing-media-assets)
     - [Folder Organization](#folder-organization)
     - [Themed Assets (`data-themed`)](#themed-assets-data-themed)
     - [Image Specs & Optimization](#image-specs--optimization)
     - [Hero Video Specs](#hero-video-specs)
-  - [8. Content Update Checklist](#8-content-update-checklist)
+  - [9. Content Update Checklist](#9-content-update-checklist)
 - [Development](#development)
   - [1. Architecture & Design Principles](#1-architecture--design-principles)
   - [2. Project Directory Structure](#2-project-directory-structure)
@@ -62,7 +63,8 @@ resources/data/
 ├── homepage-banner.json     # Hero banner headline, text, buttons, and video
 ├── homepage-services.json   # Services section title, description, and service panels
 ├── nav.json                 # Header navigation bar links
-└── placeholders.json        # Fallback images used when any image fails to load
+├── placeholders.json        # Fallback images used when any image fails to load
+└── paths.json               # Centralized path routing registry with prefix support
 ```
 
 When modifying any JSON file:
@@ -231,7 +233,40 @@ Guarantees the site never shows ugly broken-image icons if an asset fails to loa
 
 ---
 
-### 7. Managing Media Assets
+### 7. Centralized Path Routing & Prefix (`paths.json`)
+
+**File:** `resources/data/paths.json`
+
+Every JavaScript file loading a JSON data file obtains its path dynamically through `paths.json` instead of hardcoding paths in code.
+
+```json
+{
+  "prefix": "",
+  "nav": "/resources/data/nav.json",
+  "placeholders": "/resources/data/placeholders.json",
+  "about": "/resources/data/about.json",
+  "homepageBanner": "/resources/data/homepage-banner.json",
+  "homepageServices": "/resources/data/homepage-services.json"
+}
+```
+
+#### How the `"prefix"` works:
+- Every path in `paths.json` is written starting from `/resources/...`.
+- The `"prefix"` property is prepended directly before `/` in `/resources/...`.
+- **Default (root deployment):** When `"prefix": ""`, all paths remain `/resources/data/...`.
+- **Subfolder or nested pages:** If pages are hosted in subdirectories or opened without domain root (e.g. from `/home/index.html`), simply set:
+  ```json
+  "prefix": "../"
+  ```
+  The system automatically transforms all data and placeholder paths to `../resources/data/...` across the entire website without touching any JavaScript files.
+- **Subdirectory deployment:** If hosted at a subpath like `/frontend`, set:
+  ```json
+  "prefix": "/frontend"
+  ```
+
+---
+
+### 8. Managing Media Assets
 
 #### Folder Organization
 
@@ -286,7 +321,7 @@ To ensure optimal page load speed and crisp display on high-DPI (Retina) screens
 
 ---
 
-### 8. Content Update Checklist
+### 9. Content Update Checklist
 
 Before publishing changes to production:
 
@@ -346,6 +381,7 @@ frontend/
     │   ├── homepage-banner.json         # Hero banner data
     │   ├── homepage-services.json       # Services section data
     │   ├── nav.json                     # Main navigation links
+    │   ├── paths.json                   # Centralized routing registry with prefix
     │   └── placeholders.json            # Fallback placeholder images
     ├── icons/                           # SVG icons (lightMode.svg, darkMode.svg)
     ├── img/                             # Logos, team photos, placeholders, posters
@@ -353,16 +389,17 @@ frontend/
     │   ├── theme-init.js                # Pre-render theme blocker (in <head>)
     │   ├── modules/
     │   │   ├── intro.js                 # Splash screen timer controller
+    │   │   ├── paths.js                 # Centralized path loader & prefix resolver
     │   │   └── theme-switch.js          # Theme toggling & persistence engine
     │   ├── nav/
-    │   │   ├── nav-writer.js            # Injects nav links from nav.json
+    │   │   ├── nav-writer.js            # Injects nav links via paths.json
     │   │   ├── navbar.js                # Scroll listener (adds [data-scrolled])
     │   │   ├── nav-links.js             # Active page matcher & sliding underline
     │   │   └── nav-toggle.js            # Mobile hamburger drawer accessibility
     │   └── homepage/
-    │       ├── homepage-banner.js       # Hero video & content renderer
-    │       ├── homepage-about.js        # About Us card grid renderer
-    │       └── homepage-services.js     # Services grid & interaction renderer
+    │       ├── homepage-banner.js       # Hero video & content renderer (via paths.json)
+    │       ├── homepage-about.js        # About Us card grid renderer (via paths.json)
+    │       └── homepage-services.js     # Services grid & interaction renderer (via paths.json)
     └── vid/
         └── banner-vid.mp4               # Background looping video
 ```
@@ -511,17 +548,27 @@ In [home/index.html](file:///c:/Users/oshan/OneDrive/Desktop/NP%20Consultants/fr
 <script type="module" src="/resources/js/modules/theme-switch.js"></script>
 <script src="/resources/js/modules/intro.js"></script>
 
-<!-- Navigation Engine -->
-<script type="module" src="/resources/js/nav/nav-writer.js"></script>
-<script type="module" src="/resources/js/nav/navbar.js"></script>
-<script type="module" src="/resources/js/nav/nav-links.js"></script>
-<script type="module" src="/resources/js/nav/nav-toggle.js"></script>
+<!-- Centralized Path Engine & Modules -->
+<script type="module" src="../resources/js/modules/paths.js"></script>
 
-<!-- Dynamic Section Writers -->
-<script src="/resources/js/homepage/homepage-banner.js"></script>
-<script src="/resources/js/homepage/homepage-about.js"></script>
-<script src="/resources/js/homepage/homepage-services.js"></script>
+<!-- Navigation Engine -->
+<script type="module" src="../resources/js/nav/nav-writer.js"></script>
+<script type="module" src="../resources/js/nav/navbar.js"></script>
+<script type="module" src="../resources/js/nav/nav-links.js"></script>
+<script type="module" src="../resources/js/nav/nav-toggle.js"></script>
+
+<!-- Dynamic Section Writers (ES Modules) -->
+<script type="module" src="../resources/js/homepage/homepage-banner.js"></script>
+<script type="module" src="../resources/js/homepage/homepage-about.js"></script>
+<script type="module" src="../resources/js/homepage/homepage-services.js"></script>
 ```
+
+#### Centralized Path Engine (`paths.js`)
+
+Centralizes all JSON data and asset fetching through `paths.json`:
+- **`getPaths()`**: Resolves and returns all routes with the active `prefix` applied. Caches the initial promise to prevent redundant network round-trips.
+- **`getPath(key)`**: Retrieves a single resolved path (e.g. `await getPath("about")`).
+- **`resolvePath(path, prefix)`**: Universal helper that prepends the configured `prefix` to any path (e.g. `/resources/...` becomes `../resources/...`).
 
 #### Theme Engine (`theme-init.js` & `theme-switch.js`)
 
@@ -540,7 +587,7 @@ When `--intro-duration` expires, `intro-done` is added to `<html>`, causing `.in
 
 #### Navigation Suite (`nav-*.js`)
 
-- **`nav-writer.js`:** Fetches `nav.json` and renders `<li><a href="...">...</a></li>` into `<ul id="navLinks">`. Exports a Promise `ready` so dependent modules can await DOM injection.
+- **`nav-writer.js`:** Fetches the navigation path from `paths.json` via `getPath("nav")` and renders `<li><a href="...">...</a></li>` into `<ul id="navLinks">`. Exports a Promise `ready` so dependent modules can await DOM injection.
 - **`navbar.js`:** Passive scroll listener using `requestAnimationFrame`. When scroll exceeds `THRESHOLD = 40`, toggles `[data-scrolled]` on `<header>`. CSS shrinks the nav into a centered, rounded glass pill.
 - **`nav-links.js`:**
   - Awaits `ready` from `nav-writer.js`.

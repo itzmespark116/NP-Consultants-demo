@@ -3,10 +3,12 @@
 // ───────────────────────────── homepage-services.js ─────────────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
 // File Type : Writer (InnerHTML)
-// Data      : /resources/data/homepage-services.json, /resources/data/placeholders.json
+// Data      : paths.homepageServices, paths.placeholders from paths.json
 // Target    : <section class="services"></section>
 // A missing or broken image shows the "services" placeholder.
 // Buttons come from JSON: "type" is "primary" or a modifier class (e.g. "secondary").
+
+import { getPaths, resolvePath } from "../modules/paths.js";
 
 const section = document.querySelector(".services");
 
@@ -21,9 +23,13 @@ const escapeHTML = (text) =>
   );
 
 async function writeServices() {
+  if (!section) return;
+
+  const paths = await getPaths();
+  const servicesPath = paths.homepageServices || paths["homepage-services"];
   const [data, placeholders] = await Promise.all([
-    fetch("../resources/data/homepage-services.json").then((r) => r.json()),
-    fetch("../resources/data/placeholders.json").then((r) => r.json()),
+    fetch(servicesPath).then((r) => r.json()),
+    fetch(paths.placeholders).then((r) => r.json()),
   ]);
   const services = data.services;
   const half = Math.ceil(services.length / 2);
@@ -49,9 +55,12 @@ async function writeServices() {
       const icon = button.icon
         ? ` <span>${escapeHTML(button.icon)}</span>`
         : "";
-      return `<a href="${escapeHTML(button.href)}" class="button${escapeHTML(type)}">${escapeHTML(button.text)}${icon}</a>`;
+      return `<a href="${escapeHTML(resolvePath(button.href))}" class="button${escapeHTML(type)}">${escapeHTML(button.text)}${icon}</a>`;
     })
     .join("");
+
+  const imageSrc = resolvePath(data.image?.src || placeholders?.services);
+  const fallbackSrc = resolvePath(placeholders?.services);
 
   section.innerHTML = `
         <div class="title">
@@ -61,20 +70,22 @@ async function writeServices() {
         ${buttons ? `<div class="actions">${buttons}</div>` : ""}
         <div class="grid" style="--rows:${half};--count:${services.length}">
             <figure class="image">
-                <img src="${escapeHTML(data.image.src || placeholders.services)}" alt="${escapeHTML(data.image.alt)}" loading="lazy">
+                <img src="${escapeHTML(imageSrc)}" alt="${escapeHTML(data.image?.alt || '')}" loading="lazy">
             </figure>
             ${panels}
         </div>`;
 
   // Broken image -> placeholder (once, so a missing placeholder can't loop)
   const image = section.querySelector(".image img");
-  image.addEventListener(
-    "error",
-    () => {
-      image.src = placeholders.services;
-    },
-    { once: true },
-  );
+  if (image) {
+    image.addEventListener(
+      "error",
+      () => {
+        image.src = fallbackSrc;
+      },
+      { once: true },
+    );
+  }
 
   // Play the entrance animation once, when the section scrolls into view
   new IntersectionObserver(

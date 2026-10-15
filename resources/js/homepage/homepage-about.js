@@ -3,9 +3,11 @@
 // ────────────────────────────── homepage-about.js ───────────────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
 // File Type : Writer (InnerHTML)
-// Data      : /resources/data/homepage-about.json, /resources/data/placeholders.json
+// Data      : paths.about, paths.placeholders from paths.json
 // Target    : <section class="about"></section>
 // A missing or broken card image shows the "project" placeholder.
+
+import { getPaths, resolvePath } from "../modules/paths.js";
 
 (() => {
   const about = document.querySelector(".about");
@@ -25,18 +27,23 @@
     );
 
   async function write() {
+    if (!about) return;
+
+    const paths = await getPaths();
     const [data, placeholders] = await Promise.all([
-      fetch("../resources/data/about.json").then((r) => r.json()),
-      fetch("../resources/data/placeholders.json").then((r) => r.json()),
+      fetch(paths.about).then((r) => r.json()),
+      fetch(paths.placeholders).then((r) => r.json()),
     ]);
+
+    const projectPlaceholder = resolvePath(placeholders?.project);
 
     // --i = stagger order: title 1, text 2, cards 3 onwards
     const items = data.cards
       .map(
         (card, index) => `
             <div class="item" style="--i:${index + 3}">
-                <a class="card" href="${escapeHTML(card.link)}">
-                    <img src="${escapeHTML(card.image || placeholders.project)}" alt="${escapeHTML(card.title)}" loading="lazy">
+                <a class="card" href="${escapeHTML(resolvePath(card.link))}">
+                    <img src="${escapeHTML(resolvePath(card.image) || projectPlaceholder)}" alt="${escapeHTML(card.title)}" loading="lazy">
                     <div class="overlay">
                         <h3>${escapeHTML(card.title)}</h3>
                         <p>${escapeHTML(card.text)}</p>
@@ -62,7 +69,7 @@
       image.addEventListener(
         "error",
         () => {
-          image.src = placeholders.project;
+          image.src = projectPlaceholder;
         },
         { once: true },
       );

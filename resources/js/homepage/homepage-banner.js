@@ -3,9 +3,11 @@
 // ────────────────────────────── homepage-banner.js ──────────────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
 // File Type : Writer (InnerHTML)
-// Data      : /resources/data/homepage-banner.json, /resources/data/placeholders.json
+// Data      : paths.homepageBanner, paths.placeholders from paths.json
 // Target    : <section class="banner"></section>
 // Button look comes from JSON: "type" is "primary" or a modifier class (e.g. "secondary").
+
+import { getPaths, resolvePath } from "../modules/paths.js";
 
 (() => {
   const banner = document.querySelector(".banner");
@@ -25,26 +27,33 @@
     );
 
   async function write() {
+    if (!banner) return;
+
+    const paths = await getPaths();
+    const bannerPath = paths.homepageBanner || paths["homepage-banner"];
     const [data, placeholders] = await Promise.all([
-      fetch("../resources/data/homepage-banner.json").then((r) => r.json()),
-      fetch("../resources/data/placeholders.json").then((r) => r.json()),
+      fetch(bannerPath).then((r) => r.json()),
+      fetch(paths.placeholders).then((r) => r.json()),
     ]);
 
-    const buttons = data.buttons
+    const buttons = (data.buttons || [])
       .map((button) => {
         const type =
           button.type && button.type !== "primary" ? ` ${button.type}` : "";
         const icon = button.icon
           ? ` <span>${escapeHTML(button.icon)}</span>`
           : "";
-        return `<a href="${escapeHTML(button.href)}" class="button${escapeHTML(type)}">${escapeHTML(button.text)}${icon}</a>`;
+        return `<a href="${escapeHTML(resolvePath(button.href))}" class="button${escapeHTML(type)}">${escapeHTML(button.text)}${icon}</a>`;
       })
       .join("");
 
+    const poster = resolvePath(data.video?.poster || placeholders?.banner);
+    const videoSrc = resolvePath(data.video?.src);
+
     // --i = intro order: panel 1, then label, heading, description, buttons
     banner.innerHTML = `
-            <video autoplay muted loop playsinline preload="metadata" poster="${escapeHTML(data.video.poster || placeholders.banner)}">
-                <source src="${escapeHTML(data.video.src)}" type="video/mp4">
+            <video autoplay muted loop playsinline preload="metadata" poster="${escapeHTML(poster)}">
+                <source src="${escapeHTML(videoSrc)}" type="video/mp4">
             </video>
             <div class="tint"></div>
             <div class="fade"></div>

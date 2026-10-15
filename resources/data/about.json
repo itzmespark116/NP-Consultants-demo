@@ -16,17 +16,17 @@
             "title": "Architectural Design", 
             "text": "Coordinated design and project management from concept to completion.", 
             "image": "/img/projects/project-3.jpg", 
-            "link": "/projects/" 
+            "link": "../projects/" 
         }, { 
             "title": "Engineering Consultancy", 
             "text": "Practical engineering and architectural consultancy tailored to project requirements.", 
             "image": "/img/projects/", 
-            "link": "/projects/#projects4" 
+            "link": "../projects/" 
         },  { 
             "title": "Structural Engineering", 
             "text": "Reliable engineering solutions designed around each project's requirements.", 
             "image": "/img/projects/", 
-            "link": "/projects/" 
+            "link": "../projects/" 
         },  { 
             "title": "Project Consultancy", 
             "text": "Experienced guidance throughout the project lifecycle.", 

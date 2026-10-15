@@ -3,8 +3,10 @@
 // ──────────────────────────── modules/nav-writer.js ─────────────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
 // File Type : Writer (InnerHTML)
-// Fills <ul id="navLinks"> from /resources/data/nav.json. Other modules
+// Fills <ul id="navLinks"> from nav path in paths.json. Other modules
 // that need the links must `await ready` first.
+
+import { getPath } from "../modules/paths.js";
 
 const escape = (s) =>
   String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -14,9 +16,9 @@ export const render = async () => {
   if (!menu) return;
 
   try {
-    const navUrl = new URL("../../data/nav.json", import.meta.url);
-    const res = await fetch(navUrl);
-    if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${navUrl}`);
+    const navPath = await getPath("nav");
+    const res = await fetch(navPath);
+    if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${navPath}`);
     const data = await res.json();
     const links = Array.isArray(data?.links) ? data.links : [];
 

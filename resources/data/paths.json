@@ -1,0 +1,12 @@
+{
+  "prefix": "..",
+
+  "nav": "/resources/data/nav.json",
+  "placeholders": "/resources/data/placeholders.json",
+  "about": "/resources/data/about.json",
+  "homepageBanner": "/resources/data/homepage-banner.json",
+  "homepage-banner": "/resources/data/homepage-banner.json",
+  "homepageServices": "/resources/data/homepage-services.json",
+  "homepage-services": "/resources/data/homepage-services.json"
+}
+
