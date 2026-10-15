@@ -4,10 +4,14 @@
 <head>
     <meta charset="utf-8">
     <script>
-        fetch("home/index.html")
+        const REPO = "/NP-Consultants-demo/";
+        fetch(REPO + "home/index.html")
             .then(r => r.text())
             .then(html => {
-                html = html.replace(/<head([^>]*)>/i, '<head$1><base href="' + new URL("home/", location.href).href + '">');
+                html = html
+                    .replace(/(src|href|action)=(["'])\/(?!\/)/gi, "$1=$2" + REPO)
+                    .replace(/url\((["']?)\/(?!\/)/gi, "url($1" + REPO);
+                html = html.replace(/<head([^>]*)>/i, '<head$1><base href="' + REPO + 'home/">');
                 document.open();
                 document.write(html);
                 document.close();
