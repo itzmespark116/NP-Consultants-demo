@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <title>NP Consultats &nbsp;&bull;&nbsp; Redirecting&hellip;</title>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <script>
-        window.location.replace("home/");
+        fetch("home/index.html")
+            .then(r => r.text())
+            .then(html => {
+                html = html.replace(/<head([^>]*)>/i, '<head$1><base href="' + new URL("home/", location.href).href + '">');
+                document.open();
+                document.write(html);
+                document.close();
+            });
     </script>
 </head>
 
-<body>
-</body>
+<body></body>
 
 </html>
