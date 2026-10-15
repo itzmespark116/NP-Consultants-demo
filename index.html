@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NP Consultants &nbsp;&bull;&nbsp; Redirecting&hellip;</title>
 
+    <script>
+        var target = "/home/" + location.search + location.hash;
+        location.replace(target);
+    </script>
+
     <meta http-equiv="refresh" content="0; url=/home/">
     <meta name="robots" content="noindex">
     <link rel="canonical" href="/home/">
-    <script>location.replace("/home/");</script>
-
 </head>
+
 <body>
-    
-    <p>Redirecting to <a href="/home/">Home</a>&hellip;</p>
-    
+    <p>Redirecting to <a id="go" href="/home/">Home</a>&hellip;</p>
+    <script>document.getElementById("go").href = target;</script>
 </body>
+
 </html>
