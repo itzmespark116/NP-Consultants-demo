@@ -26,8 +26,8 @@
 
   async function write() {
     const [data, placeholders] = await Promise.all([
-      fetch("/resources/data/about.json").then((r) => r.json()),
-      fetch("/resources/data/placeholders.json").then((r) => r.json()),
+      fetch("../resources/data/about.json").then((r) => r.json()),
+      fetch("../resources/data/placeholders.json").then((r) => r.json()),
     ]);
 
     // --i = stagger order: title 1, text 2, cards 3 onwards

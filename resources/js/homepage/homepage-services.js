@@ -22,8 +22,8 @@ const escapeHTML = (text) =>
 
 async function writeServices() {
   const [data, placeholders] = await Promise.all([
-    fetch("/resources/data/homepage-services.json").then((r) => r.json()),
-    fetch("/resources/data/placeholders.json").then((r) => r.json()),
+    fetch("../resources/data/homepage-services.json").then((r) => r.json()),
+    fetch("../resources/data/placeholders.json").then((r) => r.json()),
   ]);
   const services = data.services;
   const half = Math.ceil(services.length / 2);

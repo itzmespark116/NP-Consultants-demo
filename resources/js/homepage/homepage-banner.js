@@ -26,8 +26,8 @@
 
   async function write() {
     const [data, placeholders] = await Promise.all([
-      fetch("/resources/data/homepage-banner.json").then((r) => r.json()),
-      fetch("/resources/data/placeholders.json").then((r) => r.json()),
+      fetch("../resources/data/homepage-banner.json").then((r) => r.json()),
+      fetch("../resources/data/placeholders.json").then((r) => r.json()),
     ]);
 
     const buttons = data.buttons
