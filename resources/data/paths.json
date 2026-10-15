@@ -1,5 +1,5 @@
 {
-  "prefix": "..",
+  "prefix": "../",
 
   "nav": "/resources/data/nav.json",
   "placeholders": "/resources/data/placeholders.json",

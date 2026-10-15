@@ -23,10 +23,16 @@ export async function getPaths() {
       let data;
 
       // Node.js test environment support
-      if (typeof process !== "undefined" && process?.versions?.node && typeof window === "undefined") {
+      if (
+        typeof process !== "undefined" &&
+        process?.versions?.node &&
+        typeof window === "undefined"
+      ) {
         const { readFileSync } = await import("fs");
         const { fileURLToPath } = await import("url");
-        const filePath = fileURLToPath(new URL("../../data/paths.json", import.meta.url));
+        const filePath = fileURLToPath(
+          new URL("../../data/paths.json", import.meta.url),
+        );
         data = JSON.parse(readFileSync(filePath, "utf-8"));
       } else {
         // Browser environment: load paths.json via fetch
@@ -51,7 +57,8 @@ export async function getPaths() {
       const resolved = { prefix };
       for (const [key, value] of Object.entries(data || {})) {
         if (key === "prefix") continue;
-        resolved[key] = typeof value === "string" ? resolvePath(value, prefix) : value;
+        resolved[key] =
+          typeof value === "string" ? resolvePath(value, prefix) : value;
       }
 
       return resolved;
@@ -72,4 +79,3 @@ if (typeof window !== "undefined") {
 }
 
 export default getPaths;
-
