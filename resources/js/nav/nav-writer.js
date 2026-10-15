@@ -1,17 +1,20 @@
 // ────────────────────────────────────────────────────────────────────────────────
 // ──────────────────────────────── NP Consultants ────────────────────────────────
-// ──────────────────────────── modules/nav-writer.js ─────────────────────────────
+// ──────────────────────────── nav/nav-writer.js ──────────────────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
 // File Type : Writer (InnerHTML)
-// Fills <ul id="navLinks"> from nav path in paths.json. Other modules
-// that need the links must `await ready` first.
+// Awaits nav-header.js (so #navLinks exists), then fills it from paths.json → nav.json.
+// Other modules that need the links must `await ready` first.
 
 import { getPath } from "../modules/paths.js";
+import { headerReady } from "./nav-header.js";
 
 const escape = (s) =>
   String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 export const render = async () => {
+  await headerReady;
+
   const menu = document.getElementById("navLinks");
   if (!menu) return;
 

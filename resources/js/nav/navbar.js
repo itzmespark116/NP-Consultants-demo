@@ -1,9 +1,14 @@
 // ────────────────────────────────────────────────────────────────────────────────
 // ──────────────────────────────── NP Consultants ────────────────────────────────
-// ────────────────────────────── modules/navbar.js ───────────────────────────────
+// ──────────────────────────────── nav/navbar.js ──────────────────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
 // File Type : Event Listener
 // Sets [data-scrolled] on <header> once the page is scrolled past THRESHOLD.
+// Awaits nav-header.js so the header element exists first.
+
+import { headerReady } from "./nav-header.js";
+
+await headerReady;
 
 const header = document.querySelector("main > header") || document.querySelector("header");
 const THRESHOLD = 40;

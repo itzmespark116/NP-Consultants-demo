@@ -3,7 +3,8 @@
 // ────────────────────────────── modules/paths.js ────────────────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
 // File Type : Utility / Loader
-// Loads /resources/data/paths.json and resolves paths using the "prefix" setting.
+// Loads /resources/data/paths.json and resolves all paths using the "prefix".
+// Handles nested objects (e.g. brand: { dark, light }) recursively.
 
 export function resolvePath(path, prefix = "") {
   if (!path || typeof path !== "string") return path;
@@ -15,6 +16,18 @@ export function resolvePath(path, prefix = "") {
   return prefix.endsWith("/") ? prefix + path : prefix + "/" + path;
 }
 
+function resolveObject(obj, prefix) {
+  if (typeof obj === "string") return resolvePath(obj, prefix);
+  if (obj && typeof obj === "object" && !Array.isArray(obj)) {
+    const out = {};
+    for (const [k, v] of Object.entries(obj)) {
+      out[k] = resolveObject(v, prefix);
+    }
+    return out;
+  }
+  return obj;
+}
+
 let cachedPathsPromise = null;
 
 export async function getPaths() {
@@ -23,19 +36,13 @@ export async function getPaths() {
       let data;
 
       // Node.js test environment support
-      if (
-        typeof process !== "undefined" &&
-        process?.versions?.node &&
-        typeof window === "undefined"
-      ) {
+      if (typeof process !== "undefined" && process?.versions?.node && typeof window === "undefined") {
         const { readFileSync } = await import("fs");
         const { fileURLToPath } = await import("url");
-        const filePath = fileURLToPath(
-          new URL("../../data/paths.json", import.meta.url),
-        );
+        const filePath = fileURLToPath(new URL("../../data/paths.json", import.meta.url));
         data = JSON.parse(readFileSync(filePath, "utf-8"));
       } else {
-        // Browser environment: load paths.json via fetch
+        // Browser: resolve paths.json relative to this module's URL
         let res;
         try {
           const primaryUrl = new URL("../../data/paths.json", import.meta.url);
@@ -53,12 +60,11 @@ export async function getPaths() {
       }
 
       const prefix = data?.prefix ?? "";
-
       const resolved = { prefix };
+
       for (const [key, value] of Object.entries(data || {})) {
         if (key === "prefix") continue;
-        resolved[key] =
-          typeof value === "string" ? resolvePath(value, prefix) : value;
+        resolved[key] = resolveObject(value, prefix);
       }
 
       return resolved;

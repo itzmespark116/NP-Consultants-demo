@@ -5,8 +5,17 @@
   "placeholders": "/resources/data/placeholders.json",
   "about": "/resources/data/about.json",
   "homepageBanner": "/resources/data/homepage-banner.json",
-  "homepage-banner": "/resources/data/homepage-banner.json",
   "homepageServices": "/resources/data/homepage-services.json",
-  "homepage-services": "/resources/data/homepage-services.json"
-}
 
+  "brand": {
+    "dark": "/resources/img/brand/icon_dark.png",
+    "light": "/resources/img/brand/icon_light.png"
+  },
+
+  "icons": {
+    "lightMode": "/resources/icons/lightMode.svg",
+    "darkMode": "/resources/icons/darkMode.svg"
+  },
+
+  "home": "/home/"
+}

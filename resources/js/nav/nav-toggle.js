@@ -1,13 +1,18 @@
 // ────────────────────────────────────────────────────────────────────────────────
 // ──────────────────────────────── NP Consultants ────────────────────────────────
-// ──────────────────────────── modules/nav-toggle.js ─────────────────────────────
+// ──────────────────────────── nav/nav-toggle.js ──────────────────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
 // File Type : Event Listener
 // Opens/closes the mobile menu. Keep the media query in sync with the CSS.
+// Awaits nav-header.js so #navToggle and #navLinks exist before attaching listeners.
+
+import { headerReady } from "./nav-header.js";
+
+await headerReady;
 
 const header = document.querySelector("main > header") || document.querySelector("header");
 const toggle = document.getElementById("navToggle");
-const menu = document.getElementById("navLinks");
+const menu   = document.getElementById("navLinks");
 const mobile = matchMedia("(max-width: 720px)");
 
 if (toggle && menu) {

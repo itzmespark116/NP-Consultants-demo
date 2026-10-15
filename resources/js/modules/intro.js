@@ -1,17 +1,35 @@
 // ────────────────────────────────────────────────────────────────────────────────
 // ──────────────────────────────── NP Consultants ────────────────────────────────
-// ─────────────────────────────────── intro.js ───────────────────────────────────
+// ──────────────────────────────── modules/intro.js ───────────────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
 // File Type : Init
-// Reads --intro-duration from root.css, then adds .intro-done to <html> when it ends.
-// Skipped when the user prefers reduced motion (intro.css already shows <main>).
+// Sets the intro splash image from paths.json, then adds .intro-done to <html>
+// after --intro-duration. Skipped when the user prefers reduced motion.
 
-const root = document.documentElement;
-const duration = getComputedStyle(root)
-  .getPropertyValue("--intro-duration")
-  .trim();
-const ms = parseFloat(duration) * (duration.endsWith("ms") ? 1 : 1000);
+import { getPaths } from "./paths.js";
 
+const root    = document.documentElement;
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-if (!reduced) setTimeout(() => root.classList.add("intro-done"), ms);
+// Set intro image src from paths.json (brand dark is the default)
+(async () => {
+  const paths  = await getPaths();
+  const img    = document.querySelector(".intro img");
+  const theme  = root.classList.contains("dark") ? "dark" : "light";
+  const src    = paths.brand?.[theme] ?? paths.brand?.dark ?? "";
+
+  if (img && src) {
+    img.src = src;
+    img.setAttribute("data-themed",
+      `dark=${paths.brand?.dark ?? ""}; light=${paths.brand?.light ?? ""}`);
+  }
+})();
+
+// Timer: add .intro-done after CSS --intro-duration
+if (!reduced) {
+  const duration = getComputedStyle(root).getPropertyValue("--intro-duration").trim();
+  const ms = parseFloat(duration) * (duration.endsWith("ms") ? 1 : 1000);
+  setTimeout(() => root.classList.add("intro-done"), ms);
+} else {
+  root.classList.add("intro-done");
+}
