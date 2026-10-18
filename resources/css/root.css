@@ -109,6 +109,9 @@
     --grid-height-medium: 14rem;
     --grid-height-small: 10rem;
 
+    /* Card peeks */
+    --peek: clamp(40px, 12vw, 64px);
+
     /* Scrollbar */
     --scrollbar-size: 0.75rem;
     --scrollbar-inset: 0.1875rem;
@@ -136,6 +139,26 @@
     --rotate: 45deg;
     --press: 0.96;
     --z-nav: 100;
+
+    /* Footer */
+    --footer-min-height: 30dvh;
+    --footer-padding: clamp(20px, 3vw, 50px);
+    --footer-padding-small: 25px 15px;
+    --footer-gap: clamp(20px, 3vw, 50px);
+    --footer-gap-medium: 35px;
+    --footer-gap-small: 25px;
+    --footer-logo-padding: clamp(0px, 2vw, 24px);
+    --footer-logo-width: min(20vw, 220px);
+    --footer-logo-width-medium: min(45vw, 220px);
+    --footer-logo-width-small: min(60vw, 180px);
+    --footer-logo-shadow: 0 8px 15px var(--shadow);
+    --footer-contact-gap: 6px;
+    --footer-icon-size: 1rem;
+    --footer-nav-gap: clamp(4px, 1vw, 8px);
+    --footer-nav-spacing: 0.01em;
+    --footer-underline-offset: -3px;
+    --footer-copyright-height: 40px;
+    --footer-border-width: 0.5px;
 
     /* Button */
     --accent-soft: color-mix(in srgb, var(--accent) 30%, transparent);
@@ -181,6 +204,16 @@
     --homepage-services-panel-shift: 0.2rem;
     --homepage-services-panel-min: 90px;
     --homepage-services-panel-shadow: 0 18px 40px color-mix(in srgb, var(--base) 40%, transparent), 0 0 26px color-mix(in srgb, var(--accent) 30%, transparent);
+    
+    /* Homepage · Projects */
+    --homepage-projects-title-padding: clamp(14px, 2vw, 20px);
+    --homepage-projects-title-margin: clamp(20px, 3vw, 32px);
+    --homepage-projects-text-padding: clamp(4px, 1vw, 20px);
+    --homepage-projects-description-width: 720px;
+    --homepage-projects-actions-margin: clamp(28px, 4vw, 44px);
+    --homepage-projects-card-color: #fff;
+    --homepage-projects-card-mute: rgba(255, 255, 255, 0.75);
+    
 
     /* Backgrounds (built from --accent and --base, so both themes follow automatically) */
     --edge-fade: linear-gradient(transparent, transparent);
@@ -242,6 +275,7 @@
     --shadow-large: 0 22px 48px rgba(15, 23, 42, 0.25);
 
     --banner-tint: linear-gradient(180deg, var(--base) 1%, rgba(150, 150, 150, 0.4) 5% 96%, var(--base) 100%);
+    /* --overlay-fade: linear-gradient(to top, black 0%, color-mix(in srgb, black 40%, transparent) 55%, transparent 100%); */
 
     --homepage-services-image-brightness: 1.2;
 

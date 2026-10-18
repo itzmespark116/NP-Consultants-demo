@@ -1,0 +1,7 @@
+[
+    { "title": "Project One", "text": "Short summary.", "image": "/resources/img/projects/one.jpg", "link": "/projects/one/", "featured": true },
+    { "title": "Project Two", "text": "Short summary.", "image": "/resources/img/projects/two.jpg", "link": "/projects/two/", "featured": true },
+    { "title": "Project Three", "text": "Short summary.", "image": "/resources/img/projects/three.jpg", "link": "/projects/three/", "featured": true },
+    { "title": "Project Four", "text": "Shows on mobile scroll only.", "image": "/resources/img/projects/four.jpg", "link": "/projects/four/", "featured": true },
+    { "title": "Not featured", "text": "Never shown here.", "image": "/resources/img/projects/five.jpg", "link": "/projects/five/" }
+]

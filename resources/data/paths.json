@@ -1,23 +1,33 @@
 {
-  "prefix": "../",
+"prefix": "../",
 
-  "nav": "/resources/data/nav.json",
-  "placeholders": "/resources/data/placeholders.json",
-  "about": "/resources/data/about.json",
-  "homepageBanner": "/resources/data/homepage-banner.json",
-  "homepage-banner": "/resources/data/homepage-banner.json",
-  "homepageServices": "/resources/data/homepage-services.json",
-  "homepage-services": "/resources/data/homepage-services.json",
+"nav": "/resources/data/nav.json",
+"placeholders": "/resources/data/placeholders.json",
+"footer": "/resources/data/footer.json",
 
-  "brand": {
-    "dark": "/resources/img/brand/icon_dark.png",
-    "light": "/resources/img/brand/icon_light.png"
-  },
+"contact": "/resources/data/contact.json",
+"about": "/resources/data/about.json",
 
-  "icons": {
-    "lightMode": "/resources/icons/lightMode.svg",
-    "darkMode": "/resources/icons/darkMode.svg"
-  },
+"homepageBanner": "/resources/data/homepage-banner.json",
+"homepage-banner": "/resources/data/homepage-banner.json",
 
-  "home": "/home/"
-}
+"homepageServices": "/resources/data/homepage-services.json",
+"homepage-services": "/resources/data/homepage-services.json",
+
+"homepageProjects": "/resources/data/homepage-projects.json",
+"homepage-projects": "/resources/data/homepage-projects.json",
+"projects": "/resources/data/projects.json",
+
+
+"brand": {
+"dark": "/resources/img/brand/icon_dark.png",
+"light": "/resources/img/brand/icon_light.png"
+},
+
+"icons": {
+"lightMode": "/resources/icons/lightMode.svg",
+"darkMode": "/resources/icons/darkMode.svg"
+},
+
+"home": "/home/"
+}   

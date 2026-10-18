@@ -70,7 +70,7 @@ async function writeServices() {
         ${buttons ? `<div class="actions">${buttons}</div>` : ""}
         <div class="grid" style="--rows:${half};--count:${services.length}">
             <figure class="image">
-                <img src="${escapeHTML(imageSrc)}" alt="${escapeHTML(data.image?.alt || '')}" loading="lazy">
+                <img src="${escapeHTML(imageSrc)}" alt="${escapeHTML(data.image?.alt || "")}" loading="lazy">
             </figure>
             ${panels}
         </div>`;

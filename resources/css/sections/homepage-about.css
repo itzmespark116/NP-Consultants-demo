@@ -199,27 +199,26 @@
     }
 }
 
-/* One row of 3 cards, titles only. */
-/* Phone: one row, every card fills the width, swipe sideways through all of them. */
-    @media (max-width: 43.75rem) {
-        .about .grid {
-            grid-template-columns: none;
-            grid-template-rows: minmax(0, 1fr);
-            grid-auto-flow: column;
-            grid-auto-columns: 100%;
-            min-height: var(--grid-height-large);
-            overflow-x: auto;
-            overscroll-behavior-x: contain;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-        }
-
-        .about .grid::-webkit-scrollbar {
-            display: none;
-        }
-
-        .about .item {
-            min-width: 0;
-            scroll-snap-align: start;
-        }
+/* Phone: one row, swipe sideways, a slice of the next card shows. */
+@media (max-width: 43.75rem) {
+    .about .grid {
+        grid-template-columns: none;
+        grid-template-rows: minmax(0, 1fr);
+        grid-auto-flow: column;
+        grid-auto-columns: calc(100% - var(--peek));
+        min-height: var(--grid-height-large);
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
     }
+
+    .about .grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .about .item {
+        min-width: 0;
+        scroll-snap-align: start;
+    }
+}

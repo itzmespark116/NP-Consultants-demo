@@ -1,0 +1,235 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ──────────────────────────── homepage-projects.css ───────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Featured projects (3 on desktop, 1-card scroll row on phones).                         */
+/* Intro : wrappers (.title, .description, .actions, .item) animate. Hover : .card, .button, img. */
+
+@import url(root.css);
+
+.projects {
+    box-sizing: border-box;
+    height: 100vh;
+    height: 100dvh;
+    padding: var(--padding-large) var(--padding-medium);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    scroll-snap-align: start;
+    background: var(--homepage-projects-background);
+}
+
+/* ─────────────────────────────────── header ─────────────────────────────────── */
+
+.projects .title {
+    padding-bottom: var(--homepage-projects-title-padding);
+    margin-bottom: var(--homepage-projects-title-margin);
+    border-bottom: var(--border-width) solid var(--color);
+    border-image: var(--splitter) 1;
+}
+
+.projects h2 {
+    margin: 0;
+    padding: 0 var(--homepage-projects-text-padding);
+    color: var(--color);
+    font-size: var(--font-xlarge);
+    font-weight: var(--font-weight-light);
+    line-height: var(--line-height-tight);
+}
+
+.projects .description {
+    max-width: var(--homepage-projects-description-width);
+    margin: 0 0 var(--homepage-projects-title-margin);
+    padding: 0 var(--homepage-projects-text-padding);
+    color: var(--color-mute);
+    font-size: var(--font-medium);
+    line-height: var(--line-height-base);
+}
+
+/* button sits under the grid */
+.projects .actions {
+    order: 1;
+    align-self: flex-start;
+    margin: var(--homepage-projects-actions-margin) 0 0 var(--homepage-projects-text-padding);
+}
+
+/* ──────────────────────────────────── grid ──────────────────────────────────── */
+
+.projects .grid {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: minmax(0, 1fr);
+    gap: var(--gap-small);
+}
+
+.projects .item {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+}
+
+.projects .item:hover {
+    z-index: 2;
+}
+
+/* desktop shows the topmost 3 only, phones get every featured project */
+.projects .item:nth-child(n+4) {
+    display: none;
+}
+
+.projects .card {
+    position: relative;
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    color: var(--homepage-projects-card-color);
+    text-decoration: none;
+    background: var(--base);
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-small);
+    transition: box-shadow var(--transition-small) var(--ease);
+}
+
+.projects .card img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(var(--zoom-small));
+    transition: transform var(--transition-small) var(--ease), filter var(--transition-small) var(--ease);
+}
+
+/* name and description fade in on hover */
+.projects .info {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: var(--margin-small);
+    padding: var(--padding-small);
+    background: var(--overlay-fade);
+    opacity: 0;
+    transform: translateY(var(--offset-small));
+    transition: opacity var(--transition-small) var(--ease), transform var(--transition-small) var(--ease);
+}
+
+.projects h3 {
+    margin: 0;
+    color: var(--homepage-projects-card-color);
+    font-size: var(--font-large);
+    font-weight: var(--font-weight-normal);
+}
+
+.projects .info p {
+    margin: 0;
+    color: var(--homepage-projects-card-mute);
+    font-size: var(--font-small);
+    line-height: var(--line-height-base);
+}
+
+.projects .card:focus-visible {
+    outline: var(--outline);
+    outline-offset: var(--outline-offset);
+}
+
+.projects .card:is(:hover, :focus-visible) {
+    box-shadow: var(--shadow-large);
+}
+
+.projects .card:is(:hover, :focus-visible) img {
+    transform: scale(var(--zoom-large));
+    filter: brightness(var(--dim));
+}
+
+.projects .card:is(:hover, :focus-visible) .info {
+    opacity: 1;
+    transform: none;
+}
+
+/* no hover on touch screens, so keep the info visible */
+@media (hover: none) {
+    .projects .info {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ───────────────────────────────── animations ───────────────────────────────── */
+
+@media (prefers-reduced-motion: no-preference) {
+    .projects :is(.title, .description, .actions, .item) {
+        opacity: 0;
+        transform: translateY(var(--offset-small));
+    }
+
+    .projects.animate :is(.title, .description, .actions, .item) {
+        animation: projects-in var(--transition-large) var(--ease-out) calc(var(--stagger) * var(--i)) both;
+    }
+}
+
+@keyframes projects-in {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ──────────────────────────────── responsive ────────────────────────────────── */
+
+@media (max-width: 68.75rem) {
+    .projects {
+        height: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+
+    .projects .grid {
+        flex: none;
+        min-height: var(--grid-height-large);
+    }
+}
+
+/* phone: one card per scroll */
+@media (max-width: 43.75rem) {
+    .projects .item:nth-child(n+4) {
+        display: block;
+    }
+
+    .projects .grid {
+        grid-template-columns: none;
+        grid-template-rows: minmax(0, 1fr);
+        grid-auto-flow: column;
+        grid-auto-columns: calc(100% - var(--peek));
+        padding-block: var(--padding-xsmall);
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+    }
+
+    .projects .grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .projects .item {
+        scroll-snap-align: start;
+    }
+}
+
+@media (max-height: 37.5rem) {
+    .projects {
+        height: auto;
+        min-height: 100dvh;
+        padding-block: var(--padding-medium);
+    }
+
+    .projects .grid {
+        min-height: var(--grid-height-medium);
+    }
+}

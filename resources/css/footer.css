@@ -1,0 +1,261 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ────────────────────────────────── footer.css ────────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* <footer class="footer"> holds .main (.logo, .info, .links) and .copyright. Every rule is scoped under .footer. */
+/* .logo, .info and .links play the entrance on load. Hover : img, .contact p, .links a.   */
+/* Values come from root.css only.                                                    */
+
+.footer {
+    width: 100%;
+    min-height: var(--footer-min-height);
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    grid-template-columns: minmax(0, 1fr);
+    background: var(--footer-background);
+}
+
+/* ──────────────────────────────────── Main ──────────────────────────────────── */
+
+.footer .main {
+    padding: var(--footer-padding);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
+    gap: var(--footer-gap);
+}
+
+/* ──────────────────────────────────── Logo ──────────────────────────────────── */
+
+.footer .logo {
+    padding-left: var(--footer-logo-padding);
+    display: flex;
+    align-items: center;
+    --x: calc(var(--offset-large) * -1);
+}
+
+.footer .logo img {
+    display: block;
+    width: var(--footer-logo-width);
+    height: auto;
+    transition: transform var(--transition-small) var(--ease), filter var(--transition-small) var(--ease);
+}
+
+.footer .logo:hover img {
+    transform: translateY(var(--hover-lift)) scale(var(--hover-scale));
+    filter: drop-shadow(var(--footer-logo-shadow));
+}
+
+/* ──────────────────────────────────── Info ──────────────────────────────────── */
+
+.footer .info {
+    display: grid;
+    grid-template-rows: auto auto;
+    align-content: center;
+    gap: var(--margin-small);
+    --y: var(--offset-small);
+}
+
+.footer .title * {
+    margin: 0;
+}
+
+.footer h2 {
+    color: var(--color);
+    font-size: var(--font-large);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-tight);
+}
+
+.footer .title p {
+    color: var(--color-mute);
+    font-size: var(--font-small);
+    line-height: var(--line-height-base);
+}
+
+.footer .contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--footer-contact-gap);
+    padding-left: var(--padding-xsmall);
+}
+
+.footer .contact * {
+    margin: 0;
+}
+
+.footer .contact svg {
+    display: block;
+    flex-shrink: 0;
+    width: var(--footer-icon-size);
+    height: var(--footer-icon-size);
+    fill: var(--color);
+}
+
+.footer .contact p {
+    display: flex;
+    align-items: center;
+    gap: var(--margin-small);
+    color: var(--color-mute);
+    font-size: var(--font-small);
+    line-height: var(--line-height-base);
+    cursor: pointer;
+    transition: transform var(--transition-small) var(--ease), color var(--transition-small) var(--ease);
+}
+
+.footer .contact a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.footer .contact p:hover {
+    transform: translateX(var(--text-shift));
+    color: var(--color);
+}
+
+/* ───────────────────────────────────── Links ──────────────────────────────────── */
+
+.footer .links {
+    display: flex;
+    align-items: center;
+    --x: var(--offset-large);
+}
+
+.footer .links ul {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--footer-nav-gap);
+    list-style: none;
+    color: var(--color);
+}
+
+.footer .links a {
+    position: relative;
+    color: var(--color-mute);
+    text-decoration: none;
+    font-family: inherit;
+    font-size: var(--font-medium);
+    font-weight: var(--font-weight-medium);
+    letter-spacing: var(--footer-nav-spacing);
+    cursor: pointer;
+    transition: color var(--transition-small) var(--ease), transform var(--transition-small) var(--ease);
+}
+
+.footer .links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: var(--footer-underline-offset);
+    width: 0;
+    height: var(--border-width);
+    background: var(--color);
+    transition: width var(--transition-small) var(--ease);
+}
+
+.footer .links a:hover {
+    color: var(--color);
+    transform: scale(var(--hover-scale));
+}
+
+.footer .links a:hover::after {
+    width: 100%;
+}
+
+/* ───────────────────────────────── Copyright ────────────────────────────────── */
+
+.footer .copyright {
+    min-height: var(--footer-copyright-height);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: var(--footer-border-width) solid var(--color);
+    border-image: var(--splitter) 1;
+}
+
+.footer .copyright p {
+    color: var(--color-mute);
+    text-align: center;
+}
+
+/* ───────────────────────────────── Entrance ────────────────────────────────── */
+/* Skipped for reduced motion, so content simply shows. */
+
+@media (prefers-reduced-motion: no-preference) {
+    .footer :is(.logo, .info, .links) {
+        animation: footer-in var(--transition-large) var(--ease) both;
+    }
+}
+
+@keyframes footer-in {
+    from {
+        opacity: 0;
+        transform: translate(var(--x, 0), var(--y, 0));
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ────────────────────────────────── Responsive ─────────────────────────────── */
+
+@media (max-width: 43.75rem) {
+    .footer {
+        height: auto;
+    }
+
+    .footer .main {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--footer-gap-medium);
+        text-align: center;
+    }
+
+    .footer .logo {
+        justify-content: center;
+        padding-left: 0;
+    }
+
+    .footer .logo img {
+        width: var(--footer-logo-width-medium);
+    }
+
+    .footer .contact {
+        align-items: center;
+    }
+
+    .footer .links {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 25rem) {
+    .footer .main {
+        padding: var(--footer-padding-small);
+        gap: var(--footer-gap-small);
+    }
+
+    .footer .logo img {
+        width: var(--footer-logo-width-small);
+    }
+
+    .footer h2 {
+        font-size: var(--font-medium);
+    }
+
+    .footer .links a {
+        font-size: var(--font-small);
+    }
+
+    .footer .copyright {
+        padding: var(--padding-xsmall);
+    }
+
+    .footer .copyright p {
+        font-size: var(--font-small);
+    }
+}
