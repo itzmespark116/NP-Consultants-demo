@@ -7,6 +7,7 @@
 
 "contact": "/resources/data/contact.json",
 "about": "/resources/data/about.json",
+"projects": "/resources/data/projects.json",
 
 "homepageBanner": "/resources/data/homepage-banner.json",
 "homepage-banner": "/resources/data/homepage-banner.json",
@@ -16,7 +17,9 @@
 
 "homepageProjects": "/resources/data/homepage-projects.json",
 "homepage-projects": "/resources/data/homepage-projects.json",
-"projects": "/resources/data/projects.json",
+
+"homepageContact": "/resources/data/homepage-contact.json",
+"homepage-contact": "/resources/data/homepage-contact.json",
 
 
 "brand": {

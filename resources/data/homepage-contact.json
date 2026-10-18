@@ -1,0 +1,7 @@
+{
+  "title": "Ready to Start Your Project?",
+  "description": "Your success is our priority. Reach out to us and experience an exceptional service.",
+  "buttons": [
+    { "text": "Contact Us", "href": "/contact/", "type": "primary", "icon": "" }
+  ]
+}

@@ -213,7 +213,17 @@
     --homepage-projects-actions-margin: clamp(28px, 4vw, 44px);
     --homepage-projects-card-color: #fff;
     --homepage-projects-card-mute: rgba(255, 255, 255, 0.75);
-    
+
+    /* Homepage · Contact */
+    --homepage-contact-min-height: clamp(220px, 25vh, 25vh);
+    --homepage-contact-padding: clamp(24px, 4vh, 48px) clamp(20px, 4vw, 60px);
+    --homepage-contact-gap-column: clamp(20px, 4vw, 60px);
+    --homepage-contact-gap-row: 12px;
+    --homepage-contact-title-size: clamp(2rem, 4vw, 3rem);
+    --homepage-contact-title-weight: 700;
+    --homepage-contact-description-width: 60ch;
+    --homepage-contact-description-opacity: 0.85;
+    --homepage-contact-actions-margin: clamp(0px, 3vw, 70px);
 
     /* Backgrounds (built from --accent and --base, so both themes follow automatically) */
     --edge-fade: linear-gradient(transparent, transparent);
