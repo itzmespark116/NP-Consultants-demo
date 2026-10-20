@@ -1,0 +1,34 @@
+{
+  "title": "Our Team",
+  "description": "The people behind every design, drawing and site visit.",
+  "groups": {
+    "director": ["Director"],
+    "management": ["Manager", "Assistant Director", "Assistant Manager"]
+  },
+  "members": [
+    {
+      "name": "Director Name",
+      "roles": ["Director", "Manager"],
+      "image": "/resources/img/team/director.jpg",
+      "details": ["Qualification one", "Qualification two", "Qualification three"]
+    },
+    {
+      "name": "Assistant Director Name",
+      "roles": ["Assistant Director"],
+      "image": "/resources/img/team/assistant-director.jpg",
+      "details": ["Qualification one", "Qualification two"]
+    },
+    {
+      "name": "Employee One",
+      "roles": ["Structural Engineer"],
+      "image": "/resources/img/team/employee-1.jpg",
+      "details": ["Qualification one", "Qualification two"]
+    },
+    {
+      "name": "Employee Two",
+      "roles": ["Draughtsman", "Site Supervisor"],
+      "image": "/resources/img/team/employee-2.jpg",
+      "details": ["Qualification one", "Qualification two"]
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 {
     "project": "/resources/img/placeholders/placeholder-project.jpg",
     "services": "/resources/img/placeholders/placeholder-project.jpg",
-    "banner": "/resources/img/posters/banner-poster.jpg"
+    "banner": "/resources/img/posters/banner-poster.jpg",
+    "team": "/resources/img/placeholders/placeholder-profile.jpg"
 }

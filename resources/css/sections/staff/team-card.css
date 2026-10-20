@@ -1,0 +1,128 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ──────────────────────────────── team-card.css ───────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Card    : <div class="team-card"> .photo > img, .info </div>                         */
+/* Variant : "management" for managers: larger picture on phones.                       */
+/* Use     : link after root.css. Position and intro come from the section CSS.         */
+/* Hover   : card lifts and tints, photo grows, text lifts.                             */
+/* Tokens  : root.css only.                                                             */
+
+.team-card {
+    position: relative;
+    min-height: var(--team-card-height);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: flex-start;
+    height: 100%;
+    padding: var(--padding-small);
+    overflow: hidden;
+    text-align: center;
+    background: var(--glass);
+    border: var(--border-width) solid var(--border);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-small);
+    transition:
+        transform var(--transition-small) var(--ease),
+        box-shadow var(--transition-small) var(--ease),
+        background var(--transition-small) var(--ease);
+}
+
+.team-card .photo {
+    width: var(--avatar-small);
+    height: var(--avatar-small);
+    margin-bottom: var(--gap-small);
+    flex-shrink: 0;
+    border: var(--border-width) solid var(--border);
+    border-radius: var(--border-radius-max);
+    background: var(--team-photo-background);
+    transition: transform var(--transition-small) var(--ease), border-color var(--transition-small) var(--ease);
+}
+
+.team-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--border-radius-max);
+    object-fit: contain;
+    object-position: top center;
+}
+
+.team-card .info {
+    width: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.team-card h3 {
+    margin: 0 0 var(--gap-xsmall);
+    color: var(--color);
+    font-size: var(--font-large);
+}
+
+.team-card h4 {
+    margin: 0 0 var(--gap-small);
+    color: var(--accent);
+    font-size: var(--font-small);
+}
+
+.team-card ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--color-mute);
+    font-size: var(--font-small);
+    line-height: var(--line-height-base);
+}
+
+/* ──────────────────────────────────── Hover ─────────────────────────────────── */
+
+@media (hover: hover) {
+    .team-card:hover {
+        transform: translateY(var(--hover-lift-large)) scale(var(--hover-scale));
+        background: color-mix(in srgb, var(--glass) calc(100% - var(--mix-glass)), var(--accent) var(--mix-glass));
+        box-shadow: var(--shadow-large), var(--glow);
+    }
+
+    .team-card:hover .photo {
+        transform: scale(var(--zoom-small));
+        border-color: var(--accent);
+    }
+
+    .team-card:hover .info {
+        transform: translateY(var(--hover-lift));
+        transition: transform var(--transition) var(--ease);
+    }
+}
+
+/* ───────────────────────────────── Responsive ───────────────────────────────── */
+
+@media (max-width: 31.25rem) {
+    .team-card {
+        min-height: auto;
+    }
+
+    .team-card.management .photo {
+        width: var(--avatar-medium);
+        height: var(--avatar-medium);
+    }
+}
+
+/* ─────────────────────────────── Reduced Motion ─────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .team-card,
+    .team-card .photo,
+    .team-card .info {
+        transition: none;
+    }
+
+    .team-card:hover,
+    .team-card:hover .photo,
+    .team-card:hover .info {
+        transform: none;
+    }
+}

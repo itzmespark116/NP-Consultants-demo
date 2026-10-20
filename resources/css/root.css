@@ -214,6 +214,22 @@
     --homepage-projects-card-color: #fff;
     --homepage-projects-card-mute: rgba(255, 255, 255, 0.75);
 
+    /* Team (only what the shared root does not already have) */
+    --font-title: clamp(1.5rem, 2vw, 2rem);
+    --avatar-small: clamp(120px, 180px, 65vw);
+    --avatar-medium: clamp(120px, 200px, 75vw);
+    --avatar-large: clamp(120px, 220px, 80vw);
+    --team-description-width: 720px;
+    --team-card-height: 380px;
+    --team-photo-background: white;
+    --team-background: var(--homepage-services-background);
+
+    /* Motion (next to --stagger, --hover-lift, --text-shift) */
+    --stagger-start: 0.15s;
+    --hover-lift-medium: -0.5rem;
+    --hover-lift-large: -0.75rem;
+    --text-shift-large: 0.5rem;
+
     /* Homepage · Contact */
     --homepage-contact-min-height: clamp(220px, 25vh, 25vh);
     --homepage-contact-padding: clamp(24px, 4vh, 48px) clamp(20px, 4vw, 60px);

@@ -8,6 +8,7 @@
 "contact": "/resources/data/contact.json",
 "about": "/resources/data/about.json",
 "projects": "/resources/data/projects.json",
+"staff": "/resources/data/staff.json",
 
 "homepageBanner": "/resources/data/homepage-banner.json",
 "homepage-banner": "/resources/data/homepage-banner.json",
@@ -17,6 +18,9 @@
 
 "homepageProjects": "/resources/data/homepage-projects.json",
 "homepage-projects": "/resources/data/homepage-projects.json",
+
+"homepageTeam": "/resources/data/staff.json",
+"homepage-team": "/resources/data/staff.json",
 
 "homepageContact": "/resources/data/homepage-contact.json",
 "homepage-contact": "/resources/data/homepage-contact.json",
@@ -33,4 +37,4 @@
 },
 
 "home": "/home/"
-}   
+}

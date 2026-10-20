@@ -1,0 +1,163 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ─────────────────────────────────── team.css ─────────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Section : <section class="team" id="team"></section>, written by team.js from staff.json. */
+/* Rows    : 1) management row: director(s) (left, expand) + one grid cell per manager. */
+/*           2) employees fill the grid below, same cell width as the managers.    */
+/* Columns : --team-columns is set per screen size here and drives both rows.      */
+/* Intro   : heading and description animate themselves, cards animate their wrappers. */
+/* Start   : JS adds "animate" on scroll and sets --i. Cards: director-card.css,   */
+/*           team-card.css. Values come from root.css only.                        */
+
+.team {
+    --team-columns: 5;
+    width: 100%;
+    min-height: 100dvh;
+    padding: var(--padding-large) var(--padding-medium);
+    display: flex;
+    flex-direction: column;
+    scroll-snap-align: start;
+    background: var(--team-background);
+}
+
+/* ─────────────────────────────────── Header ─────────────────────────────────── */
+
+.team .title {
+    padding-bottom: var(--padding-xsmall);
+    margin-bottom: var(--margin-medium);
+    border-bottom: var(--border-width) solid var(--color);
+    border-image: var(--splitter) 1;
+}
+
+.team h2 {
+    margin: 0;
+    padding-inline: var(--padding-xsmall);
+    color: var(--color);
+    font-size: var(--font-xlarge);
+    font-weight: var(--font-weight-light);
+    line-height: var(--line-height-tight);
+}
+
+.team .description {
+    max-width: var(--team-description-width);
+    margin: 0 0 var(--margin-medium);
+    padding-inline: var(--padding-xsmall);
+    color: var(--color-mute);
+    font-size: var(--font-medium);
+    line-height: var(--line-height-base);
+}
+
+/* ───────────────────────────────── Management row ───────────────────────────── */
+
+.team .management {
+    --team-cell: calc((100% - (var(--team-columns) - 1) * var(--gap-small)) / var(--team-columns));
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--gap-small);
+    margin-bottom: var(--margin-medium);
+}
+
+/* Director: one cell at least, then grows to fill the free space. */
+
+.team .item.director {
+    flex: 1 1 var(--team-cell);
+    min-width: 0;
+    container-type: inline-size;
+}
+
+/* Managers: exactly one cell each. */
+
+.team .item.manager {
+    flex: 0 0 var(--team-cell);
+    min-width: 0;
+}
+
+/* ─────────────────────────────────── Employees ──────────────────────────────── */
+
+.team .grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(var(--team-columns), minmax(0, 1fr));
+    gap: var(--gap-small);
+    align-items: start;
+}
+
+/* Wrappers fit their cards instead of stretching them vertically. */
+
+.team .item {
+    min-width: 0;
+    display: flex;
+    align-self: start;
+}
+
+.team .item > * {
+    flex: 0 1 auto;
+    min-width: 0;
+    width: 100%;
+}
+
+/* ───────────────────────────────── Entrance ─────────────────────────────────── */
+
+@media (prefers-reduced-motion: no-preference) {
+    .team :is(h2, .description, .item) {
+        opacity: 0;
+        transform: translateY(var(--offset-large));
+    }
+
+    .team h2 {
+        transform: translateY(calc(var(--offset-large) * -1));
+    }
+
+    .team .description {
+        transform: translateY(calc(var(--offset-small) * -1));
+    }
+
+    .team.animate h2 {
+        animation: team-in var(--transition-large) var(--ease-out) var(--stagger-start) both;
+    }
+
+    .team.animate .description {
+        animation: team-in var(--transition-large) var(--ease-out) calc(var(--stagger-start) + var(--stagger)) both;
+    }
+
+    .team.animate .item {
+        animation: team-in var(--transition-large) var(--ease-out) calc(var(--stagger-start) + var(--stagger) * var(--i)) both;
+    }
+}
+
+@keyframes team-in {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ───────────────────────────────── Responsive ───────────────────────────────── */
+
+@media (max-width: 100rem) {
+    .team {
+        --team-columns: 4;
+    }
+}
+
+@media (max-width: 75rem) {
+    .team {
+        --team-columns: 3;
+    }
+}
+
+@media (max-width: 53.125rem) {
+    .team {
+        --team-columns: 2;
+    }
+}
+
+@media (max-width: 31.25rem) {
+    .team {
+        --team-columns: 1;
+    }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────────── */
