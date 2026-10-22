@@ -39,7 +39,7 @@
     display: block;
     width: var(--footer-logo-width);
     height: auto;
-    transition: transform var(--transition-small) var(--ease), filter var(--transition-small) var(--ease);
+    transition: transform var(--transition) var(--ease), filter var(--transition) var(--ease);
 }
 
 .footer .logo:hover img {
@@ -61,6 +61,10 @@
     margin: 0;
 }
 
+.footer .title h2 {
+    font-weight: var(--font-weight-bold);
+}
+
 .footer h2 {
     color: var(--color);
     font-size: var(--font-large);
@@ -77,7 +81,7 @@
 .footer .contact {
     display: flex;
     flex-direction: column;
-    gap: var(--footer-contact-gap);
+    gap: var(--gap-xxsmall);
     padding-left: var(--padding-xsmall);
 }
 
@@ -101,7 +105,7 @@
     font-size: var(--font-small);
     line-height: var(--line-height-base);
     cursor: pointer;
-    transition: transform var(--transition-small) var(--ease), color var(--transition-small) var(--ease);
+    transition: transform var(--transition) var(--ease), color var(--transition) var(--ease);
 }
 
 .footer .contact a {
@@ -127,7 +131,7 @@
     padding: 0;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--footer-nav-gap);
+    gap: calc(var(--gap-xsmall) * 0.25);
     list-style: none;
     color: var(--color);
 }
@@ -137,11 +141,11 @@
     color: var(--color-mute);
     text-decoration: none;
     font-family: inherit;
-    font-size: var(--font-medium);
+    font-size: calc((var(--font-small) + var(--font-small)) * 0.58);
     font-weight: var(--font-weight-medium);
     letter-spacing: var(--footer-nav-spacing);
     cursor: pointer;
-    transition: color var(--transition-small) var(--ease), transform var(--transition-small) var(--ease);
+    transition: color var(--transition) var(--ease), transform var(--transition) var(--ease);
 }
 
 .footer .links a::after {
@@ -152,7 +156,7 @@
     width: 0;
     height: var(--border-width);
     background: var(--color);
-    transition: width var(--transition-small) var(--ease);
+    transition: width var(--transition) var(--ease);
 }
 
 .footer .links a:hover {
