@@ -123,6 +123,9 @@
 
     /* Intro */
     --intro-duration: 1.2s;
+    --intro-logo-width: clamp(120px, 14vw, 14vw);
+    --intro-scale: 0.8;
+    --z-intro: 9999;
 
     /* Nav */
     --nav-height: 4.25rem;

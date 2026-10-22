@@ -2,60 +2,118 @@
 /* ──────────────────────────────── NP Consultants ──────────────────────────────── */
 /* ────────────────────────────────── intro.css ─────────────────────────────────── */
 /* ──────────────────────────────────────────────────────────────────────────────── */
-/* Intro  : <main> is hidden on load and .intro is shown for --intro-duration.   */
-/* Timing : set --intro-duration in root.css. intro.js adds .intro-done to <html>. */
-/* Motion : with prefers-reduced-motion the intro is skipped and <main> shows.   */
+/* Intro  : <main> is hidden on load and .intro covers the screen for --intro-duration. */
+/* Timing : set --intro-duration in root.css. intro.js adds .intro-done to <html>.      */
+/* Motion : the logo scales and fades in, the cover holds, then fades out and <main>    */
+/*          fades in. With prefers-reduced-motion the intro is skipped and <main> shows. */
+
+/* Scroll is locked until the intro is done */
+:root:not(.intro-done) {
+    overflow: hidden;
+}
 
 main {
     display: none;
-    transition: var(--transition-large);
 }
 
 .intro {
-    display: flex;
-    transition: var(--transition);
-    
-    height: 100vh;
-    height: 100dvh;
-    width: 100vw;
-    width: 100dvw;
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-intro);
     display: flex;
     align-items: center;
     justify-content: center;
-
+    width: 100vw;
+    width: 100dvw;
+    height: 100vh;
+    height: 100dvh;
     overscroll-behavior: none;
     overflow: hidden;
-
-    animation: var(--intro-duration) intro ease forwards;
-}
-
-@keyframes intro {
-    0% {opacity: 1;}
-    100% {opacity: 0; background: transparent;}
+    background: var(--background);
+    animation: intro var(--intro-duration) ease forwards;
 }
 
 .intro img {
-    height: 120px;
-}
-
-:root.intro-done main {
-    display: block;
-    transition: var(--transition);
-    scroll-behavior: smooth;
-    overscroll-behavior: auto;
+    align-self: center;
+    justify-self: center;
+    width: var(--intro-logo-width);
+    height: auto;
+    animation: intro-logo var(--transition-large) ease;
 }
 
 :root.intro-done .intro {
     display: none;
-    transition: var(--transition);
 }
 
+:root.intro-done main {
+    display: block;
+    scroll-behavior: smooth;
+    overscroll-behavior: auto;
+    animation: intro-main var(--transition-large) ease both;
+}
+
+/* ─────────────────────────────── Keyframes ──────────────────────────────── */
+
+@keyframes intro {
+    0% {
+        opacity: 0;
+    }
+
+    1% {
+        opacity: 1;
+    }
+
+    70% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes intro-logo {
+    from {
+        opacity: 0;
+        transform: scale(var(--intro-scale));
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes intro-main {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ───────────────────────────── Reduced motion ───────────────────────────── */
+
 @media (prefers-reduced-motion: reduce) {
-    main {
+    :root:not(.intro-done) {
+        overflow: auto;
+    }
+
+    main,
+    :root.intro-done main {
         display: block;
+        animation: none;
     }
 
     .intro {
         display: none;
+        animation: none;
+    }
+
+    .intro img {
+        animation: none;
     }
 }
