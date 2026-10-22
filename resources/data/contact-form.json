@@ -1,9 +1,9 @@
 {
   "fields": [
-    { "name": "name", "label": "Name", "type": "input", "inputType": "text", "required": true, "autocomplete": "name" },
-    { "name": "email", "label": "Email", "type": "input", "inputType": "email", "required": true, "autocomplete": "email" },
-    { "name": "phone", "label": "Phone", "type": "input", "inputType": "tel", "inputmode": "tel", "autocomplete": "tel" },
-    { "name": "message", "label": "Message", "type": "textarea", "required": true, "maxlength": 1000 }
+    { "name": "name", "label": "Your Name ( Mr. / Mrs. / Ms. )", "type": "input", "inputType": "text", "required": true, "autocomplete": "name" },
+    { "name": "email", "label": "Your Email Address", "type": "input", "inputType": "email", "required": true, "autocomplete": "email" },
+    { "name": "phone", "label": "Your Phone Number", "type": "input", "inputType": "tel", "inputmode": "tel", "autocomplete": "tel" },
+    { "name": "message", "label": "Your Message", "type": "textarea", "required": true, "maxlength": 1000 }
   ],
   "button": { "text": "Send", "type": "secondary" },
   "note": "",
