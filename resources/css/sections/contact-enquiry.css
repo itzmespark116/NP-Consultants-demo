@@ -1,0 +1,307 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ───────────────────────────── contact-enquiry.css ────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* <section class="enquiry"> is written by contact-enquiry.js (contact info + form). Rules are scoped under .enquiry. */
+/* Intro : the two panels play the entrance (JS adds "animate", --i sets the order).                        */
+/* Hover : the inner link rows, so the finished intro never blocks hover. Submit look comes from button.css. */
+
+.enquiry {
+    box-sizing: border-box;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-inline: var(--padding-large);
+}
+
+.enquiry :is(.info, .form) {
+    margin-block: var(--margin-medium);
+    padding: var(--padding-medium);
+    border: var(--border-width) solid var(--border);
+}
+
+.enquiry :is(h2, h3, p) {
+    margin: 0;
+}
+
+/* ─────────────────────────────── Info panel ─────────────────────────────── */
+
+.enquiry .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: var(--border-radius-medium) 0 0 var(--border-radius-medium);
+    background: var(--contact-form-background);
+}
+
+.enquiry .box {
+    display: flex;
+    flex-direction: column;
+    margin-block: auto;
+}
+
+.enquiry .icon {
+    flex-shrink: 0;
+    width: calc(var(--icon-size) * 2);
+    height: calc(var(--icon-size) * 2);
+    fill: var(--color);
+}
+
+.enquiry .box h3 {
+    font-size: var(--font-large);
+    font-weight: var(--font-weight-normal);
+    text-transform: uppercase;
+    color: var(--color);
+}
+
+.enquiry .box :is(a, p) {
+    display: block;
+    font-size: var(--font-small);
+    color: var(--color);
+    text-decoration: none;
+}
+
+.enquiry .box a {
+    color: var(--color-mute);
+    transition: transform var(--transition-small) var(--ease), color var(--transition-small) var(--ease);
+}
+
+.enquiry .box a:hover {
+    transform: translateX(var(--text-shift)) scale(1.01);
+    color: var(--color);
+}
+
+.enquiry .box a:focus-visible {
+    outline: var(--outline);
+    outline-offset: var(--outline-offset);
+}
+
+/* ─────────────────────────────── Form panel ─────────────────────────────── */
+
+.enquiry .form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xsmall);
+    border-left: none;
+    border-radius: 0 var(--border-radius-medium) var(--border-radius-medium) 0;
+    background: var(--glass);
+}
+
+.enquiry .form h2 {
+    font-size: var(--font-large);
+    font-weight: var(--font-weight-light);
+    color: var(--color);
+    user-select: none;
+}
+
+.enquiry .field {
+    position: relative;
+    width: 100%;
+}
+
+.enquiry .field :is(input, textarea) {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    font-family: var(--font-family);
+    font-size: var(--font-medium);
+    font-weight: var(--font-weight-light);
+    color: var(--color);
+    background: var(--background);
+    border: var(--border-width) solid var(--border);
+    border-radius: var(--border-radius-small);
+    transition: border-color var(--transition-small) var(--ease), color var(--transition-small) var(--ease);
+}
+
+.enquiry .field input {
+    height: calc(var(--control-size) * 1.25);
+    padding: 0 var(--padding-xsmall);
+}
+
+.enquiry .label {
+    position: absolute;
+    z-index: 2;
+    left: var(--padding-xsmall);
+    top: 50%;
+    padding-inline: var(--margin-small);
+    font-size: var(--font-medium);
+    color: var(--color-mute);
+    background: var(--background);
+    border-radius: var(--border-radius-large);
+    transform: translateY(-50%);
+    transform-origin: left center;
+    pointer-events: none;
+    user-select: none;
+    transition: top var(--transition-small) var(--ease), transform var(--transition-small) var(--ease), color var(--transition-small) var(--ease);
+}
+
+/* Floating label: focused, or filled and valid */
+.enquiry .field :is(input, textarea):is(:focus, :not(:placeholder-shown):valid) {
+    border-color: var(--accent);
+}
+
+.enquiry .field :is(input, textarea):is(:focus, :not(:placeholder-shown):valid)+.label {
+    color: var(--accent);
+}
+
+/* Filled but invalid */
+.enquiry .field :is(input, textarea):not(:placeholder-shown):invalid {
+    color: color-mix(in srgb, var(--error) var(--mix-large), var(--color));
+    border-color: color-mix(in srgb, var(--error) var(--mix-large), transparent);
+}
+
+.enquiry .field :is(input, textarea):not(:placeholder-shown):invalid+.label {
+    color: color-mix(in srgb, var(--error) var(--mix-large), transparent);
+}
+
+.enquiry .field :is(input, textarea):is(:focus, :not(:placeholder-shown))+.label {
+    top: 0;
+    transform: translateY(-50%) scale(var(--enter-scale));
+}
+
+.enquiry .area {
+    flex: 1;
+    min-height: var(--grid-height-small);
+}
+
+.enquiry .area textarea {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    padding: var(--padding-xsmall);
+    resize: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    letter-spacing: var(--letter-spacing);
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+.enquiry .button-wrapper {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    margin-top: var(--margin-small);
+    margin-bottom: calc(var(--margin-small) * -1);
+}
+
+/* ── Status line (contact-enquiry-send.js) ───────────────────────────────── */
+.enquiry .form [role="status"] {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-xsmall);
+    margin: 0 0 var(--gap-small);
+    padding: var(--padding-xsmall) var(--padding-small);
+    font-size: var(--font-small);
+    line-height: var(--line-height-compact);
+    color: var(--status-color, var(--accent));
+    border: var(--border-width) solid color-mix(in srgb, var(--status-color, var(--accent)) var(--mix-border), transparent);
+    border-radius: var(--border-radius-medium);
+    background: color-mix(in srgb, var(--status-color, var(--accent)) var(--mix-glass), transparent);
+}
+
+.enquiry .form [role="status"] .icon {
+    flex: none;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    fill: currentColor;
+}
+
+.enquiry .form .sending {
+    --status-color: var(--accent);
+}
+
+.enquiry .form .success {
+    --status-color: var(--success);
+}
+
+.enquiry .form .error {
+    --status-color: var(--error);
+}
+
+.enquiry .form .missing {
+    --status-color: var(--warning);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .enquiry .form [role="status"] {
+        animation: status-in var(--transition-small) var(--ease-out) both;
+    }
+
+    .enquiry .form .sending .icon {
+        animation: status-spin var(--transition-large) linear infinite;
+    }
+}
+
+@keyframes status-in {
+    from {
+        opacity: 0;
+        transform: translateY(var(--text-shift-large));
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes status-spin {
+    to {
+        transform: rotate(360deg);
+    }
+} 
+
+
+/* ─────────────────────────────── Entrance ───────────────────────────────── */
+
+@media (prefers-reduced-motion: no-preference) {
+    .enquiry :is(.info, .form) {
+        opacity: 0;
+        transform: translateY(var(--offset-small));
+    }
+
+    .enquiry.animate :is(.info, .form) {
+        animation: enquiry-in var(--transition-large) var(--ease-out) calc(var(--stagger) * var(--i)) both;
+    }
+}
+
+@keyframes enquiry-in {
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ─────────────────────────────── Adaptive ───────────────────────────────── */
+
+@media (max-width: 43.75rem) {
+    .enquiry {
+        grid-template-columns: 1fr;
+        padding-inline: var(--padding-small);
+    }
+
+    .enquiry .info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-height-small)), 1fr));
+        gap: var(--gap-small);
+        margin-bottom: 0;
+        border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;
+    }
+
+    .enquiry .form {
+        margin-top: 0;
+        border: var(--border-width) solid var(--border);
+        border-top: none;
+        border-radius: 0 0 var(--border-radius-medium) var(--border-radius-medium);
+    }
+}
+
+@media (max-width: 605px) {
+    .enquiry .info {
+        grid-template-columns: 1fr;
+    }
+}

@@ -12,7 +12,7 @@
     <!-- Global styles -->
     <link rel="stylesheet" href="../resources/css/root.css">
     <link rel="stylesheet" href="../resources/css/body.css">
-    <link rel="stylesheet" href="../resources/css/scrollbar.css">
+    <link rel=" stylesheet" href="../resources/css/scrollbar.css">
 
     <!-- Navigation styles -->
     <link rel="stylesheet" href="../resources/css/nav.css">
@@ -23,7 +23,9 @@
     <link rel="stylesheet" href="../resources/css/buttons/button-theme-toggle.css">
     <link rel="stylesheet" href="../resources/css/buttons/button.css">
 
-
+    <link rel="stylesheet" href="../resources/css/sections/contact-banner.css">
+    <link rel="stylesheet" href="../resources/css/sections/contact-map.css">
+    <link rel="stylesheet" href="../resources/css/sections/contact-enquiry.css">
 
     <link rel="stylesheet" href="../resources/css/footer.css">
 
@@ -39,27 +41,14 @@
         <header id="mainHeader"></header>
 
         <section class="banner"></section>
-
+        <section class="map"></section>
+        <section class="enquiry" id="enquiry"></section>
 
         <footer class="footer"></footer>
 
     </main>
 
 
-    <!-- ── Module loading order ─────────────────────────────────────────────
-                 1. intro.js          — sets splash image, starts timer (reads paths.js)
-                 2. theme-switch.js   — awaits header, then wires theme toggle
-                 3. nav-header.js     — writes <header> markup from paths.json
-                 4. nav-writer.js     — fills #navLinks from nav.json
-                 5. navbar.js         — scroll-shrink pill listener
-                 6. nav-links.js      — active page + sliding underline
-                 7. nav-toggle.js     — mobile drawer open/close
-                 8. homepage-banner   — hero video + content
-                 9. homepage-about    — about cards
-                10. homepage-services — services grid
-                11. homepage-projects — featured projects grid
-                12. footer.js         — footer section
-            ─────────────────────────────────────────────────────────────────────── -->
     <script type="module" src="../resources/js/modules/intro.js"></script>
     <script type="module" src="../resources/js/modules/theme-switch.js"></script>
 
@@ -68,6 +57,13 @@
     <script type="module" src="../resources/js/nav/navbar.js"></script>
     <script type="module" src="../resources/js/nav/nav-links.js"></script>
     <script type="module" src="../resources/js/nav/nav-toggle.js"></script>
+
+    <script type="module" src="../resources/js/contact/contact-banner.js"></script>
+    <script type="module" src="../resources/js/contact/contact-map.js"></script>
+    <script type="module" src="../resources/js/contact/contact-enquiry.js"></script>
+    <script type="module" src="../resources/js/contact/contact-enquiry-send.js"></script>
+
+    <script type="module" src="../resources/js/debug/contact-enquiry-debug.js"></script>r
 
     <script type="module" src="../resources/js/footer.js"></script>
 

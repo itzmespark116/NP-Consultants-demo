@@ -2,20 +2,20 @@
 /* ──────────────────────────────── NP Consultants ──────────────────────────────── */
 /* ──────────────────────────────── team-card.css ───────────────────────────────── */
 /* ──────────────────────────────────────────────────────────────────────────────── */
-/* Card    : <div class="team-card"> .photo > img, .info </div>                         */
-/* Variant : "management" for managers: larger picture on phones.                       */
-/* Use     : link after root.css. Position and intro come from the section CSS.         */
-/* Hover   : card lifts and tints, photo grows, text lifts.                             */
-/* Tokens  : root.css only.                                                             */
+/* Card    : <div class="team-card"> .photo > img, .info </div>                    */
+/* Variant : "management" for managers: larger picture on phones.                  */
+/* Use     : link after root.css. Position and intro come from the section CSS.    */
+/* Hover   : card lifts and tints, photo grows, text lifts.                        */
+/* Tokens  : root.css only.                                                       */
 
 .team-card {
     position: relative;
-    min-height: var(--team-card-height);
+    min-height: 0;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    align-self: flex-start;
-    height: 100%;
+    align-self: start;
     padding: var(--padding-small);
     overflow: hidden;
     text-align: center;
@@ -52,7 +52,7 @@
 .team-card .info {
     width: 100%;
     display: flex;
-    flex: 1;
+    flex: 0 1 auto;
     flex-direction: column;
 }
 
@@ -100,10 +100,6 @@
 /* ───────────────────────────────── Responsive ───────────────────────────────── */
 
 @media (max-width: 31.25rem) {
-    .team-card {
-        min-height: auto;
-    }
-
     .team-card.management .photo {
         width: var(--avatar-medium);
         height: var(--avatar-medium);
@@ -126,3 +122,5 @@
         transform: none;
     }
 }
+
+/* ──────────────────────────────────────────────────────────────────────────────── */

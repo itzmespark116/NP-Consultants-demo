@@ -21,6 +21,11 @@
     background: var(--team-background);
 }
 
+.photo {
+    align-self: center;
+    justify-self: center;
+}
+
 /* ─────────────────────────────────── Header ─────────────────────────────────── */
 
 .team .title {
@@ -70,6 +75,7 @@
 /* Managers: exactly one cell each. */
 
 .team .item.manager {
+    display: flex;
     flex: 0 0 var(--team-cell);
     min-width: 0;
 }
@@ -92,7 +98,7 @@
     align-self: start;
 }
 
-.team .item > * {
+.team .item>* {
     flex: 0 1 auto;
     min-width: 0;
     width: 100%;

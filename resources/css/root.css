@@ -18,6 +18,9 @@
     --color-mute: #9ca3af;
     --accent: #4077ee;
     --border: rgba(255, 255, 255, 0.12);
+    --success: #2e9e5b;
+    --error: #ff0000;
+    --warning: #ffcc00;
 
     /* Glass */
     --glass: rgba(255, 255, 255, 0.06);
@@ -95,7 +98,7 @@
     --zoom-large: 1.18;
     --dim: 0.6;
     --enter-scale: 0.92;
-    --hover-scale: 1.02;
+    --hover-scale: 1.01;
     --hover-lift: -0.25rem;
     --text-shift: 0.25rem;
 
@@ -226,7 +229,7 @@
 
     /* Motion (next to --stagger, --hover-lift, --text-shift) */
     --stagger-start: 0.15s;
-    --hover-lift-medium: -0.5rem;
+    --hover-lift-medium: -0.05rem;
     --hover-lift-large: -0.75rem;
     --text-shift-large: 0.5rem;
 
@@ -240,6 +243,15 @@
     --homepage-contact-description-width: 60ch;
     --homepage-contact-description-opacity: 0.85;
     --homepage-contact-actions-margin: clamp(0px, 3vw, 70px);
+
+
+    /* Map: add to :root, :root.dark (dark palette) */
+    --map-filter: invert(1) hue-rotate(180deg) brightness(0.8) contrast(0.9) saturate(0.6);
+
+    /* Map: add to :root.light (no recolor) */
+    /* --map-filter: none; */   
+    
+
 
     /* Backgrounds (built from --accent and --base, so both themes follow automatically) */
     --edge-fade: linear-gradient(transparent, transparent);

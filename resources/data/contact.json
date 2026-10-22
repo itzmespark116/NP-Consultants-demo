@@ -31,43 +31,5 @@
     "longitude": 79.84870757586062,
     "zoom": 17,
     "place": "NP Consultants"
-  },
-  "fields": [
-    {
-      "name": "name",
-      "type": "input",
-      "inputType": "text",
-      "label": "Your Name ( Mr. / Mrs. / Ms. )",
-      "required": true,
-      "maxlength": 100,
-      "autocomplete": "name"
-    },
-    {
-      "name": "email",
-      "type": "input",
-      "inputType": "email",
-      "label": "Your Email Address",
-      "required": true,
-      "maxlength": 254,
-      "autocomplete": "email"
-    },
-    {
-      "name": "phone",
-      "type": "input",
-      "inputType": "tel",
-      "label": "Your Phone Number",
-      "required": false,
-      "maxlength": 20,
-      "autocomplete": "tel",
-      "inputmode": "tel",
-      "pattern": "[0-9()*\\-/ @+\\[\\]{}#]+"
-    },
-    {
-      "name": "message",
-      "type": "textarea",
-      "label": "Your Message",
-      "required": true,
-      "maxlength": 2000
-    }
-  ]
+  }
 }

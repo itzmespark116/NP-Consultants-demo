@@ -1,0 +1,84 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ────────────────────────────── contact-banner.css ────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* <div class="banner"> is written by contact-banner.js. Fixed under the nav, it shrinks once the page scrolls. */
+/* JS toggles "scrolled" (scroll position). It plays a drop-in on load and nothing else is animated.            */
+
+.banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: calc(var(--z-nav) - 1);
+    box-sizing: border-box;
+    height: var(--grid-height-small);
+    margin: var(--nav-height) 0 0;
+    padding-inline: var(--padding-small);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: var(--glass);
+    backdrop-filter: var(--glass-blur);
+    border-bottom: var(--border-width) solid;
+    border-image: var(--splitter) 1;
+    transition: height var(--transition-medium) var(--ease-out), margin var(--transition-medium) var(--ease-out),
+        box-shadow var(--transition-medium) var(--ease);
+}
+
+.banner h1 {
+    margin: 0;
+    font-family: inherit;
+    font-size: var(--font-xlarge);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-compact);
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--color);
+    transition: font-size var(--transition-medium) var(--ease-out);
+}
+
+.banner.scrolled {
+    height: calc(var(--nav-height-scrolled) + (var(--gap-small) * 2));
+    margin-top: 0;
+    justify-content: flex-start;
+    box-shadow: var(--glass-rim);
+}
+
+.banner.scrolled h1 {
+    font-size: var(--font-title);
+}
+
+
+@media (max-width: 720px) {
+    .banner.scrolled {
+        justify-content: center;
+        padding-top: var(--padding-small);
+        height: initial;
+        height: calc(var(--nav-height-scrolled) + (var(--gap-small) * 2));
+    }
+}
+
+@media (max-width: 1270px) {
+    .banner.scrolled {
+        padding: var(--padding-small);
+        justify-content: center;
+        padding-top: calc(var(--nav-height-scrolled) + var(--padding-small));
+        height: auto;
+    }
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+    .banner {
+        animation: contact-banner-in var(--transition-large) var(--ease-out) both;
+    }
+}
+
+@keyframes contact-banner-in {
+    from {
+        opacity: 0;
+        transform: translateY(calc(var(--offset-small) * -1));
+    }
+}

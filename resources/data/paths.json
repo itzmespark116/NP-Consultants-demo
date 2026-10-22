@@ -6,6 +6,12 @@
 "footer": "/resources/data/footer.json",
 
 "contact": "/resources/data/contact.json",
+"contactForm": "/resources/data/contact-form.json",
+"contact-form": "/resources/data/contact-form.json",
+"contactSubmit": "",
+"contact-submit": "",
+"contactPage": "/resources/data/contact-page.json",
+"contact-page": "/resources/data/contact-page.json",
 "about": "/resources/data/about.json",
 "projects": "/resources/data/projects.json",
 "staff": "/resources/data/staff.json",

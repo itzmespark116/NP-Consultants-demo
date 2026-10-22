@@ -1,0 +1,16 @@
+{
+  "fields": [
+    { "name": "name", "label": "Name", "type": "input", "inputType": "text", "required": true, "autocomplete": "name" },
+    { "name": "email", "label": "Email", "type": "input", "inputType": "email", "required": true, "autocomplete": "email" },
+    { "name": "phone", "label": "Phone", "type": "input", "inputType": "tel", "inputmode": "tel", "autocomplete": "tel" },
+    { "name": "message", "label": "Message", "type": "textarea", "required": true, "maxlength": 1000 }
+  ],
+  "button": { "text": "Send", "type": "secondary" },
+  "note": "",
+  "messages": {
+    "sending": { "text": "Sending…", "icon": "M12 4V2A10 10 0 0 0 2 12h2a8 8 0 0 1 8-8z" },
+    "success": { "text": "Thank you. Your message has been sent.", "icon": "M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" },
+    "error": { "text": "Could not send your message. Please try again.", "icon": "M12 2 1 21h22zm1 15h-2v-2h2zm0-4h-2V9h2z" },
+    "missing": { "text": "The contact form is not set up yet.", "icon": "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-2h2zm0-4h-2V7h2z" }
+  }
+}

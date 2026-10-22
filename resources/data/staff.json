@@ -19,6 +19,12 @@
       "details": ["Qualification one", "Qualification two"]
     },
     {
+      "name": "Assistant Director Name",
+      "roles": ["Assistant Director"],
+      "image": "/resources/img/team/assistant-director.jpg",
+      "details": ["Qualification one", "Qualification two"]
+    },
+    {
       "name": "Employee One",
       "roles": ["Structural Engineer"],
       "image": "/resources/img/team/employee-1.jpg",
@@ -28,6 +34,36 @@
       "name": "Employee Two",
       "roles": ["Draughtsman", "Site Supervisor"],
       "image": "/resources/img/team/employee-2.jpg",
+      "details": ["Qualification one", "Qualification two"]
+    },
+    {
+      "name": "Employee Three",
+      "roles": ["Structural Engineer"],
+      "image": "/resources/img/team/employee-3.jpg",
+      "details": ["Qualification one", "Qualification two"]
+    },
+    {
+      "name": "Employee Four",
+      "roles": ["Civil Engineer"],
+      "image": "/resources/img/team/employee-4.jpg",
+      "details": ["Qualification one", "Qualification two"]
+    },
+    {
+      "name": "Employee Five",
+      "roles": ["Architectural Designer"],
+      "image": "/resources/img/team/employee-5.jpg",
+      "details": ["Qualification one", "Qualification two"]
+    },
+    {
+      "name": "Employee Six",
+      "roles": ["Structural Detailer"],
+      "image": "/resources/img/team/employee-6.jpg",
+      "details": ["Qualification one", "Qualification two"]
+    },
+    {
+      "name": "Employee Seven",
+      "roles": ["Quantity Surveyor"],
+      "image": "/resources/img/team/employee-7.jpg",
       "details": ["Qualification one", "Qualification two"]
     }
   ]
