@@ -20,7 +20,8 @@
     --border: rgba(255, 255, 255, 0.12);
     --success: #2e9e5b;
     --error: #ff0000;
-    --warning: #ffcc00;
+    --warning: #f59e0b;
+    --amber: #f59e0b;
 
     /* Glass */
     --glass: rgba(255, 255, 255, 0.06);
@@ -247,13 +248,41 @@
     --homepage-contact-description-opacity: 0.85;
     --homepage-contact-actions-margin: clamp(0px, 3vw, 70px);
 
-
-    /* Map: add to :root, :root.dark (dark palette) */
+    /* Contact Us · Map */
     --map-filter: invert(1) hue-rotate(180deg) brightness(0.8) contrast(0.9) saturate(0.6);
 
-    /* Map: add to :root.light (no recolor) */
-    /* --map-filter: none; */   
-    
+    /* Projects · Grid */
+    --projects-grid-title-padding: clamp(14px, 2vw, 20px);
+    --projects-grid-title-margin: clamp(20px, 3vw, 32px);
+    --projects-grid-text-padding: clamp(4px, 1vw, 20px);
+    --projects-grid-description-width: 720px;
+    --projects-grid-search-width: 20rem;
+    --projects-grid-chip-padding: 0.5rem 1.1rem;
+    --projects-grid-card-min: 280px;
+    --projects-grid-card-ratio: 4 / 3;
+    --projects-grid-border-width: 1px;
+    --projects-grid-border-mix: 55%;
+    --projects-grid-glow: 1.5rem;
+    --projects-grid-zoom-time: 1.4s;
+    --projects-grid-pulse: 2s;
+    --projects-grid-underline: 2.5rem;
+    --projects-grid-dot-size: 0.4rem;
+    --projects-grid-tag-gap: 0.4rem;
+    --projects-grid-meta-spacing: 0.06em;
+    --projects-grid-glass: rgba(0, 0, 0, 0.45);
+    --projects-grid-scrim: linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, transparent 35%);
+    --projects-grid-fade: 1.2s;
+    --projects-grid-card-color: #f4f5f8;
+    --projects-grid-card-mute: #d1d5db;
+    --projects-grid-overlay: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 55%, transparent 100%);
+    --projects-grid-badge-padding: 0.3rem 0.7rem;
+    --projects-grid-badge-color: #ffffff;
+    --projects-grid-badge-background: var(--accent);
+    --projects-grid-popup-width: 62rem;
+    --projects-grid-popup-image-min: 14rem;
+    --projects-grid-popup-background: color-mix(in srgb, var(--accent) 12%, var(--base));
+    --projects-grid-backdrop: color-mix(in srgb, var(--base) 70%, transparent);
+    --projects-grid-close-size: 2.5rem;
 
 
     /* Backgrounds (built from --accent and --base, so both themes follow automatically) */
@@ -275,6 +304,11 @@
         radial-gradient(circle at right, color-mix(in srgb, var(--accent) 22%, var(--base)), var(--base) 65%),
         var(--base);
     --homepage-contact-background: color-mix(in srgb, var(--accent) 20%, var(--base) 80%);
+    --projects-grid-background:
+            var(--edge-fade),
+            radial-gradient(circle at left, color-mix(in srgb, var(--accent) 22%, var(--base)), var(--base) 65%),
+            radial-gradient(circle at right, color-mix(in srgb, var(--accent) 22%, var(--base)), var(--base) 65%),
+            var(--base);
 
     /* Backgrounds · Pages */
     --contact-banner-background: color-mix(in srgb, var(--base) 60%, transparent 40%);
@@ -301,6 +335,7 @@
     --color: #0f172a;
     --color-mute: #475569;
     --border: rgba(15, 23, 42, 0.1);
+    --amber: #d97706;
 
     --glass: rgba(255, 255, 255, 0.7);
     --glass-strong: rgba(255, 255, 255, 0.92);
@@ -319,6 +354,8 @@
     /* --overlay-fade: linear-gradient(to top, black 0%, color-mix(in srgb, black 40%, transparent) 55%, transparent 100%); */
 
     --homepage-services-image-brightness: 1.2;
+
+    --map-filter: none;
 
     --edge-fade: linear-gradient(to bottom, var(--base) 0%, transparent 12%, transparent 88%, var(--base) 100%);
     --homepage-projects-background:

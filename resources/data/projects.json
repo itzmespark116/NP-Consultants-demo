@@ -1,7 +1,184 @@
-[
-    { "title": "Project One", "text": "Short summary.", "image": "/resources/img/projects/one.jpg", "link": "/projects/one/", "featured": true },
-    { "title": "Project Two", "text": "Short summary.", "image": "/resources/img/projects/two.jpg", "link": "/projects/two/", "featured": true },
-    { "title": "Project Three", "text": "Short summary.", "image": "/resources/img/projects/three.jpg", "link": "/projects/three/", "featured": true },
-    { "title": "Project Four", "text": "Shows on mobile scroll only.", "image": "/resources/img/projects/four.jpg", "link": "/projects/four/", "featured": true },
-    { "title": "Not featured", "text": "Never shown here.", "image": "/resources/img/projects/five.jpg", "link": "/projects/five/" }
-]
+{
+  "title": "Our Projects",
+  "description": "A selection of completed and ongoing work across our service areas. Filter by category or search by name, type or year.",
+  "settings": {
+    "interval": 4500,
+    "jitter": 2500
+  },
+  "labels": {
+    "all": "All",
+    "search": "Search projects",
+    "filter": "Filter by category",
+    "featured": "Featured",
+    "ongoing": "Ongoing",
+    "finished": "Completed",
+    "empty": "No projects match your search.",
+    "other": "Other",
+    "close": "Close"
+  },
+  "categories": [
+    {
+      "id": "residential",
+      "label": "Residential"
+    },
+    {
+      "id": "commercial",
+      "label": "Commercial"
+    },
+    {
+      "id": "industrial",
+      "label": "Industrial"
+    },
+    {
+      "id": "infrastructure",
+      "label": "Infrastructure"
+    }
+  ],
+  "projects": [
+    {
+      "id": "riverside-residences",
+      "name": "Riverside Residences",
+      "category": "residential",
+      "type": "Apartment Complex",
+      "year": 2026,
+      "featured": true,
+      "ongoing": true,
+      "images": [
+        "/resources/img/projects/riverside-residences/1.jpg",
+        "/resources/img/projects/riverside-residences/2.jpg",
+        "/resources/img/projects/riverside-residences/3.jpg",
+        "/resources/img/projects/riverside-residences/4.jpg"
+      ]
+    },
+    {
+      "id": "hillcrest-villas",
+      "name": "Hillcrest Villas",
+      "category": "residential",
+      "type": "Luxury Villas",
+      "year": 2025,
+      "featured": true,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/hillcrest-villas/1.jpg",
+        "/resources/img/projects/hillcrest-villas/2.jpg",
+        "/resources/img/projects/hillcrest-villas/3.jpg"
+      ]
+    },
+    {
+      "id": "garden-court",
+      "name": "Garden Court",
+      "category": "residential",
+      "type": "Housing Scheme",
+      "year": 2023,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/garden-court/1.jpg",
+        "/resources/img/projects/garden-court/2.jpg",
+        "/resources/img/projects/garden-court/3.jpg"
+      ]
+    },
+    {
+      "id": "harbour-tower",
+      "name": "Harbour Tower",
+      "category": "commercial",
+      "type": "Office Tower",
+      "year": 2026,
+      "featured": false,
+      "ongoing": true,
+      "images": [
+        "/resources/img/projects/harbour-tower/1.jpg",
+        "/resources/img/projects/harbour-tower/2.jpg",
+        "/resources/img/projects/harbour-tower/3.jpg",
+        "/resources/img/projects/harbour-tower/4.jpg",
+        "/resources/img/projects/harbour-tower/5.jpg"
+      ]
+    },
+    {
+      "id": "central-plaza",
+      "name": "Central Plaza",
+      "category": "commercial",
+      "type": "Shopping Mall",
+      "year": 2024,
+      "featured": true,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/central-plaza/1.jpg",
+        "/resources/img/projects/central-plaza/2.jpg",
+        "/resources/img/projects/central-plaza/3.jpg",
+        "/resources/img/projects/central-plaza/4.jpg"
+      ]
+    },
+    {
+      "id": "city-hotel",
+      "name": "City Hotel Renovation",
+      "category": "commercial",
+      "type": "Hospitality",
+      "year": 2022,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/city-hotel/1.jpg",
+        "/resources/img/projects/city-hotel/2.jpg",
+        "/resources/img/projects/city-hotel/3.jpg"
+      ]
+    },
+    {
+      "id": "textile-works",
+      "name": "Textile Works Facility",
+      "category": "industrial",
+      "type": "Factory",
+      "year": 2025,
+      "featured": false,
+      "ongoing": true,
+      "images": [
+        "/resources/img/projects/textile-works/1.jpg",
+        "/resources/img/projects/textile-works/2.jpg",
+        "/resources/img/projects/textile-works/3.jpg"
+      ]
+    },
+    {
+      "id": "cold-storage",
+      "name": "Cold Storage Hub",
+      "category": "industrial",
+      "type": "Warehouse",
+      "year": 2024,
+      "featured": true,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/cold-storage/1.jpg",
+        "/resources/img/projects/cold-storage/2.jpg",
+        "/resources/img/projects/cold-storage/3.jpg"
+      ]
+    },
+    {
+      "id": "coastal-bridge",
+      "name": "Coastal Bridge",
+      "category": "infrastructure",
+      "type": "Bridge",
+      "year": 2025,
+      "featured": true,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/coastal-bridge/1.jpg",
+        "/resources/img/projects/coastal-bridge/2.jpg",
+        "/resources/img/projects/coastal-bridge/3.jpg",
+        "/resources/img/projects/coastal-bridge/4.jpg"
+      ]
+    },
+    {
+      "id": "north-link-road",
+      "name": "North Link Road",
+      "category": "infrastructure",
+      "type": "Road Network",
+      "year": 2023,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/north-link-road/1.jpg",
+        "/resources/img/projects/north-link-road/2.jpg",
+        "/resources/img/projects/north-link-road/3.jpg"
+      ]
+    }
+  ]
+}
