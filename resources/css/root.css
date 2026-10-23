@@ -105,8 +105,8 @@
 
     /* Lines and focus */
     --border-width: 1px;
-    --outline: 2px solid var(--accent);
-    --outline-offset: 0.125rem;
+    --outline: 1px solid var(--accent);
+    --outline-offset: -0.002rem;
 
     /* Layout */
     --grid-height-large: 25rem;

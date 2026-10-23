@@ -36,148 +36,313 @@
   ],
   "projects": [
     {
-      "id": "riverside-residences",
-      "name": "Riverside Residences",
+      "id": "home-project-arjuna",
+      "name": "Home Project — Mr. Arjuna",
       "category": "residential",
-      "type": "Apartment Complex",
-      "year": 2026,
-      "featured": true,
-      "ongoing": true,
-      "images": [
-        "/resources/img/projects/riverside-residences/1.jpg",
-        "/resources/img/projects/riverside-residences/2.jpg",
-        "/resources/img/projects/riverside-residences/3.jpg",
-        "/resources/img/projects/riverside-residences/4.jpg"
-      ]
-    },
-    {
-      "id": "hillcrest-villas",
-      "name": "Hillcrest Villas",
-      "category": "residential",
-      "type": "Luxury Villas",
-      "year": 2025,
-      "featured": true,
-      "ongoing": false,
-      "images": [
-        "/resources/img/projects/hillcrest-villas/1.jpg",
-        "/resources/img/projects/hillcrest-villas/2.jpg",
-        "/resources/img/projects/hillcrest-villas/3.jpg"
-      ]
-    },
-    {
-      "id": "garden-court",
-      "name": "Garden Court",
-      "category": "residential",
-      "type": "Housing Scheme",
-      "year": 2023,
+      "year": 2017,
       "featured": false,
       "ongoing": false,
       "images": [
-        "/resources/img/projects/garden-court/1.jpg",
-        "/resources/img/projects/garden-court/2.jpg",
-        "/resources/img/projects/garden-court/3.jpg"
+        "/resources/img/projects/Arjuna House-Selected (1).jpg",
+        "/resources/img/projects/Arjuna House-Selected (3).jpg"
       ]
     },
     {
-      "id": "harbour-tower",
-      "name": "Harbour Tower",
+      "id": "cargills-food-city",
+      "name": "Cargills Food City",
       "category": "commercial",
-      "type": "Office Tower",
-      "year": 2026,
-      "featured": false,
-      "ongoing": true,
-      "images": [
-        "/resources/img/projects/harbour-tower/1.jpg",
-        "/resources/img/projects/harbour-tower/2.jpg",
-        "/resources/img/projects/harbour-tower/3.jpg",
-        "/resources/img/projects/harbour-tower/4.jpg",
-        "/resources/img/projects/harbour-tower/5.jpg"
-      ]
-    },
-    {
-      "id": "central-plaza",
-      "name": "Central Plaza",
-      "category": "commercial",
-      "type": "Shopping Mall",
-      "year": 2024,
+      "year": 2020,
       "featured": true,
       "ongoing": false,
       "images": [
-        "/resources/img/projects/central-plaza/1.jpg",
-        "/resources/img/projects/central-plaza/2.jpg",
-        "/resources/img/projects/central-plaza/3.jpg",
-        "/resources/img/projects/central-plaza/4.jpg"
+        "/resources/img/projects/05 (3).jpg",
+        "/resources/img/projects/05 (4).jpg",
+        "/resources/img/projects/05 (2).jpg"
       ]
     },
     {
-      "id": "city-hotel",
-      "name": "City Hotel Renovation",
+      "id": "cargills-distribution-center",
+      "name": "Cargills Distribution Center",
+      "category": "industrial",
+      "year": 2018,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/01 (1).jpg",
+        "/resources/img/projects/01 (2).jpg"
+      ]
+    },
+    {
+      "id": "home-project-cyrill",
+      "name": "Home Project — Mr. Cyrill",
+      "category": "residential",
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/House 2.jpg",
+        "/resources/img/projects/House 1.jpg"
+      ]
+    },
+    {
+      "id": "hnb-commercial-building",
+      "name": "Commercial Building",
       "category": "commercial",
-      "type": "Hospitality",
+      "year": 2015,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/HNB Kegalle-Selected (2).jpg"
+      ]
+    },
+    {
+      "id": "ioc-filling-stations",
+      "name": "Refurbishing of Existing Filling Stations",
+      "category": "commercial",
+      "year": 2015,
+      "featured": true,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/08 (5).jpg",
+        "/resources/img/projects/08 (2).jpg",
+        "/resources/img/projects/08 (3).jpg",
+        "/resources/img/projects/08 (4).jpg"
+      ]
+    },
+    {
+      "id": "eight-storied-multi-activity-center",
+      "name": "Eight Storied Multi Activity Center",
+      "category": "commercial",
+      "year": 2019,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/Mattakkuliya Building 2.jpg",
+        "/resources/img/projects/Mattakkuliya Building 1.jpg"
+      ]
+    },
+    {
+      "id": "home-project-paul",
+      "name": "Home Project — Mr. Paul",
+      "category": "residential",
+      "year": 2011,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/Mr.Paul House 5.jpg",
+        "/resources/img/projects/Mr.Paul House 2.jpg",
+        "/resources/img/projects/Mr.Paul House 3.jpg",
+        "/resources/img/projects/Mr.Paul House 4.jpg"
+      ]
+    },
+    {
+      "id": "phoenix-plastic-factory-extension",
+      "name": "Extension to Existing Building",
+      "category": "industrial",
+      "year": 2018,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/Phoenix Horana 4.jpg",
+        "/resources/img/projects/Phoenix Horana 1.jpg",
+        "/resources/img/projects/Phoenix Horana 2.jpg",
+        "/resources/img/projects/Phoenix Horana 3.jpg"
+      ]
+    },
+    {
+      "id": "home-project-fernando",
+      "name": "Home Project — Mrs. K A E A Fernando",
+      "category": "residential",
+      "year": 2020,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/Prasantha House (3).jpg",
+        "/resources/img/projects/Prasantha House (4).jpg",
+        "/resources/img/projects/Prasantha House (2).jpg"
+      ]
+    },
+    {
+      "id": "home-project-thusitha",
+      "name": "Home Project — Mr. Thusitha",
+      "category": "residential",
+      "year": 2018,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/Thusitha House (1).jpg",
+        "/resources/img/projects/Thusitha House (2).jpg"
+      ]
+    },
+    {
+      "id": "sports-recreation-complex",
+      "name": "Sports & Recreation Complex",
+      "category": "commercial",
+      "year": 2017,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/Decathalon (5).jpg",
+        "/resources/img/projects/Decathalon (2).jpg",
+        "/resources/img/projects/Decathalon (3).jpg",
+        "/resources/img/projects/Decathalon (4).jpg"
+      ]
+    },
+    {
+      "id": "assembly-workshop-office-building",
+      "name": "Assembly Workshop & Office Building",
+      "category": "industrial",
+      "year": 2019,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/IDEAL Motors-Selected (4).jpg",
+        "/resources/img/projects/IDEAL Motors-Selected (1).jpg",
+        "/resources/img/projects/IDEAL Motors-Selected (3).jpg"
+      ]
+    },
+    {
+      "id": "kings-hospital-building-extension",
+      "name": "Building Extension",
+      "category": "commercial",
+      "year": 2020,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/12 (9).jpg",
+        "/resources/img/projects/12 (10).jpg",
+        "/resources/img/projects/12 (12).jpg"
+      ]
+    },
+    {
+      "id": "melwa-pharma-plant",
+      "name": "Pharma Plant",
+      "category": "industrial",
+      "year": 2019,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/04 (1).jpg",
+        "/resources/img/projects/04 (3).jpg",
+        "/resources/img/projects/04 (4).jpg",
+        "/resources/img/projects/04 (5).jpg"
+      ]
+    },
+    {
+      "id": "stretchline-hr-center",
+      "name": "HR Center",
+      "category": "commercial",
+      "year": 2016,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/Stretchline (3).jpg",
+        "/resources/img/projects/Stretchline (4).jpg",
+        "/resources/img/projects/Stretchline (2).jpg"
+      ]
+    },
+    {
+      "id": "8d-shell-one-office-building",
+      "name": "Office Building",
+      "category": "commercial",
+      "year": 2020,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/2641.jpg"
+      ]
+    },
+    {
+      "id": "wacoal-main-building-extension",
+      "name": "Main Building Extension",
+      "category": "industrial",
       "year": 2022,
       "featured": false,
       "ongoing": false,
       "images": [
-        "/resources/img/projects/city-hotel/1.jpg",
-        "/resources/img/projects/city-hotel/2.jpg",
-        "/resources/img/projects/city-hotel/3.jpg"
+        "/resources/img/projects/WACOAL (2).jpg",
+        "/resources/img/projects/WACOAL (1).jpg"
       ]
     },
     {
-      "id": "textile-works",
-      "name": "Textile Works Facility",
+      "id": "atg-packing-building",
+      "name": "Packing Building",
       "category": "industrial",
-      "type": "Factory",
-      "year": 2025,
-      "featured": false,
-      "ongoing": true,
-      "images": [
-        "/resources/img/projects/textile-works/1.jpg",
-        "/resources/img/projects/textile-works/2.jpg",
-        "/resources/img/projects/textile-works/3.jpg"
-      ]
-    },
-    {
-      "id": "cold-storage",
-      "name": "Cold Storage Hub",
-      "category": "industrial",
-      "type": "Warehouse",
-      "year": 2024,
-      "featured": true,
-      "ongoing": false,
-      "images": [
-        "/resources/img/projects/cold-storage/1.jpg",
-        "/resources/img/projects/cold-storage/2.jpg",
-        "/resources/img/projects/cold-storage/3.jpg"
-      ]
-    },
-    {
-      "id": "coastal-bridge",
-      "name": "Coastal Bridge",
-      "category": "infrastructure",
-      "type": "Bridge",
-      "year": 2025,
-      "featured": true,
-      "ongoing": false,
-      "images": [
-        "/resources/img/projects/coastal-bridge/1.jpg",
-        "/resources/img/projects/coastal-bridge/2.jpg",
-        "/resources/img/projects/coastal-bridge/3.jpg",
-        "/resources/img/projects/coastal-bridge/4.jpg"
-      ]
-    },
-    {
-      "id": "north-link-road",
-      "name": "North Link Road",
-      "category": "infrastructure",
-      "type": "Road Network",
-      "year": 2023,
+      "year": 2021,
       "featured": false,
       "ongoing": false,
       "images": [
-        "/resources/img/projects/north-link-road/1.jpg",
-        "/resources/img/projects/north-link-road/2.jpg",
-        "/resources/img/projects/north-link-road/3.jpg"
+        "/resources/img/projects/03 (6).jpg",
+        "/resources/img/projects/03 (7).jpg",
+        "/resources/img/projects/03 (3).jpg",
+        "/resources/img/projects/03 (5).jpg"
+      ]
+    },
+    {
+      "id": "two-story-car-park",
+      "name": "Two Story Car Park",
+      "category": "commercial",
+      "year": 2021,
+      "featured": true,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/06 (12).jpg",
+        "/resources/img/projects/06 (8).jpg",
+        "/resources/img/projects/06 (10).jpg",
+        "/resources/img/projects/06 (11).jpg"
+      ]
+    },
+    {
+      "id": "darinton-head-office",
+      "name": "Head Office Building",
+      "category": "commercial",
+      "year": 2016,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/07 (3).jpg",
+        "/resources/img/projects/07 (2).jpg"
+      ]
+    },
+    {
+      "id": "mrf-building-extension",
+      "name": "Extension to Existing Building",
+      "category": "industrial",
+      "year": 2013,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/19 (5).jpg",
+        "/resources/img/projects/19 (1).jpg",
+        "/resources/img/projects/19 (3).jpg",
+        "/resources/img/projects/19 (4).jpg"
+      ]
+    },
+    {
+      "id": "renuka-production-building",
+      "name": "Production Building",
+      "category": "industrial",
+      "year": 2020,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/11 (5).jpg",
+        "/resources/img/projects/11 (2).jpg",
+        "/resources/img/projects/11 (3).jpg",
+        "/resources/img/projects/11 (4).jpg"
+      ]
+    },
+    {
+      "id": "uva-wellassa-library",
+      "name": "Library Building",
+      "category": "commercial",
+      "year": 2019,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/10 (1).jpg",
+        "/resources/img/projects/10 (2).jpg",
+        "/resources/img/projects/10 (4).jpg",
+        "/resources/img/projects/10 (5).jpg"
       ]
     }
   ]

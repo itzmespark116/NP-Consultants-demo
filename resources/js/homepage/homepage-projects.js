@@ -67,10 +67,10 @@ import { getPaths, resolvePath } from "../modules/paths.js";
           return `
             <div class="item" style="--i:${Math.min(index, 2) + 4}">
                 <${tag} class="card"${href}>
-                    <div class="image"><img src="${escapeHTML(image)}" alt="${escapeHTML(project.title)}" loading="lazy"></div>
+                    <div class="image"><img src="${escapeHTML(image)}" alt="${escapeHTML(project.name)}" loading="lazy"></div>
                     <div class="info">
-                        <h3>${escapeHTML(project.title)}</h3>
-                        <p>${escapeHTML(project.description || project.text)}</p>
+                        <h3>${escapeHTML(project.name)}</h3>
+                        <p>${escapeHTML(project.year || project.category)}</p>
                     </div>
                 </${tag}>
             </div>`;

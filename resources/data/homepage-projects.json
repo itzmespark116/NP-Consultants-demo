@@ -1,5 +1,5 @@
 {
-    "title": "Featured Projects",
+    "title": "Our Projects",
     "description": "A selection of recent work delivered for our clients.",
     "buttons": [
         { "text": "View all projects", "href": "/projects/", "type": "primary" }

@@ -1,50 +1,50 @@
 {
-    "title": "Our Services",
-    "description": "We Provide Various Engineering Services from the Initial Planning Stage to the Full Completion",
-    "buttons": [
-        {
-            "text": "Read More",
-            "href": "/services/",
-            "type": "primary",
-            "icon": "↗"
-        }
-    ],
-    "image": {
-        "src": "/resources/img/services.jpg",
-        "alt": "Our engineering services"
+  "title": "Our Services",
+  "description": "We Provide Various Engineering Services from the Initial Planning Stage to the Full Completion",
+  "buttons": [
+    {
+      "text": "Read More",
+      "href": "/services/",
+      "type": "primary",
+      "icon": "↗"
+    }
+  ],
+  "image": {
+    "src": "/resources/img/services.jpg",
+    "alt": "Our engineering services"
+  },
+  "services": [
+    {
+      "title": "Structural Designing",
+      "text": "Cost-effective, space-saving, future-proof building structures that comply with industry standards."
     },
-    "services": [
-        {
-            "title": "Structural Designing",
-            "text": "Cost-effective, space-saving, future-proof building structures that comply with industry standards."
-        },
-        {
-            "title": "Steel Structural Detailing",
-            "text": "Detailed drawings, for steel fabrication and steel erections with technical specifications"
-        },
-        {
-            "title": "Consulting Engineers",
-            "text": "Learn how to utilize your available resources effectively and determine the best strategies for your project."
-        },
-        {
-            "title": "Chartered Architects",
-            "text": "Experienced, professional architectural services with years of industry experience for your next project."
-        },
-        {
-            "title": "Quantity Surveyors",
-            "text": "Our quantity surveying service will provide far more accuracy in estimations, budgeting, and planning."
-        },
-        {
-            "title": "Green Building Consultants",
-            "text": "Implement energy-efficient, eco-friendly strategies and minimize your carbon footprint as well as energy costs."
-        },
-        {
-            "title": "Project Management",
-            "text": "Make sure your project is on the right path to successful completion with our expert service."
-        },
-        {
-            "title": "Interior Designing",
-            "text": "We design functional, safe, attractive & pleasant interiors"
-        }
-    ]
+    {
+      "title": "Steel Structural Detailing",
+      "text": "Detailed drawings, for steel fabrication and steel erections with technical specifications"
+    },
+    {
+      "title": "Consulting Engineers",
+      "text": "Learn how to utilize your available resources effectively and determine the best strategies for your project."
+    },
+    {
+      "title": "Chartered Architects",
+      "text": "Experienced, professional architectural services with years of industry experience for your next project."
+    },
+    {
+      "title": "Quantity Surveyors",
+      "text": "Our quantity surveying service will provide far more accuracy in estimations, budgeting, and planning."
+    },
+    {
+      "title": "Green Building Consultants",
+      "text": "Implement energy-efficient, eco-friendly strategies and minimize your carbon footprint as well as energy costs."
+    },
+    {
+      "title": "Project Management",
+      "text": "Make sure your project is on the right path to successful completion with our expert service."
+    },
+    {
+      "title": "Interior Designing",
+      "text": "We design functional, safe, attractive & pleasant interiors"
+    }
+  ]
 }

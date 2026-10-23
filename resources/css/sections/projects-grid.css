@@ -114,7 +114,7 @@
 }
 
 .projects-grid .search:focus {
-    outline: none;
+    /* outline: none; */
     background: var(--glass-strong);
     border-color: var(--accent);
     box-shadow: var(--glow);

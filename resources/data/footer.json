@@ -5,7 +5,7 @@
     { "label": "Home", "url": "/home/" },
     { "label": "About Us", "url": "/home/#about-us" },
     { "label": "Our Services", "url": "/services/" },
-    { "label": "Projects", "url": "/projects/" },
+    { "label": "Our Projects", "url": "/projects/" },
     { "label": "Our Team", "url": "/home/#team"},
     { "label": "Contact Us", "url": "/contact/" }
   ],

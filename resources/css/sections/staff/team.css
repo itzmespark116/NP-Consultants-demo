@@ -87,7 +87,7 @@
     display: grid;
     grid-template-columns: repeat(var(--team-columns), minmax(0, 1fr));
     gap: var(--gap-small);
-    align-items: start;
+    align-items: stretch;
 }
 
 /* Wrappers fit their cards instead of stretching them vertically. */
@@ -95,7 +95,7 @@
 .team .item {
     min-width: 0;
     display: flex;
-    align-self: start;
+    align-self: stretch;
 }
 
 .team .item>* {

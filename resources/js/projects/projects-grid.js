@@ -222,6 +222,7 @@ import { getPaths, resolvePath } from "../modules/paths.js";
       const schedule = (state) => {
         clearTimeout(state.timer);
         if (
+          state.next &&
           state.visible &&
           !document.hidden &&
           !state.card.closest(".item").hidden &&
@@ -236,6 +237,7 @@ import { getPaths, resolvePath } from "../modules/paths.js";
           const state = cardStates.get(entry.target);
           if (!state) return;
           state.visible = entry.isIntersecting;
+          if (state.visible) loadSlide(state.slides[state.current]);
           schedule(state);
         });
       });
@@ -244,22 +246,29 @@ import { getPaths, resolvePath } from "../modules/paths.js";
         const slides = [...cardEl.querySelectorAll(".slides img")];
         if (!slides.length) return;
         let current = Math.floor(Math.random() * slides.length);
-        loadSlide(slides[current]);
         slides[current]?.classList.add("on");
-        if (slides.length < 2 || reduced.matches) return;
-
-        const state = { card: cardEl, timer: 0, visible: false, next: null };
-        state.next = () => {
-          let pick;
-          do {
-            pick = Math.floor(Math.random() * slides.length);
-          } while (pick === current);
-          loadSlide(slides[pick]);
-          slides[current].classList.remove("on");
-          slides[pick].classList.add("on");
-          current = pick;
-          schedule(state);
+        const state = {
+          card: cardEl,
+          slides,
+          current,
+          timer: 0,
+          visible: false,
+          next: null,
         };
+
+        if (slides.length > 1 && !reduced.matches) {
+          state.next = () => {
+            let pick;
+            do {
+              pick = Math.floor(Math.random() * slides.length);
+            } while (pick === state.current);
+            loadSlide(slides[pick]);
+            slides[state.current].classList.remove("on");
+            slides[pick].classList.add("on");
+            state.current = pick;
+            schedule(state);
+          };
+        }
 
         cardStates.set(cardEl, state);
         slidesObserver.observe(cardEl);

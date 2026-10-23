@@ -1,0 +1,409 @@
+{
+  "title": "Our Projects",
+  "arrow": "→",
+  "settings": {
+    "interval": 4500,
+    "jitter": 2500
+  },
+  "labels": {
+    "all": "All",
+    "search": "Search projects",
+    "filter": "Filter by category",
+    "featured": "Featured",
+    "ongoing": "Ongoing",
+    "finished": "Completed",
+    "empty": "No projects match your search.",
+    "other": "Other",
+    "close": "Close"
+  },
+  "categories": [
+    {
+      "id": "residential-structural-design",
+      "label": "Residential Structural Design"
+    },
+    {
+      "id": "retail-building",
+      "label": "Retail Building"
+    },
+    {
+      "id": "distribution-center",
+      "label": "Distribution Center"
+    },
+    {
+      "id": "commercial-building",
+      "label": "Commercial Building"
+    },
+    {
+      "id": "filling-stations",
+      "label": "Filling Stations"
+    },
+    {
+      "id": "multi-activity-center",
+      "label": "Multi Activity Center"
+    },
+    {
+      "id": "factory-extension",
+      "label": "Factory Extension"
+    },
+    {
+      "id": "sports-and-recreation-complex",
+      "label": "Sports & Recreation Complex"
+    },
+    {
+      "id": "workshop-and-office-building",
+      "label": "Workshop & Office Building"
+    },
+    {
+      "id": "hospital-building-extension",
+      "label": "Hospital Building Extension"
+    },
+    {
+      "id": "pharmaceutical-plant",
+      "label": "Pharmaceutical Plant"
+    },
+    {
+      "id": "hr-center",
+      "label": "HR Center"
+    },
+    {
+      "id": "office-building",
+      "label": "Office Building"
+    },
+    {
+      "id": "industrial-building-extension",
+      "label": "Industrial Building Extension"
+    },
+    {
+      "id": "packing-building",
+      "label": "Packing Building"
+    },
+    {
+      "id": "car-park",
+      "label": "Car Park"
+    },
+    {
+      "id": "head-office-building",
+      "label": "Head Office Building"
+    },
+    {
+      "id": "production-building",
+      "label": "Production Building"
+    },
+    {
+      "id": "university-library",
+      "label": "University Library"
+    }
+  ],
+  "projects": [
+    {
+      "id": "home-project-arjuna",
+      "name": "Home Project — Mr. Arjuna",
+      "category": "residential-structural-design",
+      "year": 2017,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/Arjuna House-Selected (1).jpg",
+        "/resources/img/projects/Arjuna House-Selected (3).jpg"
+      ]
+    },
+    {
+      "id": "cargills-food-city",
+      "name": "Cargills Food City",
+      "category": "retail-building",
+      "year": 2020,
+      "featured": true,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/05 (3).jpg",
+        "/resources/img/projects/05 (4).jpg",
+        "/resources/img/projects/05 (2).jpg"
+      ]
+    },
+    {
+      "id": "cargills-distribution-center",
+      "name": "Cargills Distribution Center",
+      "category": "distribution-center",
+      "year": 2018,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/01 (1).jpg",
+        "/resources/img/projects/01 (2).jpg"
+      ]
+    },
+    {
+      "id": "home-project-cyrill",
+      "name": "Home Project — Mr. Cyrill",
+      "category": "residential-structural-design",
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/House 2.jpg",
+        "/resources/img/projects/House 1.jpg"
+      ]
+    },
+    {
+      "id": "hnb-commercial-building",
+      "name": "Commercial Building",
+      "category": "commercial-building",
+      "year": 2015,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/HNB Kegalle-Selected (2).jpg"
+      ]
+    },
+    {
+      "id": "ioc-filling-stations",
+      "name": "Refurbishing of Existing Filling Stations",
+      "category": "filling-stations",
+      "year": 2015,
+      "featured": true,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/08 (5).jpg",
+        "/resources/img/projects/08 (2).jpg",
+        "/resources/img/projects/08 (3).jpg",
+        "/resources/img/projects/08 (4).jpg"
+      ]
+    },
+    {
+      "id": "eight-storied-multi-activity-center",
+      "name": "Eight Storied Multi Activity Center",
+      "category": "multi-activity-center",
+      "year": 2019,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/Mattakkuliya Building 2.jpg",
+        "/resources/img/projects/Mattakkuliya Building 1.jpg"
+      ]
+    },
+    {
+      "id": "home-project-paul",
+      "name": "Home Project — Mr. Paul",
+      "category": "residential-structural-design",
+      "year": 2011,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/Mr.Paul House 5.jpg",
+        "/resources/img/projects/Mr.Paul House 2.jpg",
+        "/resources/img/projects/Mr.Paul House 3.jpg",
+        "/resources/img/projects/Mr.Paul House 4.jpg"
+      ]
+    },
+    {
+      "id": "phoenix-plastic-factory-extension",
+      "name": "Extension to Existing Building",
+      "category": "factory-extension",
+      "year": 2018,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/Phoenix Horana 4.jpg",
+        "/resources/img/projects/Phoenix Horana 1.jpg",
+        "/resources/img/projects/Phoenix Horana 2.jpg",
+        "/resources/img/projects/Phoenix Horana 3.jpg"
+      ]
+    },
+    {
+      "id": "home-project-fernando",
+      "name": "Home Project — Mrs. K A E A Fernando",
+      "category": "residential-structural-design",
+      "year": 2020,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/Prasantha House (3).jpg",
+        "/resources/img/projects/Prasantha House (4).jpg",
+        "/resources/img/projects/Prasantha House (2).jpg"
+      ]
+    },
+    {
+      "id": "home-project-thusitha",
+      "name": "Home Project — Mr. Thusitha",
+      "category": "residential-structural-design",
+      "year": 2018,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/Thusitha House (1).jpg",
+        "/resources/img/projects/Thusitha House (2).jpg"
+      ]
+    },
+    {
+      "id": "sports-recreation-complex",
+      "name": "Sports & Recreation Complex",
+      "category": "sports-and-recreation-complex",
+      "year": 2017,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/Decathalon (5).jpg",
+        "/resources/img/projects/Decathalon (2).jpg",
+        "/resources/img/projects/Decathalon (3).jpg",
+        "/resources/img/projects/Decathalon (4).jpg"
+      ]
+    },
+    {
+      "id": "assembly-workshop-office-building",
+      "name": "Assembly Workshop & Office Building",
+      "category": "workshop-and-office-building",
+      "year": 2019,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/IDEAL Motors-Selected (4).jpg",
+        "/resources/img/projects/IDEAL Motors-Selected (1).jpg",
+        "/resources/img/projects/IDEAL Motors-Selected (3).jpg"
+      ]
+    },
+    {
+      "id": "kings-hospital-building-extension",
+      "name": "Building Extension",
+      "category": "hospital-building-extension",
+      "year": 2020,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/12 (9).jpg",
+        "/resources/img/projects/12 (10).jpg",
+        "/resources/img/projects/12 (12).jpg"
+      ]
+    },
+    {
+      "id": "melwa-pharma-plant",
+      "name": "Pharma Plant",
+      "category": "pharmaceutical-plant",
+      "year": 2019,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/04 (1).jpg",
+        "/resources/img/projects/04 (3).jpg",
+        "/resources/img/projects/04 (4).jpg",
+        "/resources/img/projects/04 (5).jpg"
+      ]
+    },
+    {
+      "id": "stretchline-hr-center",
+      "name": "HR Center",
+      "category": "hr-center",
+      "year": 2016,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/Stretchline (3).jpg",
+        "/resources/img/projects/Stretchline (4).jpg",
+        "/resources/img/projects/Stretchline (2).jpg"
+      ]
+    },
+    {
+      "id": "8d-shell-one-office-building",
+      "name": "Office Building",
+      "category": "office-building",
+      "year": 2020,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/2641.jpg"
+      ]
+    },
+    {
+      "id": "wacoal-main-building-extension",
+      "name": "Main Building Extension",
+      "category": "industrial-building-extension",
+      "year": 2022,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/WACOAL (2).jpg",
+        "/resources/img/projects/WACOAL (1).jpg"
+      ]
+    },
+    {
+      "id": "atg-packing-building",
+      "name": "Packing Building",
+      "category": "packing-building",
+      "year": 2021,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/03 (6).jpg",
+        "/resources/img/projects/03 (7).jpg",
+        "/resources/img/projects/03 (3).jpg",
+        "/resources/img/projects/03 (5).jpg"
+      ]
+    },
+    {
+      "id": "two-story-car-park",
+      "name": "Two Story Car Park",
+      "category": "car-park",
+      "year": 2021,
+      "featured": true,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/06 (12).jpg",
+        "/resources/img/projects/06 (8).jpg",
+        "/resources/img/projects/06 (10).jpg",
+        "/resources/img/projects/06 (11).jpg"
+      ]
+    },
+    {
+      "id": "darinton-head-office",
+      "name": "Head Office Building",
+      "category": "head-office-building",
+      "year": 2016,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/07 (3).jpg",
+        "/resources/img/projects/07 (2).jpg"
+      ]
+    },
+    {
+      "id": "mrf-building-extension",
+      "name": "Extension to Existing Building",
+      "category": "industrial-building-extension",
+      "year": 2013,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/19 (5).jpg",
+        "/resources/img/projects/19 (1).jpg",
+        "/resources/img/projects/19 (3).jpg",
+        "/resources/img/projects/19 (4).jpg"
+      ]
+    },
+    {
+      "id": "renuka-production-building",
+      "name": "Production Building",
+      "category": "production-building",
+      "year": 2020,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/11 (5).jpg",
+        "/resources/img/projects/11 (2).jpg",
+        "/resources/img/projects/11 (3).jpg",
+        "/resources/img/projects/11 (4).jpg"
+      ]
+    },
+    {
+      "id": "uva-wellassa-library",
+      "name": "Library Building",
+      "category": "university-library",
+      "year": 2019,
+      "featured": false,
+      "ongoing": false,
+      "images": [
+        "/resources/img/projects/10 (1).jpg",
+        "/resources/img/projects/10 (2).jpg",
+        "/resources/img/projects/10 (4).jpg",
+        "/resources/img/projects/10 (5).jpg"
+      ]
+    }
+  ]
+}
