@@ -136,7 +136,6 @@
     --icon-size: 1.25rem;
     --logo-height: 2.625rem;
     --line-thick: 0.125rem;
-    --glass-blur-small: blur(6px);
     --border-radius-pill: 999px;
     --mix-small: 5%;
     --mix-medium: 10%;
@@ -227,7 +226,6 @@
     --avatar-medium: clamp(120px, 200px, 75vw);
     --avatar-large: clamp(120px, 220px, 80vw);
     --team-description-width: 720px;
-    --team-card-height: 380px;
     --team-photo-background: white;
     --team-background: var(--homepage-services-background);
 
@@ -294,6 +292,16 @@
     --projects-grid-close-icon-size: 1.25rem;
     --projects-grid-close-icon-stroke: 1.8;
 
+    /* Services page */
+    --services-background: var(--base);
+    --services-mute: color-mix(in srgb, var(--color) 75%, transparent);
+    --services-block-gap: clamp(3rem, 8vw, 7rem);
+    --services-card-gap: clamp(1.5rem, 3vw, 2.5rem);
+    --services-card-padding: clamp(1.5rem, 4vw, 3.5rem);
+    --services-title-padding: clamp(1.25rem, 3vw, 2rem);
+    --services-bullet-gap: 0.75rem;
+    --services-bullet-indent: 1.25rem;
+    --services-bullet-column-min: 18rem;
 
     /* Backgrounds (built from --accent and --base, so both themes follow automatically) */
     --edge-fade: linear-gradient(transparent, transparent);
@@ -302,9 +310,6 @@
         radial-gradient(circle at left, color-mix(in srgb, var(--accent) 22%, var(--base)), var(--base) 65%),
         radial-gradient(circle at right, color-mix(in srgb, var(--accent) 22%, var(--base)), var(--base) 65%),
         var(--base);
-    --homepage-services-alt-background:
-        var(--edge-fade),
-        radial-gradient(circle at right, color-mix(in srgb, var(--accent) 28%, var(--base)), var(--base) 70%);
     --homepage-about-background:
         var(--edge-fade),
         radial-gradient(circle at right, color-mix(in srgb, var(--accent) 25%, var(--base)), var(--base) 70%);
@@ -320,19 +325,7 @@
             radial-gradient(circle at right, color-mix(in srgb, var(--accent) 22%, var(--base)), var(--base) 65%),
             var(--base);
 
-    /* Backgrounds · Pages */
-    --contact-banner-background: color-mix(in srgb, var(--base) 60%, transparent 40%);
-    --projects-banner-background: color-mix(in srgb, var(--base) 40%, transparent 60%);
-    --services-banner-background: color-mix(in srgb, var(--base) 40%, transparent 60%);
     --contact-form-background: color-mix(in srgb, var(--accent) 40%, var(--base) 60%);
-    --admin-main-background:
-        radial-gradient(circle at left, color-mix(in srgb, var(--accent) 22%, transparent), transparent 50%),
-        radial-gradient(circle at right, color-mix(in srgb, var(--accent) 22%, transparent), transparent 50%),
-        var(--base);
-    --admin-webeditor-background:
-        radial-gradient(circle at left, color-mix(in srgb, var(--accent) 22%, transparent), transparent 50%),
-        radial-gradient(circle at right, color-mix(in srgb, var(--accent) 22%, transparent), transparent 50%),
-        var(--base);
     --footer-background: #1f1f1f;
 }
 

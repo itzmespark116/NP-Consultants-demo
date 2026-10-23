@@ -1,0 +1,101 @@
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+/* ─────────────────────────────── services-blocks.css ──────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Rules are scoped under .services. Service cards stack vertically; their bullet lists adapt to width. */
+/* Wrappers animate; inner cards handle hover interaction.                                    */
+
+.services {
+    margin-top: calc(var(--nav-height) + var(--grid-height-small));
+    padding: var(--padding-large) var(--padding-medium);
+    display: flex;
+    flex-direction: column;
+    gap: var(--services-block-gap);
+    background: var(--services-background);
+}
+
+.services .list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--services-block-gap);
+}
+
+.services .item {
+    min-width: 0;
+}
+
+.services .block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--services-card-gap);
+    padding: var(--services-card-padding);
+    background: var(--glass);
+    border: var(--border-width) solid var(--border);
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--glass-rim);
+}
+
+.services .text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xsmall);
+    min-width: 0;
+}
+
+.services h3 {
+    margin: 0;
+    padding-bottom: var(--services-title-padding);
+    font-size: var(--font-large);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-compact);
+    letter-spacing: var(--letter-spacing);
+    color: var(--color);
+    border-bottom: var(--border-width) solid transparent;
+    border-image: var(--splitter) 1;
+}
+
+.services .text p {
+    margin: 0;
+    font-size: var(--font-medium);
+    line-height: var(--line-height-base);
+    color: var(--services-mute);
+}
+
+.services ul {
+    margin: 0;
+    padding-inline-start: var(--services-bullet-indent);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--services-bullet-column-min)), 1fr));
+    gap: var(--services-bullet-gap) var(--gap-large);
+    color: var(--services-mute);
+    font-size: var(--font-medium);
+    line-height: var(--line-height-compact);
+}
+
+.services li::marker {
+    color: var(--color-mute);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .services .item {
+        opacity: 0;
+        transform: translateY(var(--offset-small));
+    }
+
+    .services .item.animate {
+        animation: services-in var(--transition-large) var(--ease-out) calc(var(--stagger) * var(--i, 0)) both;
+    }
+}
+
+@keyframes services-in {
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (max-width: 43.75rem) {
+    .services {
+        padding: var(--padding-medium) var(--padding-small);
+    }
+}
