@@ -3,7 +3,7 @@
 /* ─────────────────────────────── contact-map.css ──────────────────────────────── */
 /* ──────────────────────────────────────────────────────────────────────────────── */
 /* <section class="map"> is written by contact-map.js (one Google Maps iframe). Rules are scoped under .map.     */
-/* Top margin clears the fixed nav and the full-height banner (see contact-banner.css). No hover.                */
+/* Top margin clears the fixed nav and the full-height banner (see sub-banner.css). No hover.                    */
 /* Theme : Google's embed has no dark mode, so --map-filter (root.css) recolors the iframe per theme.            */
 
 .map {

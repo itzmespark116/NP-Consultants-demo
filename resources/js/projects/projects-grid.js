@@ -5,7 +5,7 @@
 // File Type : Writer (InnerHTML)
 // Data      : paths.json keys "projects" and "placeholders" (kind "project")
 // Target    : <section class="projects-grid"></section>
-// Order     : category groups as listed in JSON; inside a group ongoing first, then featured, then newest year.
+// Order     : category groups as listed in JSON; inside a group featured first, then ongoing, then newest year.
 // Cards swap their images at random (timing from JSON "settings"); a missing image shows the placeholder.
 
 import { getPaths, resolvePath } from "../modules/paths.js";
@@ -30,10 +30,10 @@ import { getPaths, resolvePath } from "../modules/paths.js";
 
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  // ongoing first, then featured, then newest year
+  // featured first, then ongoing, then newest year
   const compare = (a, b) =>
-    (b.ongoing ? 1 : 0) - (a.ongoing ? 1 : 0) ||
     (b.featured ? 1 : 0) - (a.featured ? 1 : 0) ||
+    (b.ongoing ? 1 : 0) - (a.ongoing ? 1 : 0) ||
     (Number(b.year) || 0) - (Number(a.year) || 0);
 
   async function write() {
@@ -47,9 +47,11 @@ import { getPaths, resolvePath } from "../modules/paths.js";
           return r.json();
         }),
         fetch(
-          paths.placeholders || resolvePath("/resources/data/placeholders.json"),
+          paths.placeholders ||
+            resolvePath("/resources/data/placeholders.json"),
         ).then((r) => {
-          if (!r.ok) throw new Error(`HTTP ${r.status} fetching placeholders.json`);
+          if (!r.ok)
+            throw new Error(`HTTP ${r.status} fetching placeholders.json`);
           return r.json();
         }),
       ]);
@@ -73,7 +75,11 @@ import { getPaths, resolvePath } from "../modules/paths.js";
         ...category,
         projects: [],
       }));
-      const other = { id: "other", label: labels.other || "Other", projects: [] };
+      const other = {
+        id: "other",
+        label: labels.other || "Other",
+        projects: [],
+      };
       (data.projects || []).forEach((project, index) => {
         const entry = { ...project, id: project.id || `project-${index}` };
         (
@@ -86,7 +92,9 @@ import { getPaths, resolvePath } from "../modules/paths.js";
 
       const projectById = new Map();
       const status = (project) =>
-        project.ongoing ? (labels.ongoing || "Ongoing") : (labels.finished || "Completed");
+        project.ongoing
+          ? labels.ongoing || "Ongoing"
+          : labels.finished || "Completed";
 
       const card = (project, group) => {
         projectById.set(project.id, project);
@@ -103,13 +111,20 @@ import { getPaths, resolvePath } from "../modules/paths.js";
         ]
           .join(" ")
           .toLowerCase();
+        const leftTags = project.ongoing
+          ? `<span class="tags tags-left"><span class="status"><span class="dot"></span>${escapeHTML(labels.ongoing || "Ongoing")}</span></span>`
+          : "";
+        const rightTags = project.featured
+          ? `<span class="tags tags-right"><span class="badge">${escapeHTML(labels.featured)}</span></span>`
+          : "";
         return `
                   <div class="item" data-category="${escapeHTML(group.id)}" data-search="${escapeHTML(text)}">
-                      <button type="button" class="card${project.ongoing ? " ongoing" : ""}" data-id="${escapeHTML(project.id)}"
+                      <button type="button" class="card${project.featured ? " featured" : ""}${project.ongoing ? " ongoing" : ""}" data-id="${escapeHTML(project.id)}"
                           aria-label="${escapeHTML(`${project.name}, ${project.type}, ${project.year}, ${status(project)}`)}">
-                          ${project.featured ? `<span class="badge">${escapeHTML(labels.featured)}</span>` : ""}
-                          <span class="slides">${images.map((src) => `<img src="${escapeHTML(resolvePath(src))}" alt="" loading="lazy" decoding="async">`).join("")}</span>
-                          <span class="info">
+                          ${leftTags}
+                          ${rightTags}
+                          <span class="slides">${images.map((src) => `<img data-src="${escapeHTML(resolvePath(src))}" alt="" loading="lazy" decoding="async">`).join("")}</span>
+                          <span class="info" data-arrow="${escapeHTML(data.arrow ?? "→")}">
                               <span class="name">${escapeHTML(project.name)}</span>
                               <span class="meta">${escapeHTML(project.type)} · ${escapeHTML(project.year)}</span>
                           </span>
@@ -121,7 +136,7 @@ import { getPaths, resolvePath } from "../modules/paths.js";
       const groupHTML = filled
         .map(
           (group, index) => `
-              <div class="group" data-category="${escapeHTML(group.id)}" style="--i:${index + 3}">
+              <div class="group" data-category="${escapeHTML(group.id)}" style="--i:${index + 2}">
                   <h3 class="label">${escapeHTML(group.label)}</h3>
                   <div class="grid">${group.projects.map((project) => card(project, group)).join("")}</div>
               </div>`,
@@ -136,20 +151,23 @@ import { getPaths, resolvePath } from "../modules/paths.js";
         .join("");
 
       section.innerHTML = `
-              <div class="title" style="--i:1"><h2>${escapeHTML(data.title)}</h2></div>
-              ${data.description ? `<p class="description" style="--i:2">${escapeHTML(data.description)}</p>` : ""}
-              <div class="controls" style="--i:2">
+              <div class="controls" style="--i:1">
                   <div class="filters" role="group" aria-label="${escapeHTML(labels.filter)}">${chips}</div>
-                  <input class="search" type="search" placeholder="${escapeHTML(labels.search)}" aria-label="${escapeHTML(labels.search)}" autocomplete="off">
+                  <label class="search-field">
+                      <svg class="search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3" stroke="currentColor" stroke-width="1.8"></circle><path d="m15.5 15.5 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+                      <input class="search" type="search" placeholder="${escapeHTML(labels.search)}" aria-label="${escapeHTML(labels.search)}" autocomplete="off">
+                  </label>
               </div>
               <div class="groups">${groupHTML}</div>
               <p class="empty" hidden>${escapeHTML(labels.empty)}</p>
               <dialog class="popup" aria-labelledby="projects-grid-popup-title">
-                  <button type="button" class="close" aria-label="${escapeHTML(labels.close)}">×</button>
+                  <button type="button" class="close" aria-label="${escapeHTML(labels.close)}">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+                  </button>
                   <div class="sheet"></div>
               </dialog>`;
 
-      section.querySelectorAll("img").forEach(guard);
+      section.querySelectorAll(".slides img").forEach(guard);
 
       // ───────────── filter + search (cards stay in the DOM, so image timers keep running) ─────────────
       const empty = section.querySelector(".empty");
@@ -179,7 +197,9 @@ import { getPaths, resolvePath } from "../modules/paths.js";
         active = chip.dataset.filter;
         section
           .querySelectorAll(".chip")
-          .forEach((el) => el.setAttribute("aria-pressed", String(el === chip)));
+          .forEach((el) =>
+            el.setAttribute("aria-pressed", String(el === chip)),
+          );
         apply();
       });
 
@@ -191,40 +211,62 @@ import { getPaths, resolvePath } from "../modules/paths.js";
       // ───────────── random image swap per card ─────────────
       const interval = settings.interval ?? 4500;
       const jitter = settings.jitter ?? 2500;
+      const cardStates = new Map();
+
+      const loadSlide = (img) => {
+        if (!img.hasAttribute("data-src")) return;
+        img.src = img.dataset.src;
+        img.removeAttribute("data-src");
+      };
+
+      const schedule = (state) => {
+        clearTimeout(state.timer);
+        if (
+          state.visible &&
+          !document.hidden &&
+          !state.card.closest(".item").hidden &&
+          !state.card.closest(".group").hidden
+        ) {
+          state.timer = setTimeout(state.next, interval + Math.random() * jitter);
+        }
+      };
+
+      const slidesObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const state = cardStates.get(entry.target);
+          if (!state) return;
+          state.visible = entry.isIntersecting;
+          schedule(state);
+        });
+      });
 
       section.querySelectorAll(".card").forEach((cardEl) => {
         const slides = [...cardEl.querySelectorAll(".slides img")];
         if (!slides.length) return;
         let current = Math.floor(Math.random() * slides.length);
+        loadSlide(slides[current]);
         slides[current]?.classList.add("on");
         if (slides.length < 2 || reduced.matches) return;
 
-        let timer = 0;
-        let visible = false;
-
-        const next = () => {
+        const state = { card: cardEl, timer: 0, visible: false, next: null };
+        state.next = () => {
           let pick;
           do {
             pick = Math.floor(Math.random() * slides.length);
           } while (pick === current);
+          loadSlide(slides[pick]);
           slides[current].classList.remove("on");
           slides[pick].classList.add("on");
           current = pick;
-          schedule();
+          schedule(state);
         };
 
-        // pauses while off screen, hidden by a filter, or in a background tab
-        const schedule = () => {
-          clearTimeout(timer);
-          if (visible && !document.hidden)
-            timer = setTimeout(next, interval + Math.random() * jitter);
-        };
+        cardStates.set(cardEl, state);
+        slidesObserver.observe(cardEl);
+      });
 
-        new IntersectionObserver((entries) => {
-          visible = entries[0].isIntersecting;
-          schedule();
-        }).observe(cardEl);
-        document.addEventListener("visibilitychange", schedule);
+      document.addEventListener("visibilitychange", () => {
+        cardStates.forEach(schedule);
       });
 
       // ───────────── popup ─────────────

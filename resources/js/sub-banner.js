@@ -1,13 +1,13 @@
 // ────────────────────────────────────────────────────────────────────────────────
 // ──────────────────────────────── NP Consultants ────────────────────────────────
-// ────────────────────────────── contact-banner.js ───────────────────────────────
+// ───────────────────────────────── sub-banner.js ────────────────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
 // File Type : Writer (InnerHTML) + scroll behaviour
-// Data      : paths.json -> contactPage (banner.title)
+// Data      : paths.json -> banner data source from data-source (banner.title or title)
 // Target    : <div class="banner"></div>  (load with <script type="module">)
 // Adds the "scrolled" class to the banner once the page is scrolled past the threshold.
 
-import { getPaths } from "../modules/paths.js";
+import { getPaths } from "./modules/paths.js";
 
 (() => {
   const banner = document.querySelector(".banner");
@@ -35,13 +35,20 @@ import { getPaths } from "../modules/paths.js";
   async function write() {
     try {
       const paths = await getPaths();
-      const data = await fetch(paths.contactPage || paths["contact-page"]).then(
-        (r) => r.json(),
-      );
+      const source = banner.dataset.source;
+      const url = paths[source];
+      if (!url) throw new Error(`Missing banner data path for "${source}"`);
 
-      banner.innerHTML = `<h1>${escapeHTML(data?.banner?.title)}</h1>`;
+      const response = await fetch(url);
+      if (!response.ok)
+        throw new Error(`HTTP ${response.status} fetching banner data`);
+      const data = await response.json();
+      const title = data?.banner?.title ?? data?.title;
+      if (!title) throw new Error(`Missing banner title for "${source}"`);
+
+      banner.innerHTML = `<h1>${escapeHTML(title)}</h1>`;
     } catch (err) {
-      console.error("Failed to render contact banner:", err);
+      console.error("Failed to render sub-page banner:", err);
     }
   }
 

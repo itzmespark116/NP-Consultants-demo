@@ -252,24 +252,32 @@
     --map-filter: invert(1) hue-rotate(180deg) brightness(0.8) contrast(0.9) saturate(0.6);
 
     /* Projects · Grid */
-    --projects-grid-title-padding: clamp(14px, 2vw, 20px);
-    --projects-grid-title-margin: clamp(20px, 3vw, 32px);
     --projects-grid-text-padding: clamp(4px, 1vw, 20px);
-    --projects-grid-description-width: 720px;
     --projects-grid-search-width: 20rem;
+    --projects-grid-search-icon-size: 1rem;
+    --projects-grid-search-icon-inset: 1rem;
+    --projects-grid-search-icon-gap: 0.6rem;
     --projects-grid-chip-padding: 0.5rem 1.1rem;
     --projects-grid-card-min: 280px;
     --projects-grid-card-ratio: 4 / 3;
     --projects-grid-border-width: 1px;
     --projects-grid-border-mix: 55%;
     --projects-grid-glow: 1.5rem;
+    --projects-grid-glow-mix: 24%;
+    --projects-grid-glow-scale: 0.88;
+    --projects-grid-glow-spread: 70%;
     --projects-grid-zoom-time: 1.4s;
+    --projects-grid-dim: 0.55;
+    --projects-grid-desaturate: 0.6;
+    --projects-grid-press: 0.985;
+    --projects-grid-arrow-size: 2.25rem;
+    --projects-grid-close-rotate: 90deg;
+    --projects-grid-gallery-scale: 1.03;
     --projects-grid-pulse: 2s;
     --projects-grid-underline: 2.5rem;
     --projects-grid-dot-size: 0.4rem;
     --projects-grid-tag-gap: 0.4rem;
     --projects-grid-meta-spacing: 0.06em;
-    --projects-grid-glass: rgba(0, 0, 0, 0.45);
     --projects-grid-scrim: linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, transparent 35%);
     --projects-grid-fade: 1.2s;
     --projects-grid-card-color: #f4f5f8;
@@ -283,6 +291,8 @@
     --projects-grid-popup-background: color-mix(in srgb, var(--accent) 12%, var(--base));
     --projects-grid-backdrop: color-mix(in srgb, var(--base) 70%, transparent);
     --projects-grid-close-size: 2.5rem;
+    --projects-grid-close-icon-size: 1.25rem;
+    --projects-grid-close-icon-stroke: 1.8;
 
 
     /* Backgrounds (built from --accent and --base, so both themes follow automatically) */

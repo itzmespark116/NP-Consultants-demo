@@ -3,48 +3,21 @@
 /* ────────────────────────────── projects-grid.css ─────────────────────────────── */
 /* ──────────────────────────────────────────────────────────────────────────────── */
 /* Projects page grid: filter chips, search, category groups, popup.                      */
-/* Intro : wrappers (.title, .controls, .group) animate. Hover : .card, .chip, img.       */
-/* Border : finished = accent, ongoing = amber (--status is set per card).                */
+/* Intro : wrappers (.controls, .group) animate. Hover : .card, .chip, img.              */
+/* Border : featured = accent, ongoing = amber (--status is set per card).                */
 
-@import url(root.css);
 
 .projects-grid {
     box-sizing: border-box;
     min-height: 100vh;
     min-height: 100dvh;
+    margin-top: calc(var(--nav-height) + var(--grid-height-small));
     padding: var(--padding-large) var(--padding-medium);
     background: var(--projects-grid-background);
 }
 
 .projects-grid [hidden] {
     display: none;
-}
-
-/* ─────────────────────────────────── header ─────────────────────────────────── */
-
-.projects-grid .title {
-    padding-bottom: var(--projects-grid-title-padding);
-    margin-bottom: var(--projects-grid-title-margin);
-    border-bottom: var(--border-width) solid var(--color);
-    border-image: var(--splitter) 1;
-}
-
-.projects-grid h2 {
-    margin: 0;
-    padding: 0 var(--projects-grid-text-padding);
-    color: var(--color);
-    font-size: var(--font-xlarge);
-    font-weight: var(--font-weight-light);
-    line-height: var(--line-height-tight);
-}
-
-.projects-grid .description {
-    max-width: var(--projects-grid-description-width);
-    margin: 0 0 var(--projects-grid-title-margin);
-    padding: 0 var(--projects-grid-text-padding);
-    color: var(--color-mute);
-    font-size: var(--font-medium);
-    line-height: var(--line-height-base);
 }
 
 /* ────────────────────────────── filters and search ───────────────────────────── */
@@ -55,7 +28,7 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--gap-small);
-    margin: 0 0 var(--projects-grid-title-margin);
+    margin: 0 0 var(--gap-medium);
     padding: 0 var(--projects-grid-text-padding);
 }
 
@@ -76,8 +49,8 @@
     background: transparent;
     border: var(--border-width) solid var(--border);
     border-radius: var(--border-radius-pill);
-    transition: color var(--transition-small) var(--ease), background var(--transition-small) var(--ease),
-        border-color var(--transition-small) var(--ease), transform var(--transition-small) var(--ease);
+    transition: color var(--transition) var(--ease), background var(--transition) var(--ease),
+        border-color var(--transition) var(--ease), transform var(--transition) var(--ease);
 }
 
 .projects-grid .chip:hover {
@@ -86,17 +59,41 @@
     transform: translateY(var(--hover-lift));
 }
 
+.projects-grid .chip:active {
+    transform: scale(var(--press));
+}
+
 .projects-grid .chip[aria-pressed="true"] {
     color: var(--color);
     background: color-mix(in srgb, var(--accent) var(--mix-glass), transparent);
     border-color: var(--accent);
 }
 
-.projects-grid .search {
+.projects-grid .search-field {
+    position: relative;
     box-sizing: border-box;
     width: var(--projects-grid-search-width);
     max-width: 100%;
+}
+
+.projects-grid .search-icon {
+    position: absolute;
+    top: 50%;
+    left: var(--projects-grid-search-icon-inset);
+    width: var(--projects-grid-search-icon-size);
+    height: var(--projects-grid-search-icon-size);
+    color: var(--color-mute);
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.projects-grid .search {
+    box-sizing: border-box;
+    width: 100%;
     padding: var(--projects-grid-chip-padding);
+    padding-left: calc(
+        var(--projects-grid-search-icon-inset) + var(--projects-grid-search-icon-size) + var(--projects-grid-search-icon-gap)
+    );
     color: var(--color);
     font-family: inherit;
     font-size: var(--font-small);
@@ -104,7 +101,8 @@
     background: var(--glass);
     border: var(--border-width) solid var(--border);
     border-radius: var(--border-radius-pill);
-    transition: border-color var(--transition-small) var(--ease);
+    transition: border-color var(--transition) var(--ease), background var(--transition) var(--ease),
+        box-shadow var(--transition) var(--ease);
 }
 
 .projects-grid .search::placeholder {
@@ -113,6 +111,13 @@
 
 .projects-grid .search:hover {
     border-color: var(--accent);
+}
+
+.projects-grid .search:focus {
+    outline: none;
+    background: var(--glass-strong);
+    border-color: var(--accent);
+    box-shadow: var(--glow);
 }
 
 .projects-grid :is(.chip, .search, .close):focus-visible {
@@ -182,15 +187,38 @@
     text-align: left;
     cursor: pointer;
     background: var(--base);
-    border: var(--projects-grid-border-width) solid color-mix(in srgb, var(--status) var(--projects-grid-border-mix), transparent);
+    border: var(--projects-grid-border-width) solid var(--border);
     border-radius: var(--border-radius-large);
     box-shadow: var(--shadow-small);
-    transition: transform var(--transition-medium) var(--ease), box-shadow var(--transition-medium) var(--ease),
-        border-color var(--transition-medium) var(--ease);
+    transition: transform var(--transition) var(--ease), box-shadow var(--transition) var(--ease),
+        border-color var(--transition) var(--ease), opacity var(--transition) var(--ease),
+        filter var(--transition) var(--ease);
+}
+
+.projects-grid .card.featured {
+    border-color: color-mix(in srgb, var(--status) var(--projects-grid-border-mix), transparent);
 }
 
 .projects-grid .card.ongoing {
     --status: var(--amber);
+}
+
+.projects-grid .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: radial-gradient(ellipse at 50% 100%, color-mix(in srgb, var(--status) var(--projects-grid-glow-mix), transparent), transparent var(--projects-grid-glow-spread));
+    border-radius: inherit;
+    opacity: 0;
+    transform: scale(var(--projects-grid-glow-scale));
+    transition: opacity var(--transition) var(--ease), transform var(--transition) var(--ease-out);
+    pointer-events: none;
+}
+
+.projects-grid .card:is(:hover, :focus-visible)::before {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .projects-grid .slides {
@@ -228,14 +256,14 @@
 .projects-grid .info {
     position: absolute;
     inset: 0;
-    z-index: 1;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     gap: var(--margin-small);
     padding: var(--padding-small);
     background: var(--projects-grid-overlay);
-    transition: transform var(--transition-medium) var(--ease-out);
+    transition: transform var(--transition) var(--ease-out);
 }
 
 .projects-grid .name {
@@ -255,7 +283,7 @@
     height: var(--border-width);
     margin-top: var(--margin-small);
     background: var(--status);
-    transition: width var(--transition-medium) var(--ease-out);
+    transition: width var(--transition) var(--ease-out);
 }
 
 .projects-grid .meta {
@@ -267,11 +295,25 @@
     text-transform: uppercase;
 }
 
-/* status (ongoing / completed) top left, featured top right */
-.projects-grid :is(.status, .badge) {
+/* Wrappers anchor the tags; the tags themselves stay in normal flow. */
+.projects-grid .tags {
     position: absolute;
     top: var(--padding-xsmall);
-    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--projects-grid-tag-gap);
+    z-index: 3;
+}
+
+.projects-grid .tags-left {
+    left: var(--padding-xsmall);
+}
+
+.projects-grid .tags-right {
+    right: var(--padding-xsmall);
+}
+
+.projects-grid :is(.status, .badge) {
     display: inline-flex;
     align-items: center;
     gap: var(--projects-grid-tag-gap);
@@ -284,23 +326,21 @@
 }
 
 .projects-grid .status {
-    left: var(--padding-xsmall);
-    color: var(--projects-grid-badge-color);
-    background: var(--projects-grid-glass);
-    backdrop-filter: var(--glass-blur-light);
-    border: var(--border-width) solid color-mix(in srgb, var(--status) var(--mix-large), transparent);
+    color: var(--status);
+    background: transparent;
+    border: var(--border-width) solid var(--status);
+    text-transform: uppercase;
 }
 
 .projects-grid .dot {
-    width: var(--projects-grid-dot-size);
-    height: var(--projects-grid-dot-size);
+    width: calc(var(--projects-grid-dot-size) * 1.75);
+    height: calc(var(--projects-grid-dot-size) * 1.75);
     background: var(--status);
     border-radius: var(--border-radius-max);
     box-shadow: 0 0 var(--projects-grid-dot-size) var(--status);
 }
 
 .projects-grid .badge {
-    right: var(--padding-xsmall);
     color: var(--projects-grid-badge-color);
     text-transform: uppercase;
     background: var(--projects-grid-badge-background);
@@ -312,26 +352,74 @@
 }
 
 .projects-grid .card:is(:hover, :focus-visible) {
-    border-color: var(--status);
-    transform: translateY(var(--hover-lift));
     box-shadow: var(--shadow-large), 0 0 var(--projects-grid-glow) color-mix(in srgb, var(--status) var(--mix-border), transparent);
 }
 
-.projects-grid .card:is(:hover, :focus-visible) .slides img {
-    transform: scale(var(--zoom-large));
-}
-
-.projects-grid .card:is(:hover, :focus-visible) .info {
-    transform: translateY(calc(var(--text-shift) * -1));
+.projects-grid .card.featured:is(:hover, :focus-visible) {
+    border-color: var(--status);
 }
 
 .projects-grid .card:is(:hover, :focus-visible) .name::after {
     width: var(--projects-grid-underline);
 }
 
+/* arrow cue, slides in on hover */
+.projects-grid .info::after {
+    content: attr(data-arrow);
+    position: absolute;
+    right: var(--padding-small);
+    bottom: var(--padding-small);
+    display: grid;
+    place-items: center;
+    width: var(--projects-grid-arrow-size);
+    height: var(--projects-grid-arrow-size);
+    color: var(--projects-grid-badge-color);
+    font-size: var(--font-medium);
+    line-height: var(--line-height-tight);
+    background: transparent;
+    border: 0;
+    opacity: 0;
+    transform: translateX(calc(var(--text-shift) * -1));
+    transition: opacity var(--transition) var(--ease), transform var(--transition) var(--ease-out);
+}
+
+.projects-grid .card:is(:hover, :focus-visible) .info::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.projects-grid .card:is(:hover, :focus-visible) .status {
+    border-color: var(--status);
+}
+
+.projects-grid .card:is(:hover, :focus-visible) .dot {
+    box-shadow: 0 0 calc(var(--projects-grid-dot-size) * 2) var(--status);
+}
+
+.projects-grid .card:active {
+    transform: scale(var(--projects-grid-press));
+}
+
+/* mouse only: the other cards in the row recede while one is hovered */
+@media (hover: hover) {
+    .projects-grid .grid:has(.card:is(:hover, :focus-visible)) .card:not(:is(:hover, :focus-visible)) {
+        opacity: var(--projects-grid-dim);
+        filter: saturate(var(--projects-grid-desaturate));
+    }
+}
+
+/* touch screens have no hover, so keep the arrow visible */
+@media (hover: none) {
+    .projects-grid .info::after {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 /* ──────────────────────────────────── popup ──────────────────────────────────── */
 
 .projects-grid .popup {
+    margin: auto;
     box-sizing: border-box;
     width: min(var(--projects-grid-popup-width), calc(100% - 2 * var(--padding-xsmall)));
     max-width: none;
@@ -407,18 +495,26 @@ html:has(.projects-grid .popup[open]) {
     padding: 0;
     color: var(--color);
     font-family: inherit;
-    font-size: var(--font-large);
-    line-height: var(--line-height-tight);
     cursor: pointer;
     background: var(--glass-strong);
     border: var(--border-width) solid var(--border);
     border-radius: var(--border-radius-max);
-    transition: border-color var(--transition-small) var(--ease), transform var(--transition-small) var(--ease);
+    transition: border-color var(--transition) var(--ease), transform var(--transition) var(--ease);
+}
+
+.projects-grid .close svg {
+    display: block;
+    width: var(--projects-grid-close-icon-size);
+    height: var(--projects-grid-close-icon-size);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: var(--projects-grid-close-icon-stroke);
+    stroke-linecap: round;
 }
 
 .projects-grid .close:hover {
     border-color: var(--accent);
-    transform: scale(var(--hover-scale));
+    transform: rotate(var(--projects-grid-close-rotate));
 }
 
 .projects-grid .gallery {
@@ -434,17 +530,31 @@ html:has(.projects-grid .popup[open]) {
     object-fit: cover;
     background: var(--base);
     border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-small);
+    transition: transform var(--transition) var(--ease), box-shadow var(--transition) var(--ease),
+        opacity var(--transition) var(--ease);
+}
+
+.projects-grid .gallery img:hover {
+    transform: scale(var(--projects-grid-gallery-scale));
+    box-shadow: var(--shadow-large);
+}
+
+@media (hover: hover) {
+    .projects-grid .gallery:has(img:hover) img:not(:hover) {
+        opacity: var(--projects-grid-dim);
+    }
 }
 
 /* ───────────────────────────────── animations ───────────────────────────────── */
 
 @media (prefers-reduced-motion: no-preference) {
-    .projects-grid :is(.title, .description, .controls, .group) {
+    .projects-grid :is(.controls, .group) {
         opacity: 0;
         transform: translateY(var(--offset-small));
     }
 
-    .projects-grid.animate :is(.title, .description, .controls, .group) {
+    .projects-grid.animate :is(.controls, .group) {
         animation: projects-grid-in var(--transition-large) var(--ease-out) calc(var(--stagger) * var(--i)) both;
     }
 
@@ -497,7 +607,7 @@ html:has(.projects-grid .popup[open]) {
 
 /* phone: each group becomes a scroll row, the next card peeks in */
 @media (max-width: 43.75rem) {
-    .projects-grid .search {
+    .projects-grid .search-field {
         width: 100%;
     }
 

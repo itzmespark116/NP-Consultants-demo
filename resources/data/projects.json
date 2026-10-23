@@ -1,6 +1,6 @@
 {
   "title": "Our Projects",
-  "description": "A selection of completed and ongoing work across our service areas. Filter by category or search by name, type or year.",
+  "arrow": "→",
   "settings": {
     "interval": 4500,
     "jitter": 2500

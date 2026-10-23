@@ -1,8 +1,8 @@
 /* ──────────────────────────────────────────────────────────────────────────────── */
 /* ──────────────────────────────── NP Consultants ──────────────────────────────── */
-/* ────────────────────────────── contact-banner.css ────────────────────────────── */
+/* ───────────────────────────────── sub-banner.css ─────────────────────────────── */
 /* ──────────────────────────────────────────────────────────────────────────────── */
-/* <div class="banner"> is written by contact-banner.js. Fixed under the nav, it shrinks once the page scrolls. */
+/* <div class="banner"> is written by sub-banner.js. Fixed under the nav, it shrinks once the page scrolls. */
 /* JS toggles "scrolled" (scroll position). It plays a drop-in on load and nothing else is animated.            */
 
 .banner {
