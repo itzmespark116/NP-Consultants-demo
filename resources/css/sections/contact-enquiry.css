@@ -12,10 +12,11 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding-inline: var(--padding-large);
+    padding: var(--padding-large) calc(var(--padding-large) * 2);
 }
 
 .enquiry :is(.info, .form) {
-    margin-block: var(--margin-medium);
+    margin-block: var(--margin-medium) calc(var(--margin-medium) * 1.5) var(--margin-medium);
     padding: var(--padding-medium);
     border: var(--border-width) solid var(--border);
 }
