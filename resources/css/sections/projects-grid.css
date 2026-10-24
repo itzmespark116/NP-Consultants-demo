@@ -611,7 +611,7 @@ html:has(.projects-grid .popup[open]) {
         width: 100%;
     }
 
-    .projects-grid .grid {
+    /* .projects-grid .grid {
         grid-template-columns: none;
         grid-auto-flow: column;
         grid-auto-columns: calc(100% - var(--peek));
@@ -619,6 +619,14 @@ html:has(.projects-grid .popup[open]) {
         overflow-x: auto;
         overscroll-behavior-x: contain;
         scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+    } */
+
+    .projects-grid .grid {
+        grid-template-columns: none;
+        grid-auto-flow: row;
+        padding-block: var(--padding-xsmall);
+        overflow-x: auto;
         scrollbar-width: none;
     }
 

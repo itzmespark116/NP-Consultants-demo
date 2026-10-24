@@ -186,6 +186,7 @@
     --homepage-banner-description-gap: 28px;
     --homepage-banner-description-width: 560px;
     --homepage-banner-actions-gap: 36px;
+    --homepage-banner-glass: var(--glass);
 
     /* Homepage · Services */
     --homepage-services-title-padding: clamp(14px, 2vw, 20px);
@@ -292,17 +293,6 @@
     --projects-grid-close-icon-size: 1.25rem;
     --projects-grid-close-icon-stroke: 1.8;
 
-    /* Services page */
-    --services-background: var(--base);
-    --services-mute: color-mix(in srgb, var(--color) 75%, transparent);
-    --services-block-gap: clamp(3rem, 8vw, 7rem);
-    --services-card-gap: clamp(1.5rem, 3vw, 2.5rem);
-    --services-card-padding: clamp(1.5rem, 4vw, 3.5rem);
-    --services-title-padding: clamp(1.25rem, 3vw, 2rem);
-    --services-bullet-gap: 0.75rem;
-    --services-bullet-indent: 1.25rem;
-    --services-bullet-column-min: 18rem;
-
     /* Backgrounds (built from --accent and --base, so both themes follow automatically) */
     --edge-fade: linear-gradient(transparent, transparent);
     --homepage-services-background:
@@ -353,9 +343,9 @@
     --shadow-small: 0 6px 18px rgba(15, 23, 42, 0.12);
     --shadow-large: 0 22px 48px rgba(15, 23, 42, 0.25);
 
-    --banner-tint: linear-gradient(180deg, var(--base) 1%, rgba(150, 150, 150, 0.4) 5% 96%, var(--base) 100%);
-    /* --overlay-fade: linear-gradient(to top, black 0%, color-mix(in srgb, black 40%, transparent) 55%, transparent 100%); */
-
+    --banner-tint: linear-gradient(180deg, var(--base) 1%, rgba(150, 150, 150, 0.25) 5% 96%, var(--base) 100%);
+    --overlay-fade: linear-gradient(to top, var(--color) 0%, color-mix(in srgb, var(--color) 16%, transparent) 55%, transparent 100%);
+    --homepage-banner-glass: color-mix(in srgb, var(--glass) 20%, transparent);
     --homepage-services-image-brightness: 1.2;
 
     --map-filter: none;

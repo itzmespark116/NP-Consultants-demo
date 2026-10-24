@@ -56,7 +56,7 @@
     padding: var(--homepage-banner-padding);
     display: flex;
     flex-direction: column;
-    background: var(--glass);
+    background: var(--homepage-banner-glass);
     -webkit-backdrop-filter: var(--glass-blur-light);
     backdrop-filter: var(--glass-blur-light);
     border: var(--border-width) solid var(--border);

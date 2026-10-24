@@ -6,24 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NP Consultants &nbsp;&bull;&nbsp; Home</title>
 
-    <!-- Favicon: set by JS from paths.json; fallback inline -->
-    <link rel="shortcut icon" href="../resources/img/brand/icon_dark.png" type="image/x-icon">
+    <link rel="icon" href="../resources/img/brand/icon_light.png" type="image/png"
+        media="(prefers-color-scheme: light)">
+    <link rel="icon" href="../resources/img/brand/icon_dark.png" type="image/png" media="(prefers-color-scheme: dark)">
 
-    <!-- Global styles -->
     <link rel="stylesheet" href="../resources/css/root.css">
     <link rel="stylesheet" href="../resources/css/body.css">
     <link rel="stylesheet" href="../resources/css/scrollbar.css">
 
-    <!-- Navigation styles -->
     <link rel="stylesheet" href="../resources/css/nav.css">
     <link rel="stylesheet" href="../resources/css/nav-links.css">
     <link rel="stylesheet" href="../resources/css/nav-toggle.css">
 
-    <!-- Button styles -->
     <link rel="stylesheet" href="../resources/css/buttons/button-theme-toggle.css">
     <link rel="stylesheet" href="../resources/css/buttons/button.css">
 
-    <!-- Page section styles -->
     <link rel="stylesheet" href="../resources/css/intro.css">
     <link rel="stylesheet" href="../resources/css/sections/homepage-banner.css">
     <link rel="stylesheet" href="../resources/css/sections/homepage-about.css">
@@ -48,36 +45,19 @@
     </div>
 
     <main>
-        <!-- Header written entirely by nav-header.js via paths.json -->
-        <header id="mainHeader"></header>
 
+        <header id="mainHeader"></header>
         <section class="banner"></section>
         <section id="about-us" class="about"></section>
         <section id="services" class="services"></section>
         <section id="projects" class="projects"></section>
         <section id="team" class="team"></section>
         <section class="cta"></section>
-
         <footer class="footer"></footer>
 
     </main>
 
-    <!-- ── Module loading order ─────────────────────────────────────────────
-         1. intro.js          — sets splash image, starts timer (reads paths.js)
-         2. theme-switch.js   — awaits header, then wires theme toggle
-         3. nav-header.js     — writes <header> markup from paths.json
-         4. nav-writer.js     — fills #navLinks from nav.json
-         5. navbar.js         — scroll-shrink pill listener
-         6. nav-links.js      — active page + sliding underline
-         7. nav-toggle.js     — mobile drawer open/close
-         8. homepage-banner   — hero video + content
-         9. homepage-about    — about cards
-        10. homepage-services — services grid
-        11. homepage-projects — featured projects grid
-        12. team.js           — staff/team section
-        13. homepage-contact  — contact CTA section
-        14. footer.js         — footer section
-    ─────────────────────────────────────────────────────────────────────── -->
+
     <script type="module" src="../resources/js/modules/intro.js"></script>
     <script type="module" src="../resources/js/modules/theme-switch.js"></script>
 

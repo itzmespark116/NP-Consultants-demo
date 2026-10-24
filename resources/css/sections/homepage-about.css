@@ -109,11 +109,12 @@
     margin: 0;
     font-size: var(--font-large);
     font-weight: var(--font-weight-normal);
+    color: var(--homepage-projects-card-color);
 }
 
 .about .overlay p {
     margin: 0;
-    color: var(--color-mute);
+    color: var(--homepage-projects-card-mute);
     font-size: var(--font-small);
     line-height: var(--line-height-base);
 }

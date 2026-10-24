@@ -1,23 +1,23 @@
 /* ──────────────────────────────────────────────────────────────────────────────── */
 /* ──────────────────────────────── NP Consultants ──────────────────────────────── */
-/* ─────────────────────────────── services-blocks.css ──────────────────────────── */
+/* ───────────────────────────── services-blocks.css ────────────────────────────── */
 /* ──────────────────────────────────────────────────────────────────────────────── */
-/* Rules are scoped under .services. Service cards stack vertically; their bullet lists adapt to width. */
-/* Wrappers animate; inner cards handle hover interaction.                                    */
+/* Global tokens only, no section tokens. Rules are scoped under .services.         */
+/* .item animates in (title, text, bullets follow); inner .block handles hover.     */
 
 .services {
     margin-top: calc(var(--nav-height) + var(--grid-height-small));
     padding: var(--padding-large) var(--padding-medium);
     display: flex;
     flex-direction: column;
-    gap: var(--services-block-gap);
-    background: var(--services-background);
+    gap: var(--gap-large);
+    background: var(--homepage-services-background);
 }
 
 .services .list {
     display: flex;
     flex-direction: column;
-    gap: var(--services-block-gap);
+    gap: var(--gap-large);
 }
 
 .services .item {
@@ -27,12 +27,17 @@
 .services .block {
     display: flex;
     flex-direction: column;
-    gap: var(--services-card-gap);
-    padding: var(--services-card-padding);
+    gap: var(--gap-small);
+    padding: var(--padding-medium);
     background: var(--glass);
     border: var(--border-width) solid var(--border);
     border-radius: var(--border-radius-medium);
     box-shadow: var(--glass-rim);
+    transition:
+        transform var(--transition-medium) var(--ease),
+        background var(--transition-medium) var(--ease),
+        border-color var(--transition-medium) var(--ease),
+        box-shadow var(--transition-medium) var(--ease);
 }
 
 .services .text {
@@ -44,8 +49,8 @@
 
 .services h3 {
     margin: 0;
-    padding-bottom: var(--services-title-padding);
-    font-size: var(--font-large);
+    padding-bottom: var(--padding-small);
+    font-size: var(--font-title);
     font-weight: var(--font-weight-medium);
     line-height: var(--line-height-compact);
     letter-spacing: var(--letter-spacing);
@@ -58,32 +63,62 @@
     margin: 0;
     font-size: var(--font-medium);
     line-height: var(--line-height-base);
-    color: var(--services-mute);
+    color: var(--color-mute);
 }
 
 .services ul {
     margin: 0;
-    padding-inline-start: var(--services-bullet-indent);
+    /* padding-inline-start: var(--padding-small); */
+    padding-inline-start: calc(var(--padding-small) + var(--gap-xsmall));
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--services-bullet-column-min)), 1fr));
-    gap: var(--services-bullet-gap) var(--gap-large);
-    color: var(--services-mute);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--grid-height-medium)), 1fr));
+    gap: var(--gap-xsmall) var(--gap-large);
+    color: var(--color-mute);
     font-size: var(--font-medium);
-    line-height: var(--line-height-compact);
+    line-height: var(--line-height-base);
 }
 
 .services li::marker {
-    color: var(--color-mute);
+    color: var(--border);
 }
 
+/* ─────────────────────────────────── Hover ─────────────────────────────────── */
+
+@media (hover: hover) {
+    .services .block:hover {
+        transform: translateY(var(--hover-lift));
+        background: color-mix(in srgb, var(--accent) var(--mix-glass), var(--glass));
+        border-color: color-mix(in srgb, var(--accent) var(--mix-border), var(--border));
+        box-shadow: var(--glass-rim), var(--glow);
+    }
+}
+
+/* ───────────────────────────────── Intro motion ────────────────────────────── */
+
 @media (prefers-reduced-motion: no-preference) {
-    .services .item {
+
+    .services .item,
+    .services h3,
+    .services .text p,
+    .services ul {
         opacity: 0;
         transform: translateY(var(--offset-small));
     }
 
     .services .item.animate {
         animation: services-in var(--transition-large) var(--ease-out) calc(var(--stagger) * var(--i, 0)) both;
+    }
+
+    .services .item.animate h3 {
+        animation: services-in var(--transition-large) var(--ease-out) calc(var(--stagger-start) + var(--stagger) * var(--i, 0)) both;
+    }
+
+    .services .item.animate .text p {
+        animation: services-in var(--transition-large) var(--ease-out) calc(var(--stagger-start) + var(--stagger) * (var(--i, 0) + 1)) both;
+    }
+
+    .services .item.animate ul {
+        animation: services-in var(--transition-large) var(--ease-out) calc(var(--stagger-start) + var(--stagger) * (var(--i, 0) + 2)) both;
     }
 }
 
@@ -93,6 +128,8 @@
         transform: none;
     }
 }
+
+/* ──────────────────────────────── Responsive ───────────────────────────────── */
 
 @media (max-width: 43.75rem) {
     .services {
