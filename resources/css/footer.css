@@ -178,6 +178,7 @@
     align-items: center;
     border-top: var(--footer-border-width) solid var(--color);
     border-image: var(--splitter) 1;
+    background: linear-gradient(180deg, var(--footer-background), var(--base))
 }
 
 .footer .copyright p {
