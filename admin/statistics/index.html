@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <title>Statistics · NP Consultants</title>
+    <link rel="icon" href="../../resources/img/brand/icon_dark.png" type="image/png">
+    <link rel="stylesheet" href="../../resources/css/root.css">
+    <link rel="stylesheet" href="../resources/css/statistics.css">
+    <script src="../resources/js/statistics.js" defer></script>
+</head>
+<body class="admin-statistics">
+    <header class="statistics-topbar">
+        <a class="statistics-brand" href="../" aria-label="Admin home">
+            <span class="statistics-brand__mark" aria-hidden="true">NP</span>
+            <span>NP Consultants <span>Admin</span></span>
+        </a>
+        <nav class="statistics-nav" aria-label="Admin navigation">
+            <a href="../">Content</a>
+            <a href="../webeditor/">Editor</a>
+            <a href="../../home/" target="_blank" rel="noreferrer">View website <span aria-hidden="true">↗</span></a>
+        </nav>
+    </header>
+
+    <main class="statistics-main">
+        <div class="statistics-heading">
+            <div>
+                <p class="statistics-breadcrumb">Admin / Analytics</p>
+                <h1>Website statistics</h1>
+                <p class="statistics-description">Visitor activity measured by CounterAPI.</p>
+            </div>
+            <button id="refresh-statistics" class="statistics-button" type="button">Refresh</button>
+        </div>
+
+        <div id="statistics-message" class="statistics-message" role="status" aria-live="polite" hidden></div>
+
+        <section id="configuration-state" class="statistics-setup" aria-labelledby="setup-title" hidden>
+            <h2 id="setup-title">Connect CounterAPI</h2>
+            <p>Set your CounterAPI workspace in the analytics settings to start collecting traffic. Use public counters; never put an API token in this client-side configuration.</p>
+            <a class="statistics-button" href="../webeditor/?file=analytics.json">Edit analytics settings</a>
+        </section>
+
+        <div id="statistics-content" hidden>
+            <section class="statistics-metrics" aria-label="Traffic summary">
+                <article class="statistics-card">
+                    <h2>Page views</h2>
+                    <p id="metric-total-views" class="statistics-card__value">—</p>
+                    <p class="statistics-card__note">All-time page loads</p>
+                </article>
+                <article class="statistics-card">
+                    <h2>Browser sessions</h2>
+                    <p id="metric-total-sessions" class="statistics-card__value">—</p>
+                    <p class="statistics-card__note">One per browser tab session</p>
+                </article>
+                <article class="statistics-card">
+                    <h2>Views today</h2>
+                    <p id="metric-today-views" class="statistics-card__value">—</p>
+                    <p id="metric-today-date" class="statistics-card__note">UTC</p>
+                </article>
+                <article class="statistics-card">
+                    <h2>Daily average</h2>
+                    <p id="metric-average-views" class="statistics-card__value">—</p>
+                    <p id="metric-average-period" class="statistics-card__note">Page views in selected range</p>
+                </article>
+            </section>
+
+            <section class="statistics-panel" aria-labelledby="traffic-title">
+                <div class="statistics-panel__heading">
+                    <div>
+                        <h2 id="traffic-title">Traffic over time</h2>
+                        <p>Daily page views and browser sessions, grouped by UTC date.</p>
+                    </div>
+                    <label class="statistics-range">
+                        <span>Range</span>
+                        <select id="date-range" aria-label="Chart date range">
+                            <option value="7">7 days</option>
+                            <option value="30" selected>30 days</option>
+                            <option value="90">90 days</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="statistics-legend" aria-label="Chart legend">
+                    <span><i class="statistics-legend__views" aria-hidden="true"></i>Page views</span>
+                    <span><i class="statistics-legend__sessions" aria-hidden="true"></i>Sessions</span>
+                </div>
+                <figure class="statistics-chart">
+                    <svg id="traffic-chart" viewBox="0 0 900 330" role="img" aria-labelledby="chart-title chart-description">
+                        <title id="chart-title">Daily website traffic</title>
+                        <desc id="chart-description">Daily page views and browser sessions in UTC.</desc>
+                    </svg>
+                    <figcaption id="chart-caption">Daily counts use UTC dates. A missing counter is shown as zero.</figcaption>
+                </figure>
+            </section>
+
+            <section class="statistics-panel" aria-labelledby="pages-title">
+                <div class="statistics-panel__heading">
+                    <div>
+                        <h2 id="pages-title">Page performance</h2>
+                        <p>All-time page views recorded for each configured page.</p>
+                    </div>
+                </div>
+                <div id="page-performance" class="statistics-page-list" aria-live="polite"></div>
+            </section>
+
+            <p class="statistics-footnote">These are page-load counts, not verified unique people. Sessions are counted once per browser tab session. Public client-side counters can be affected by automated or repeated requests.</p>
+        </div>
+    </main>
+</body>
+</html>

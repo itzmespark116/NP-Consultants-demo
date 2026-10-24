@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <title>Content editor · NP Consultants</title>
+    <link rel="icon" href="../../resources/img/brand/icon_dark.png" type="image/png">
+    <link rel="stylesheet" href="../../resources/css/root.css">
+    <link rel="stylesheet" href="../resources/css/webeditor.css">
+    <script src="../resources/js/webeditor.js" defer></script>
+</head>
+<body class="admin-editor">
+    <div class="admin-shell">
+        <header class="admin-topbar">
+            <a class="admin-brand" href="../" aria-label="NP Consultants admin home">
+                <span class="admin-brand__mark" aria-hidden="true">NP</span>
+                <span class="admin-brand__name">NP Consultants<span>LOCAL CONTENT STUDIO</span></span>
+            </a>
+            <div class="admin-topbar__meta">
+                <span class="admin-live"><span aria-hidden="true"></span> Browser-based editor</span>
+                <a class="admin-site-link" href="../../home/" target="_blank" rel="noreferrer">View website <span aria-hidden="true">↗</span></a>
+            </div>
+        </header>
+
+        <main class="admin-layout">
+            <aside class="admin-sidebar" aria-label="Content files">
+                <div class="admin-sidebar__intro">
+                    <p class="admin-eyebrow">WORKSPACE</p>
+                    <h1>Content files</h1>
+                    <p>Choose a JSON file to edit. Your changes stay in this browser until you export them.</p>
+                </div>
+
+                <label class="admin-search">
+                    <span class="admin-search__icon" aria-hidden="true">⌕</span>
+                    <span class="admin-visually-hidden">Filter JSON files</span>
+                    <input id="file-search" type="search" placeholder="Find a file…" autocomplete="off">
+                    <kbd>/</kbd>
+                </label>
+
+                <div id="file-list" class="admin-file-list" aria-label="Available JSON files"></div>
+                <p id="file-empty" class="admin-empty-search" hidden>No matching JSON files.</p>
+
+                <div class="admin-sidebar__foot">
+                    <span class="admin-file-count"><span id="file-count">0</span> editable files</span>
+                    <span class="admin-local-note"><span aria-hidden="true">●</span> Local to this browser</span>
+                </div>
+            </aside>
+
+            <section class="admin-workspace" aria-label="JSON editor">
+                <div class="admin-workspace__notice" role="note">
+                    <span class="admin-workspace__notice-icon" aria-hidden="true">i</span>
+                    <p>Edits stay in this browser. Export the JSON and replace the matching file in <code>resources/data/</code> to publish changes.</p>
+                </div>
+
+                <div id="notice" class="admin-notice" role="status" aria-live="polite" hidden>
+                    <span id="notice-text"></span>
+                    <button id="notice-dismiss" type="button" aria-label="Dismiss message">×</button>
+                </div>
+
+                <section id="loading-state" class="admin-state" aria-live="polite">
+                    <span class="admin-spinner" aria-hidden="true"></span>
+                    <p>Loading content files…</p>
+                </section>
+
+                <section id="error-state" class="admin-state admin-state--error" hidden>
+                    <span class="admin-state__icon" aria-hidden="true">!</span>
+                    <h2>Could not open this file</h2>
+                    <p id="error-message"></p>
+                    <button id="retry-load" class="admin-button admin-button--quiet" type="button">Try again</button>
+                </section>
+
+                <div id="editor-workspace" hidden>
+                    <div class="admin-sticky-actions">
+                        <div class="admin-file-actions">
+                            <button id="reset-file" class="admin-button admin-button--quiet" type="button" title="Discard your draft and restore the file as loaded">Reset</button>
+                            <button id="import-trigger" class="admin-button admin-button--quiet" type="button">Import JSON</button>
+                            <button id="copy-json" class="admin-button admin-button--quiet" type="button">Copy JSON</button>
+                            <button id="download-json" class="admin-button admin-button--primary" type="button">Download file <span aria-hidden="true">↓</span></button>
+                            <input id="import-file" type="file" accept="application/json,.json" hidden>
+                        </div>
+                    </div>
+
+                    <header class="admin-file-header">
+                        <div class="admin-file-heading">
+                            <p class="admin-eyebrow">EDITING JSON FILE</p>
+                            <div class="admin-file-heading__title">
+                                <h2 id="file-title"></h2>
+                                <span id="modified-pill" class="admin-modified" hidden>Draft changes</span>
+                            </div>
+                            <p id="file-path" class="admin-file-path"></p>
+                        </div>
+                    </header>
+
+                    <div class="admin-editor-meta">
+                        <p id="file-description"></p>
+                        <span id="save-status" class="admin-save-status" aria-live="polite"></span>
+                    </div>
+
+                    <div class="admin-editor-tabs" role="tablist" aria-label="Editor mode">
+                        <button id="visual-tab" class="admin-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="visual-panel">Visual editor</button>
+                        <button id="json-tab" class="admin-tab" type="button" role="tab" aria-selected="false" aria-controls="json-panel">JSON source</button>
+                    </div>
+
+                    <section id="visual-panel" class="admin-editor-panel" role="tabpanel" aria-labelledby="visual-tab">
+                        <div id="visual-editor" class="admin-visual-editor"></div>
+                    </section>
+
+                    <section id="json-panel" class="admin-editor-panel admin-json-panel" role="tabpanel" aria-labelledby="json-tab" hidden>
+                        <div class="admin-json-toolbar">
+                            <div>
+                                <h3>JSON source</h3>
+                                <p>Edit the complete document, then validate it before applying.</p>
+                            </div>
+                            <button id="apply-json" class="admin-button admin-button--primary" type="button">Validate &amp; apply</button>
+                        </div>
+                        <label class="admin-visually-hidden" for="json-source">JSON source editor</label>
+                        <textarea id="json-source" class="admin-json-source" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" wrap="off"></textarea>
+                        <p id="json-error" class="admin-json-error" role="alert" hidden></p>
+                    </section>
+
+                    <footer class="admin-editor-footer">
+                        <span><span class="admin-footer-dot" aria-hidden="true"></span> Drafts are saved in this browser automatically</span>
+                        <span>JSON output is formatted and ready to export</span>
+                    </footer>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

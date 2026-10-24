@@ -1,0 +1,18 @@
+{
+  "enabled": false,
+  "workspace": "",
+  "defaultRangeDays": 30,
+  "counters": {
+    "pageViewsTotal": "site-pageviews",
+    "sessionsTotal": "site-sessions",
+    "pageViewsDailyPrefix": "site-pageviews",
+    "sessionsDailyPrefix": "site-sessions",
+    "pageViewsPerPagePrefix": "site-page"
+  },
+  "pages": [
+    { "name": "Home", "path": "/home/", "key": "home" },
+    { "name": "Services", "path": "/services/", "key": "services" },
+    { "name": "Projects", "path": "/projects/", "key": "projects" },
+    { "name": "Contact", "path": "/contact/", "key": "contact" }
+  ]
+}

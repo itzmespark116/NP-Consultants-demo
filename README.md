@@ -22,6 +22,8 @@ The project is engineered with pure vanilla web standards—**semantic HTML5**, 
     - [Image Specs & Optimization](#image-specs--optimization)
     - [Hero Video Specs](#hero-video-specs)
   - [9. Content Update Checklist](#9-content-update-checklist)
+  - [10. Local JSON Editor](#10-local-json-editor)
+  - [11. Website Statistics](#11-website-statistics)
 - [Development](#development)
   - [1. Architecture & Design Principles](#1-architecture--design-principles)
   - [2. Project Directory Structure](#2-project-directory-structure)
@@ -331,6 +333,18 @@ Before publishing changes to production:
 - [ ] Check both **Dark** and **Light** modes using the theme toggle in the header.
 - [ ] Resize browser window or test on a mobile phone to confirm text wrapping and responsiveness.
 
+### 10. Local JSON Editor
+
+Open [`admin/`](admin/) from a local web server for the admin overview, or [`admin/webeditor/`](admin/webeditor/) to edit the JSON files in `resources/data/`. The visual editor supports nested values, repeatable lists, image, video, and audio previews, plus a sticky export toolbar; the JSON source tab can also validate and apply a complete document. Drafts are saved in the current browser and do not modify website files.
+
+Use **Copy JSON** or **Download file** to export the edited content. To publish it, replace the matching JSON file in `resources/data/` with the downloaded version. A local server is required because the editor loads data with `fetch()`; opening it directly as a `file://` URL is blocked by browser security.
+
+### 11. Website Statistics
+
+Open [`admin/statistics/`](admin/statistics/) to view CounterAPI page views, browser-tab sessions, daily traffic, and all-time page totals. Analytics is disabled until you configure `resources/data/analytics.json` with your CounterAPI workspace and set `"enabled"` to `true`; the JSON editor includes this file. Use public CounterAPI counters because this static site does not have a server to protect an API token. Do not add a secret token to the JSON or client-side code.
+
+The website increments its all-time, daily, and per-page view counters on the Home, Services, Projects, and Contact pages. Browser sessions are counted once per tab session using `sessionStorage`. Historical chart values are available only for dates since tracking was enabled; earlier dates will display zero. Counts represent page loads and browser-tab sessions, not verified unique people. The dashboard groups dates in UTC and requires a network connection to CounterAPI.
+
 ---
 
 ## Development
@@ -357,6 +371,13 @@ The site is built according to modern Web Standards principles:
 frontend/
 ├── index.html                           # Root document: redirects to /home/
 ├── README.md                            # Documentation and developer tutorial
+├── admin/
+│   ├── index.html                        # Admin workspace overview
+│   ├── webeditor/index.html             # Local JSON content editor
+│   └── resources/
+│       ├── css/dashboard.css             # Admin overview styles and design tokens
+│       ├── css/webeditor.css            # Editor-only styles and design tokens
+│       └── js/webeditor.js              # Editor-only data loading and interactions
 ├── home/
 │   └── index.html                       # Primary homepage entry document
 └── resources/
