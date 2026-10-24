@@ -70,22 +70,10 @@ async function writeServices() {
         ${buttons ? `<div class="actions">${buttons}</div>` : ""}
         <div class="grid" style="--rows:${half};--count:${services.length}">
             <figure class="image">
-                <img src="${escapeHTML(imageSrc)}" alt="${escapeHTML(data.image?.alt || "")}" loading="lazy">
+                <img src="${escapeHTML(imageSrc)}" data-fallback="${escapeHTML(fallbackSrc)}" alt="${escapeHTML(data.image?.alt || "")}" loading="lazy">
             </figure>
             ${panels}
         </div>`;
-
-  // Broken image -> placeholder (once, so a missing placeholder can't loop)
-  const image = section.querySelector(".image img");
-  if (image) {
-    image.addEventListener(
-      "error",
-      () => {
-        image.src = fallbackSrc;
-      },
-      { once: true },
-    );
-  }
 
   // Play the entrance animation once, when the section scrolls into view
   new IntersectionObserver(

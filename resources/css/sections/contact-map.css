@@ -23,3 +23,65 @@
     filter: var(--map-filter);
     transition: filter var(--transition-medium) var(--ease);
 }
+
+.map iframe[hidden] {
+    display: none;
+}
+
+.map .map-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.map .map-spinner {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    border: var(--border-width) solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: var(--border-radius-max);
+    transform: translate(-50%, -50%);
+}
+
+.map .map-frame.is-loading .map-spinner {
+    animation: map-spinner-rotation var(--transition-large) linear infinite;
+}
+
+.map .map-frame:not(.is-loading) .map-spinner {
+    display: none;
+}
+
+.map .map-fallback {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: var(--padding-small);
+    color: var(--color);
+    text-align: center;
+    text-decoration: none;
+    background: var(--glass-strong);
+    border: var(--border-width) solid var(--border);
+    border-radius: var(--border-radius-medium);
+    transform: translate(-50%, -50%);
+}
+
+.map .map-frame.map-error .map-fallback {
+    display: block;
+}
+
+@keyframes map-spinner-rotation {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .map .map-frame.is-loading .map-spinner {
+        animation: none;
+    }
+}

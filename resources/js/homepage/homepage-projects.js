@@ -67,7 +67,7 @@ import { getPaths, resolvePath } from "../modules/paths.js";
           return `
             <div class="item" style="--i:${Math.min(index, 2) + 4}">
                 <${tag} class="card"${href}>
-                    <div class="image"><img src="${escapeHTML(image)}" alt="${escapeHTML(project.name)}" loading="lazy"></div>
+                    <div class="image"><img src="${escapeHTML(image)}" data-fallback="${escapeHTML(fallback)}" alt="${escapeHTML(project.name)}" loading="lazy"></div>
                     <div class="info">
                         <h3>${escapeHTML(project.name)}</h3>
                         <p>${escapeHTML(project.year || project.category)}</p>
@@ -82,17 +82,6 @@ import { getPaths, resolvePath } from "../modules/paths.js";
             <p class="description" style="--i:2">${escapeHTML(data?.description)}</p>
             ${buttons ? `<div class="actions" style="--i:3">${buttons}</div>` : ""}
             <div class="grid">${items}</div>`;
-
-      // Broken image -> placeholder, once
-      section.querySelectorAll("img").forEach((img) =>
-        img.addEventListener(
-          "error",
-          () => {
-            img.src = fallback;
-          },
-          { once: true },
-        ),
-      );
 
       // Play the entrance animation once, when the section scrolls into view
       new IntersectionObserver(

@@ -60,16 +60,6 @@ import { getPaths, resolvePath } from "../modules/paths.js";
       const settings = data?.settings || {};
       const fallback = resolvePath(placeholders?.project);
 
-      // one-time placeholder swap for broken images
-      const guard = (img) =>
-        img.addEventListener(
-          "error",
-          () => {
-            img.src = fallback;
-          },
-          { once: true },
-        );
-
       // group by category, keep the JSON order, unknown categories go last
       const groups = (data.categories || []).map((category) => ({
         ...category,
@@ -123,7 +113,7 @@ import { getPaths, resolvePath } from "../modules/paths.js";
                           aria-label="${escapeHTML(`${project.name}, ${project.type}, ${project.year}, ${status(project)}`)}">
                           ${leftTags}
                           ${rightTags}
-                          <span class="slides">${images.map((src) => `<img data-src="${escapeHTML(resolvePath(src))}" alt="" loading="lazy" decoding="async">`).join("")}</span>
+                          <span class="slides">${images.map((src) => `<img data-src="${escapeHTML(resolvePath(src))}" data-fallback="${escapeHTML(fallback)}" alt="" loading="lazy" decoding="async">`).join("")}</span>
                           <span class="info" data-arrow="${escapeHTML(data.arrow ?? "→")}">
                               <span class="name">${escapeHTML(project.name)}</span>
                               <span class="meta">${escapeHTML(project.type)} · ${escapeHTML(project.year)}</span>
@@ -166,8 +156,6 @@ import { getPaths, resolvePath } from "../modules/paths.js";
                   </button>
                   <div class="sheet"></div>
               </dialog>`;
-
-      section.querySelectorAll(".slides img").forEach(guard);
 
       // ───────────── filter + search (cards stay in the DOM, so image timers keep running) ─────────────
       const empty = section.querySelector(".empty");
@@ -295,8 +283,7 @@ import { getPaths, resolvePath } from "../modules/paths.js";
         sheet.innerHTML = `
                   <h3 id="projects-grid-popup-title">${escapeHTML(project.name)}</h3>
                   <p>${escapeHTML(project.type)} · ${escapeHTML(project.year)} <span class="state">${escapeHTML(status(project))}</span></p>
-                  <div class="gallery">${images.map((src) => `<img src="${escapeHTML(resolvePath(src))}" alt="${escapeHTML(project.name)}" loading="lazy" decoding="async">`).join("")}</div>`;
-        sheet.querySelectorAll("img").forEach(guard);
+                  <div class="gallery">${images.map((src) => `<img src="${escapeHTML(resolvePath(src))}" data-fallback="${escapeHTML(fallback)}" alt="${escapeHTML(project.name)}" loading="lazy" decoding="async">`).join("")}</div>`;
         sheet.scrollTop = 0;
         popup.showModal();
       });

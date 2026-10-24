@@ -90,7 +90,7 @@ import { getPaths, resolvePath } from "../modules/paths.js";
         return `
                 <div class="${cardClass}">
                     <div class="photo">
-                        <img src="${escapeHTML(image)}" alt="${escapeHTML(member.name)}" loading="lazy">
+                        <img src="${escapeHTML(image)}" data-fallback="${escapeHTML(fallback)}" alt="${escapeHTML(member.name)}" loading="lazy">
                     </div>
                     <div class="info">
                         <h3>${escapeHTML(member.name)}</h3>
@@ -130,17 +130,6 @@ import { getPaths, resolvePath } from "../modules/paths.js";
             <p class="description" style="--i:2">${escapeHTML(data.description)}</p>
             <div class="management">${directors}${managers}</div>
             <div class="grid">${employees}</div>`;
-
-      // Broken image -> placeholder, once
-      section.querySelectorAll("img").forEach((img) =>
-        img.addEventListener(
-          "error",
-          () => {
-            img.src = fallback;
-          },
-          { once: true },
-        ),
-      );
 
       // Play the entrance animation once, when the section scrolls into view
       new IntersectionObserver(

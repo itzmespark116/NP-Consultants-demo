@@ -43,7 +43,7 @@ import { getPaths, resolvePath } from "../modules/paths.js";
         (card, index) => `
             <div class="item" style="--i:${index + 3}">
                 <a class="card" href="${escapeHTML(resolvePath(card.link))}">
-                    <img src="${escapeHTML(resolvePath(card.image) || projectPlaceholder)}" alt="${escapeHTML(card.title)}" loading="lazy">
+                    <img src="${escapeHTML(resolvePath(card.image) || projectPlaceholder)}" data-fallback="${escapeHTML(projectPlaceholder)}" alt="${escapeHTML(card.title)}" loading="lazy">
                     <div class="overlay">
                         <h3>${escapeHTML(card.title)}</h3>
                         <p>${escapeHTML(card.text)}</p>
@@ -63,17 +63,6 @@ import { getPaths, resolvePath } from "../modules/paths.js";
                 </div>
                 <div class="grid">${items}</div>
             </div>`;
-
-    // Broken image -> placeholder (once, so a missing placeholder can't loop)
-    about.querySelectorAll(".card img").forEach((image) => {
-      image.addEventListener(
-        "error",
-        () => {
-          image.src = projectPlaceholder;
-        },
-        { once: true },
-      );
-    });
 
     // Play the entrance animation once, when the section scrolls into view
     new IntersectionObserver(
