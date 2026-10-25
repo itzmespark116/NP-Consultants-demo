@@ -1,0 +1,222 @@
+.admin-login {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    margin: 0;
+    padding: 1.5rem;
+    background:
+        radial-gradient(ellipse at 50% 45%, color-mix(in srgb, var(--accent) 9%, var(--background)), var(--background) 68%);
+    color: var(--color);
+    font-family: var(--font-family);
+}
+
+.admin-login *,
+.admin-login *::before,
+.admin-login *::after {
+    box-sizing: border-box;
+}
+
+.admin-login__card {
+    --beam-angle: 0deg;
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    width: min(390px, 88vw);
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+    padding: clamp(2rem, 7vw, 2.8rem) clamp(1.5rem, 6vw, 2rem);
+    border: 1px solid var(--border);
+    border-radius: 1.75rem;
+    background: var(--glass);
+    box-shadow: var(--glass-rim), var(--shadow-large);
+    backdrop-filter: var(--glass-blur);
+}
+
+.admin-login__beam,
+.admin-login__glow {
+    position: absolute;
+    z-index: -1;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: conic-gradient(
+        from var(--beam-angle),
+        transparent 0deg 28deg,
+        color-mix(in srgb, var(--accent) 22%, transparent) 42deg,
+        var(--accent) 54deg,
+        color-mix(in srgb, var(--accent) 30%, white) 61deg,
+        transparent 68deg 208deg,
+        color-mix(in srgb, var(--accent) 22%, transparent) 222deg,
+        var(--accent) 234deg,
+        color-mix(in srgb, var(--accent) 30%, white) 241deg,
+        transparent 248deg 360deg
+    );
+}
+
+.admin-login__beam {
+    z-index: 1;
+    padding: 2px;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    animation: admin-login-beam 12s linear infinite;
+}
+
+.admin-login__glow {
+    filter: blur(16px);
+    opacity: 0.3;
+    animation: admin-login-beam 12s linear infinite;
+}
+
+@property --beam-angle {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+@keyframes admin-login-beam {
+    to { --beam-angle: 360deg; }
+}
+
+.admin-login__welcome {
+    width: 100%;
+    text-align: center;
+}
+
+.admin-login__brand {
+    margin: 0 0 0.55rem;
+    color: var(--color);
+    font-size: clamp(1.8rem, 8vw, 2.2rem);
+    font-weight: 200;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.admin-login__welcome h1 {
+    margin: 0;
+    color: var(--color-mute);
+    font-size: 0.9rem;
+    font-weight: 300;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.admin-login__intro {
+    margin: 0.85rem 0 0;
+    color: var(--color-mute);
+    font-size: var(--font-small);
+    line-height: var(--line-height-compact);
+}
+
+.admin-login__form {
+    display: grid;
+    width: 100%;
+    gap: 1.25rem;
+}
+
+.admin-login__field {
+    position: relative;
+    display: block;
+}
+
+.admin-login__field input {
+    width: 100%;
+    min-height: 3.6rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius-max);
+    outline: none;
+    background: var(--glass);
+    color: var(--color);
+    font: inherit;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.admin-login__field input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+.admin-login__field span {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    padding: 0 0.3rem;
+    transform: translateY(-50%);
+    background: transparent;
+    color: var(--color-mute);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    pointer-events: none;
+    transition: top var(--transition), transform var(--transition), color var(--transition), background var(--transition);
+}
+
+.admin-login__field input:focus + span,
+.admin-login__field input:not(:placeholder-shown) + span {
+    top: 0;
+    transform: translateY(-50%);
+    border-radius: 0.3rem;
+    background: color-mix(in srgb, var(--accent) 45%, var(--background));
+    color: var(--color);
+}
+
+.admin-login__submit {
+    position: relative;
+    z-index: 2;
+    min-height: 3.7rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+    border-radius: var(--border-radius-max);
+    background: color-mix(in srgb, var(--accent) 20%, var(--base));
+    color: var(--color);
+    cursor: pointer;
+    font: inherit;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    transition: transform var(--transition), background var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.admin-login__submit:hover {
+    transform: scale(1.02);
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 35%, var(--base));
+    box-shadow: 0 0.5rem 1.5rem color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+.admin-login__submit:focus-visible,
+[data-admin-logout]:focus-visible {
+    outline: var(--outline);
+    outline-offset: var(--outline-offset);
+}
+
+.admin-login__message {
+    margin: 0;
+    color: color-mix(in srgb, var(--error) 75%, white);
+    line-height: var(--line-height-compact);
+}
+
+[data-admin-logout] {
+    padding: 0.45rem 0.7rem;
+    border: 1px solid currentColor;
+    border-radius: var(--border-radius-medium);
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .admin-login__beam,
+    .admin-login__glow {
+        animation: none;
+    }
+
+    .admin-login__submit,
+    .admin-login__field input,
+    .admin-login__field span {
+        transition: none;
+    }
+}

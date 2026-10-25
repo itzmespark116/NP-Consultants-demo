@@ -7,7 +7,8 @@
     "sessionsTotal": "np-consultants-website-sessions-total",
     "pageViewsDailyPrefix": "np-consultants-website-page-views-daily",
     "sessionsDailyPrefix": "np-consultants-website-sessions-daily",
-    "pageViewsPerPagePrefix": "np-consultants-website-page-views-page"
+    "pageViewsPerPagePrefix": "np-consultants-website-page-views-page",
+    "adminPageViews": "np-consultants-website-admin-page-views"
   },
   "pages": [
     {

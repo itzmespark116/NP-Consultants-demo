@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080b10">
+    <title>Admin login · NP Consultants</title>
+    <link rel="icon" href="../../resources/img/brand/icon_dark.png" type="image/png">
+    <link rel="stylesheet" href="../../resources/css/root.css">
+    <link rel="stylesheet" href="../resources/css/admin-auth.css">
+    <script src="../resources/js/admin-login.js" defer></script>
+</head>
+<body class="admin-login">
+    <main class="admin-login__card">
+        <div class="admin-login__glow" aria-hidden="true"></div>
+        <div class="admin-login__beam" aria-hidden="true"></div>
+        <div class="admin-login__welcome">
+            <p class="admin-login__brand">NP Consultants</p>
+            <h1>Welcome back</h1>
+            <p class="admin-login__intro">Sign in to open the content editor and website statistics.</p>
+        </div>
+        <form id="admin-login-form" class="admin-login__form">
+            <label class="admin-login__field">
+                <input id="admin-username" name="username" type="text" placeholder=" " autocomplete="username" required>
+                <span>USERNAME</span>
+            </label>
+            <label class="admin-login__field">
+                <input id="admin-password" name="password" type="password" placeholder=" " autocomplete="current-password" required>
+                <span>PASSWORD</span>
+            </label>
+            <button class="admin-login__submit" type="submit">SIGN IN</button>
+            <p id="admin-login-message" class="admin-login__message" role="alert" hidden></p>
+        </form>
+    </main>
+    <script type="module" src="../../resources/js/modules/counterapi-tracker.js"></script>
+</body>
+</html>

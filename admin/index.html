@@ -8,6 +8,8 @@
     <link rel="icon" href="../resources/img/brand/icon_dark.png" type="image/png">
     <link rel="stylesheet" href="../resources/css/root.css">
     <link rel="stylesheet" href="resources/css/dashboard.css">
+    <link rel="stylesheet" href="resources/css/admin-auth.css">
+    <script src="resources/js/admin-auth.js"></script>
 </head>
 <body class="admin-dashboard">
     <header class="dashboard-header">
@@ -15,6 +17,7 @@
         <nav class="dashboard-nav" aria-label="Admin navigation">
             <a class="dashboard-statistics-link" href="statistics/">Statistics</a>
             <a class="dashboard-website-link" href="../home/" target="_blank" rel="noreferrer">View website ↗</a>
+            <button class="dashboard-logout" type="button" data-admin-logout>Log out</button>
         </nav>
     </header>
 
@@ -61,5 +64,6 @@
             </section>
         </div>
     </main>
+    <script type="module" src="../resources/js/modules/counterapi-tracker.js"></script>
 </body>
 </html>

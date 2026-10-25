@@ -335,13 +335,13 @@ Before publishing changes to production:
 
 ### 10. Local JSON Editor
 
-Open [`admin/`](admin/) from a local web server for the admin overview, or [`admin/webeditor/`](admin/webeditor/) to edit the JSON files in `resources/data/`. The visual editor supports nested values, repeatable lists, image, video, and audio previews, plus a sticky export toolbar; the JSON source tab can also validate and apply a complete document. Drafts are saved in the current browser and do not modify website files.
+Open [`admin/`](admin/) from a local web server for the admin overview, or [`admin/webeditor/`](admin/webeditor/) to edit the JSON files in `resources/data/`. The admin login accepts any account in [`admin/credentials.json`](admin/credentials.json), configured as an `accounts` array of `{ "username": "...", "password": "..." }` objects. This client-side login is only a deterrent: the credentials file and admin content are publicly downloadable on a static host, so do not use sensitive credentials or rely on it for security. Drafts are saved in the current browser and do not modify website files.
 
 Use **Copy JSON** or **Download file** to export the edited content. To publish it, replace the matching JSON file in `resources/data/` with the downloaded version. A local server is required because the editor loads data with `fetch()`; opening it directly as a `file://` URL is blocked by browser security.
 
 ### 11. Website Statistics
 
-Open [`admin/statistics/`](admin/statistics/) to view CounterAPI page views, browser-tab sessions, daily traffic, and all-time page totals. Analytics is disabled until you configure `resources/data/analytics.json` with your CounterAPI workspace and set `"enabled"` to `true`; the JSON editor includes this file. Use public CounterAPI counters because this static site does not have a server to protect an API token. Do not add a secret token to the JSON or client-side code.
+Open [`admin/statistics/`](admin/statistics/) to view CounterAPI page views, browser-tab sessions, daily traffic, hourly/weekday/quarterly activity, and all-time page totals. The activity breakdown uses the page-view counter's CounterAPI stats endpoint and Chart.js; the dashboard cannot iframe CounterAPI because its site blocks framing. CounterAPI settings are in `resources/data/analytics.json`; public website pages and admin pages both increment the configured page total, and admin page visits also increment the admin-specific counter. Use public CounterAPI counters because this static site does not have a server to protect an API token. Do not add a secret token to the JSON or client-side code.
 
 The website increments its all-time, daily, and per-page view counters on the Home, Services, Projects, and Contact pages. Browser sessions are counted once per tab session using `sessionStorage`. Historical chart values are available only for dates since tracking was enabled; earlier dates will display zero. Counts represent page loads and browser-tab sessions, not verified unique people. The dashboard groups dates in UTC and requires a network connection to CounterAPI.
 

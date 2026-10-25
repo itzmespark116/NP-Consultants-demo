@@ -8,6 +8,9 @@
     <link rel="icon" href="../../resources/img/brand/icon_dark.png" type="image/png">
     <link rel="stylesheet" href="../../resources/css/root.css">
     <link rel="stylesheet" href="../resources/css/statistics.css">
+    <link rel="stylesheet" href="../resources/css/admin-auth.css">
+    <script src="../resources/js/admin-auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
     <script src="../resources/js/statistics.js" defer></script>
 </head>
 <body class="admin-statistics">
@@ -20,6 +23,7 @@
             <a href="../">Content</a>
             <a href="../webeditor/">Editor</a>
             <a href="../../home/" target="_blank" rel="noreferrer">View website <span aria-hidden="true">↗</span></a>
+            <button class="statistics-logout" type="button" data-admin-logout>Log out</button>
         </nav>
     </header>
 
@@ -63,6 +67,11 @@
                     <p id="metric-average-views" class="statistics-card__value">—</p>
                     <p id="metric-average-period" class="statistics-card__note">Page views in selected range</p>
                 </article>
+                <article class="statistics-card">
+                    <h2>Admin page views</h2>
+                    <p id="metric-admin-views" class="statistics-card__value">—</p>
+                    <p class="statistics-card__note">Visits to admin and login pages</p>
+                </article>
             </section>
 
             <section class="statistics-panel" aria-labelledby="traffic-title">
@@ -93,6 +102,35 @@
                 </figure>
             </section>
 
+            <section class="statistics-panel" aria-label="CounterAPI activity breakdown">
+                <div class="statistics-panel__heading">
+                    <div>
+                        <h2>Activity breakdown</h2>
+                        <p>Hourly, weekday, and quarterly counts returned by CounterAPI.</p>
+                    </div>
+                </div>
+                <div class="statistics-breakdown">
+                    <article class="statistics-breakdown__chart">
+                        <h3>Counts by Hour</h3>
+                        <div class="statistics-breakdown__canvas">
+                            <canvas id="counter-hours-chart" role="img" aria-label="CounterAPI counts by hour"></canvas>
+                        </div>
+                    </article>
+                    <article class="statistics-breakdown__chart">
+                        <h3>Counts by Day of Week</h3>
+                        <div class="statistics-breakdown__canvas">
+                            <canvas id="counter-weekdays-chart" role="img" aria-label="CounterAPI counts by day of week"></canvas>
+                        </div>
+                    </article>
+                    <article class="statistics-breakdown__chart">
+                        <h3>Counts by Quarter</h3>
+                        <div class="statistics-breakdown__canvas">
+                            <canvas id="counter-quarters-chart" role="img" aria-label="CounterAPI counts by quarter"></canvas>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
             <section class="statistics-panel" aria-labelledby="pages-title">
                 <div class="statistics-panel__heading">
                     <div>
@@ -106,5 +144,6 @@
             <p class="statistics-footnote">These are page-load counts, not verified unique people. Sessions are counted once per browser tab session. Public client-side counters can be affected by automated or repeated requests.</p>
         </div>
     </main>
+    <script type="module" src="../../resources/js/modules/counterapi-tracker.js"></script>
 </body>
 </html>

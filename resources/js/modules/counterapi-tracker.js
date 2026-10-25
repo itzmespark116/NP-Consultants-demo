@@ -1,9 +1,10 @@
 (() => {
     "use strict";
 
-    const CONFIG_URL = "../resources/data/analytics.json";
+    const CONFIG_URL = new URL("../../data/analytics.json", import.meta.url);
     const COUNTER_CLIENT_URL = "https://cdn.jsdelivr.net/npm/counterapi@3.1.0/+esm";
     const SESSION_KEY = "np-counterapi-session-started";
+    const ADMIN_PATH = new URL("../../../admin/", import.meta.url).pathname;
 
     function getUtcDate() {
         return new Date().toISOString().slice(0, 10);
@@ -26,7 +27,8 @@
             "sessionsTotal",
             "pageViewsDailyPrefix",
             "sessionsDailyPrefix",
-            "pageViewsPerPagePrefix"
+            "pageViewsPerPagePrefix",
+            "adminPageViews"
         ];
         if (!config.counters || requiredCounters.some((name) =>
             typeof config.counters[name] !== "string" || !config.counters[name].trim()
@@ -44,6 +46,10 @@
             counter.up(config.counters.pageViewsTotal),
             counter.up(`${config.counters.pageViewsDailyPrefix}-${date}`)
         ];
+
+        if (window.location.pathname.startsWith(ADMIN_PATH)) {
+            requests.push(counter.up(config.counters.adminPageViews));
+        }
 
         if (page) {
             requests.push(counter.up(`${config.counters.pageViewsPerPagePrefix}-${page.key}`));

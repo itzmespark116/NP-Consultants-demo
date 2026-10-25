@@ -12,17 +12,22 @@
         range: document.getElementById("date-range"),
         totalViews: document.getElementById("metric-total-views"),
         totalSessions: document.getElementById("metric-total-sessions"),
+        adminViews: document.getElementById("metric-admin-views"),
         todayViews: document.getElementById("metric-today-views"),
         todayDate: document.getElementById("metric-today-date"),
         averageViews: document.getElementById("metric-average-views"),
         averagePeriod: document.getElementById("metric-average-period"),
         chart: document.getElementById("traffic-chart"),
         chartDescription: document.getElementById("chart-description"),
+        hoursChart: document.getElementById("counter-hours-chart"),
+        weekdaysChart: document.getElementById("counter-weekdays-chart"),
+        quartersChart: document.getElementById("counter-quarters-chart"),
         pagePerformance: document.getElementById("page-performance")
     };
     const numberFormat = new Intl.NumberFormat();
     let config;
     let counter;
+    let temporalCharts = [];
     let loadInProgress = false;
     let rangeInitialized = false;
 
@@ -124,6 +129,81 @@
                 appendSvg(point, "title", {}, `${formatDate(row.date, { year: "numeric", month: "long", day: "numeric" })}: ${numberFormat.format(row[series.key])} ${series.label.toLowerCase()}`);
             });
         }
+
+        if (rows.every((row) => row.views === 0 && row.sessions === 0)) {
+            appendSvg(elements.chart, "text", {
+                class: "statistics-chart-empty",
+                x: width / 2,
+                y: margin.top + plotHeight / 2,
+                "text-anchor": "middle"
+            }, "No daily counts yet. The daily counters need to exist and receive visits.");
+        }
+    }
+
+    function renderTemporalCharts(temporal) {
+        if (typeof window.Chart !== "function") {
+            throw new Error("The CounterAPI charts could not load. Check your connection and refresh.");
+        }
+        if (!temporal || !temporal.hours || !temporal.weekdays || !temporal.quarters) {
+            throw new Error("CounterAPI did not return the activity breakdown for the page-views counter.");
+        }
+
+        temporalCharts.forEach((chart) => chart.destroy());
+        temporalCharts = [];
+
+        const color = getComputedStyle(document.documentElement);
+        const textColor = color.getPropertyValue("--color-mute").trim();
+        const gridColor = color.getPropertyValue("--border").trim();
+        const viewsColor = color.getPropertyValue("--accent").trim();
+        const datasets = (values) => [
+            {
+                label: "Up counts",
+                data: values.map((entry) => Number(entry && entry.up) || 0),
+                backgroundColor: viewsColor,
+                borderRadius: 4
+            },
+            {
+                label: "Down counts",
+                data: values.map((entry) => Number(entry && entry.down) || 0),
+                backgroundColor: color.getPropertyValue("--success").trim(),
+                borderRadius: 4
+            }
+        ];
+        const options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: "index", intersect: false },
+            plugins: {
+                legend: {
+                    labels: { color: textColor, usePointStyle: true, boxWidth: 8 }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false },
+                    ticks: { color: textColor, maxRotation: 0, autoSkip: true }
+                },
+                y: {
+                    beginAtZero: true,
+                    grid: { color: gridColor },
+                    ticks: { color: textColor, precision: 0 }
+                }
+            }
+        };
+        const createChart = (canvas, labels, values) => {
+            temporalCharts.push(new window.Chart(canvas, {
+                type: "bar",
+                data: { labels, datasets: datasets(values) },
+                options
+            }));
+        };
+        const hourKeys = Array.from({ length: 24 }, (_, hour) => String(hour).padStart(2, "0"));
+        const weekdayKeys = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+        const quarterKeys = ["q1", "q2", "q3", "q4"];
+
+        createChart(elements.hoursChart, hourKeys.map((hour) => `${hour}:00`), hourKeys.map((hour) => temporal.hours[hour]));
+        createChart(elements.weekdaysChart, weekdayKeys.map((day) => day[0].toUpperCase() + day.slice(1)), weekdayKeys.map((day) => temporal.weekdays[day]));
+        createChart(elements.quartersChart, quarterKeys.map((quarter) => quarter.toUpperCase()), quarterKeys.map((quarter) => temporal.quarters[quarter]));
     }
 
     async function getCount(name, missingIsZero = false) {
@@ -209,7 +289,8 @@
             "sessionsTotal",
             "pageViewsDailyPrefix",
             "sessionsDailyPrefix",
-            "pageViewsPerPagePrefix"
+            "pageViewsPerPagePrefix",
+            "adminPageViews"
         ];
         if (!counters || requiredNames.some((name) => typeof counters[name] !== "string" || !counters[name].trim())) {
             throw new Error("The analytics configuration is missing one or more CounterAPI counter names.");
@@ -258,16 +339,23 @@
             const rangeDays = [7, 30, 90].includes(selectedDays) ? selectedDays : 30;
             elements.range.value = String(rangeDays);
             const today = getUtcDate();
-            const [totalViews, totalSessions, todayViews, rows, pageValues] = await Promise.all([
-                getCount(config.counters.pageViewsTotal),
+            const [totalStats, totalSessions, adminViews, rows, pageValues] = await Promise.all([
+                counter.stats(config.counters.pageViewsTotal),
                 getCount(config.counters.sessionsTotal, true),
-                getCount(`${config.counters.pageViewsDailyPrefix}-${today}`, true),
+                getCount(config.counters.adminPageViews, true),
                 getRows(rangeDays),
                 Promise.all(config.pages.map((page) => getCount(`${config.counters.pageViewsPerPagePrefix}-${page.key}`, true)))
             ]);
+            const totalViews = Number(totalStats && totalStats.data && totalStats.data.up_count);
+            const todayViews = Number(totalStats && totalStats.data && totalStats.data.stats &&
+                totalStats.data.stats.today && totalStats.data.stats.today.up);
+            if (!Number.isFinite(totalViews) || totalViews < 0 || !Number.isFinite(todayViews) || todayViews < 0) {
+                throw new Error("CounterAPI returned invalid page-views statistics.");
+            }
 
             elements.totalViews.textContent = numberFormat.format(totalViews);
             elements.totalSessions.textContent = numberFormat.format(totalSessions);
+            elements.adminViews.textContent = numberFormat.format(adminViews);
             elements.todayViews.textContent = numberFormat.format(todayViews);
             elements.todayDate.textContent = `${formatDate(today, { year: "numeric", month: "long", day: "numeric" })} (UTC)`;
             const average = rows.reduce((sum, row) => sum + row.views, 0) / rows.length;
@@ -275,6 +363,7 @@
             elements.averagePeriod.textContent = `Page views per day · last ${rangeDays} days`;
 
             drawChart(rows);
+            renderTemporalCharts(totalStats.data.stats.temporal);
             renderPages(config.pages, pageValues);
             setMessage("");
         } catch (error) {

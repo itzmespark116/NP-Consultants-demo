@@ -8,6 +8,8 @@
     <link rel="icon" href="../../resources/img/brand/icon_dark.png" type="image/png">
     <link rel="stylesheet" href="../../resources/css/root.css">
     <link rel="stylesheet" href="../resources/css/webeditor.css">
+    <link rel="stylesheet" href="../resources/css/admin-auth.css">
+    <script src="../resources/js/admin-auth.js"></script>
     <script src="../resources/js/webeditor.js" defer></script>
 </head>
 <body class="admin-editor">
@@ -20,6 +22,7 @@
             <div class="admin-topbar__meta">
                 <span class="admin-live"><span aria-hidden="true"></span> Browser-based editor</span>
                 <a class="admin-site-link" href="../../home/" target="_blank" rel="noreferrer">View website <span aria-hidden="true">↗</span></a>
+                <button class="admin-logout" type="button" data-admin-logout>Log out</button>
             </div>
         </header>
 
@@ -127,5 +130,6 @@
             </section>
         </main>
     </div>
+    <script type="module" src="../../resources/js/modules/counterapi-tracker.js"></script>
 </body>
 </html>
