@@ -2,7 +2,7 @@
     "use strict";
 
     const CONFIG_URL = "../resources/data/analytics.json";
-    const COUNTER_CLIENT_URL = "https://cdn.jsdelivr.net/npm/counterapi/dist/counter.esm.min.js";
+    const COUNTER_CLIENT_URL = "https://cdn.jsdelivr.net/npm/counterapi@3.1.0/+esm";
     const SESSION_KEY = "np-counterapi-session-started";
 
     function getUtcDate() {

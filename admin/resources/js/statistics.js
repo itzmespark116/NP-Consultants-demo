@@ -2,7 +2,7 @@
     "use strict";
 
     const CONFIG_URL = "../../resources/data/analytics.json";
-    const COUNTER_CLIENT_URL = "https://cdn.jsdelivr.net/npm/counterapi/dist/counter.esm.min.js";
+    const COUNTER_CLIENT_URL = "https://cdn.jsdelivr.net/npm/counterapi@3.1.0/+esm";
     const SVG_NS = "http://www.w3.org/2000/svg";
     const elements = {
         message: document.getElementById("statistics-message"),
@@ -134,7 +134,7 @@
             if (missingIsZero && error && error.status === 404) return 0;
             throw error;
         }
-        const value = result && Number(result.value);
+        const value = result && Number(result.data && result.data.up_count);
         if (!Number.isFinite(value) || value < 0) {
             throw new Error(`CounterAPI returned an invalid count for "${name}".`);
         }
@@ -260,7 +260,7 @@
             const today = getUtcDate();
             const [totalViews, totalSessions, todayViews, rows, pageValues] = await Promise.all([
                 getCount(config.counters.pageViewsTotal),
-                getCount(config.counters.sessionsTotal),
+                getCount(config.counters.sessionsTotal, true),
                 getCount(`${config.counters.pageViewsDailyPrefix}-${today}`, true),
                 getRows(rangeDays),
                 Promise.all(config.pages.map((page) => getCount(`${config.counters.pageViewsPerPagePrefix}-${page.key}`, true)))
@@ -278,7 +278,12 @@
             renderPages(config.pages, pageValues);
             setMessage("");
         } catch (error) {
-            setMessage(error instanceof Error ? error.message : "Could not load analytics.", "error");
+            const message = error instanceof Error
+                ? error.message
+                : error && typeof error.message === "string"
+                    ? error.message
+                    : "Could not load analytics.";
+            setMessage(message, "error");
         } finally {
             loadInProgress = false;
             elements.refresh.disabled = false;

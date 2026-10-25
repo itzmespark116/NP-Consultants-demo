@@ -1,18 +1,34 @@
 {
-  "enabled": false,
-  "workspace": "",
+  "enabled": true,
+  "workspace": "np-consultants-website",
   "defaultRangeDays": 30,
   "counters": {
-    "pageViewsTotal": "site-pageviews",
-    "sessionsTotal": "site-sessions",
-    "pageViewsDailyPrefix": "site-pageviews",
-    "sessionsDailyPrefix": "site-sessions",
-    "pageViewsPerPagePrefix": "site-page"
+    "pageViewsTotal": "np-consultants-website-page-views-total",
+    "sessionsTotal": "np-consultants-website-sessions-total",
+    "pageViewsDailyPrefix": "np-consultants-website-page-views-daily",
+    "sessionsDailyPrefix": "np-consultants-website-sessions-daily",
+    "pageViewsPerPagePrefix": "np-consultants-website-page-views-page"
   },
   "pages": [
-    { "name": "Home", "path": "/home/", "key": "home" },
-    { "name": "Services", "path": "/services/", "key": "services" },
-    { "name": "Projects", "path": "/projects/", "key": "projects" },
-    { "name": "Contact", "path": "/contact/", "key": "contact" }
+    {
+      "name": "Home",
+      "path": "/home/",
+      "key": "home"
+    },
+    {
+      "name": "Services",
+      "path": "/services/",
+      "key": "services"
+    },
+    {
+      "name": "Projects",
+      "path": "/projects/",
+      "key": "projects"
+    },
+    {
+      "name": "Contact Us",
+      "path": "/contact/",
+      "key": "contact"
+    }
   ]
 }
