@@ -1,35 +1,30 @@
 {
   "enabled": true,
   "workspace": "np-consultants-website",
-  "defaultRangeDays": 30,
   "counters": {
     "pageViewsTotal": "np-consultants-website-page-views-total",
-    "sessionsTotal": "np-consultants-website-sessions-total",
-    "pageViewsDailyPrefix": "np-consultants-website-page-views-daily",
-    "sessionsDailyPrefix": "np-consultants-website-sessions-daily",
-    "pageViewsPerPagePrefix": "np-consultants-website-page-views-page",
     "adminPageViews": "np-consultants-website-admin-page-views"
   },
   "pages": [
     {
       "name": "Home",
       "path": "/home/",
-      "key": "home"
+      "counter": "np-consultants-website-page-views-home"
     },
     {
       "name": "Services",
       "path": "/services/",
-      "key": "services"
+      "counter": "np-consultants-website-page-views-services"
     },
     {
       "name": "Projects",
       "path": "/projects/",
-      "key": "projects"
+      "counter": "np-consultants-website-page-views-projects"
     },
     {
       "name": "Contact Us",
       "path": "/contact/",
-      "key": "contact"
+      "counter": "np-consultants-website-page-views-contact"
     }
   ]
 }

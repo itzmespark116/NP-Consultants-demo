@@ -2,18 +2,28 @@
     "use strict";
 
     const CONFIG_URL = new URL("../../data/analytics.json", import.meta.url);
-    const COUNTER_CLIENT_URL = "https://cdn.jsdelivr.net/npm/counterapi@3.1.0/+esm";
-    const SESSION_KEY = "np-counterapi-session-started";
+    const COUNTER_API_URL = "https://api.counterapi.dev/v2/";
     const ADMIN_PATH = new URL("../../../admin/", import.meta.url).pathname;
-
-    function getUtcDate() {
-        return new Date().toISOString().slice(0, 10);
-    }
+    let requestSequence = 0;
 
     function normalizePath(path) {
         const segments = path.split("/").filter(Boolean);
         if (segments[segments.length - 1]?.toLowerCase() === "index.html") segments.pop();
         return segments.length ? `/${segments.join("/")}/` : "/";
+    }
+
+    async function incrementCounter(workspace, name) {
+        const url = new URL(
+            `${encodeURIComponent(workspace)}/${encodeURIComponent(name)}/up`,
+            COUNTER_API_URL
+        );
+        url.searchParams.set("_", `${Date.now()}-${requestSequence++}`);
+        const response = await fetch(url, { cache: "no-store" });
+        if (!response.ok) throw new Error(`Could not increment counter "${name}" (HTTP ${response.status}).`);
+        const result = await response.json();
+        if (!result || result.code !== "200") {
+            throw new Error(`CounterAPI could not increment counter "${name}".`);
+        }
     }
 
     async function startTracking() {
@@ -22,55 +32,27 @@
 
         const config = await response.json();
         if (config.enabled !== true || typeof config.workspace !== "string" || !config.workspace.trim()) return;
-        const requiredCounters = [
-            "pageViewsTotal",
-            "sessionsTotal",
-            "pageViewsDailyPrefix",
-            "sessionsDailyPrefix",
-            "pageViewsPerPagePrefix",
-            "adminPageViews"
-        ];
-        if (!config.counters || requiredCounters.some((name) =>
-            typeof config.counters[name] !== "string" || !config.counters[name].trim()
-        ) || !Array.isArray(config.pages) || config.pages.some((page) =>
-            !page || typeof page.path !== "string" || typeof page.key !== "string"
-        )) {
-            throw new Error("Analytics settings are missing counter names or tracked pages.");
+        if (!config.counters || typeof config.counters.pageViewsTotal !== "string" ||
+            !config.counters.pageViewsTotal.trim() ||
+            typeof config.counters.adminPageViews !== "string" ||
+            !config.counters.adminPageViews.trim() || !Array.isArray(config.pages) ||
+            config.pages.some((page) => !page || typeof page.path !== "string" ||
+                typeof page.counter !== "string" || !page.counter.trim())) {
+            throw new Error("Analytics settings are missing the total, admin, or per-page counter names.");
         }
 
-        const { Counter } = await import(COUNTER_CLIENT_URL);
-        const counter = new Counter({ workspace: config.workspace.trim() });
-        const date = getUtcDate();
+        const isAdminPage = window.location.pathname.startsWith(ADMIN_PATH);
         const page = config.pages.find((entry) => entry.path === normalizePath(window.location.pathname));
-        const requests = [
-            counter.up(config.counters.pageViewsTotal),
-            counter.up(`${config.counters.pageViewsDailyPrefix}-${date}`)
-        ];
+        if (!isAdminPage && !page) return;
 
-        if (window.location.pathname.startsWith(ADMIN_PATH)) {
-            requests.push(counter.up(config.counters.adminPageViews));
-        }
+        const workspace = config.workspace.trim();
+        const trackedCounters = isAdminPage
+            ? [config.counters.adminPageViews]
+            : [config.counters.pageViewsTotal, page.counter];
+        const results = await Promise.allSettled(
+            trackedCounters.map((name) => incrementCounter(workspace, name))
+        );
 
-        if (page) {
-            requests.push(counter.up(`${config.counters.pageViewsPerPagePrefix}-${page.key}`));
-        }
-
-        let isNewSession = false;
-        try {
-            isNewSession = window.sessionStorage.getItem(SESSION_KEY) !== "1";
-            if (isNewSession) window.sessionStorage.setItem(SESSION_KEY, "1");
-        } catch (error) {
-            console.warn("CounterAPI session tracking is unavailable in this browser.", error);
-        }
-
-        if (isNewSession) {
-            requests.push(
-                counter.up(config.counters.sessionsTotal),
-                counter.up(`${config.counters.sessionsDailyPrefix}-${date}`)
-            );
-        }
-
-        const results = await Promise.allSettled(requests);
         const failures = results.filter((result) => result.status === "rejected");
         if (failures.length) {
             for (const failure of failures) {

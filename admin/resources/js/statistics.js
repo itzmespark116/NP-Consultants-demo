@@ -2,34 +2,29 @@
     "use strict";
 
     const CONFIG_URL = "../../resources/data/analytics.json";
-    const COUNTER_CLIENT_URL = "https://cdn.jsdelivr.net/npm/counterapi@3.1.0/+esm";
-    const SVG_NS = "http://www.w3.org/2000/svg";
+    const COUNTER_API_URL = "https://api.counterapi.dev/v2/";
     const elements = {
         message: document.getElementById("statistics-message"),
         setup: document.getElementById("configuration-state"),
         content: document.getElementById("statistics-content"),
         refresh: document.getElementById("refresh-statistics"),
-        range: document.getElementById("date-range"),
         totalViews: document.getElementById("metric-total-views"),
-        totalSessions: document.getElementById("metric-total-sessions"),
         adminViews: document.getElementById("metric-admin-views"),
         todayViews: document.getElementById("metric-today-views"),
         todayDate: document.getElementById("metric-today-date"),
-        averageViews: document.getElementById("metric-average-views"),
-        averagePeriod: document.getElementById("metric-average-period"),
-        chart: document.getElementById("traffic-chart"),
-        chartDescription: document.getElementById("chart-description"),
+        weekViews: document.getElementById("metric-week-views"),
+        weekStart: document.getElementById("metric-week-start"),
         hoursChart: document.getElementById("counter-hours-chart"),
         weekdaysChart: document.getElementById("counter-weekdays-chart"),
         quartersChart: document.getElementById("counter-quarters-chart"),
-        pagePerformance: document.getElementById("page-performance")
+        pageChart: document.getElementById("page-performance-chart"),
+        pageList: document.getElementById("page-performance-list")
     };
     const numberFormat = new Intl.NumberFormat();
     let config;
-    let counter;
-    let temporalCharts = [];
+    let charts = [];
     let loadInProgress = false;
-    let rangeInitialized = false;
+    let requestSequence = 0;
 
     function setMessage(message, kind = "info") {
         elements.message.textContent = message;
@@ -37,243 +32,182 @@
         elements.message.hidden = !message;
     }
 
-    function getUtcDate(date = new Date()) {
-        return date.toISOString().slice(0, 10);
+    function formatDate(timestamp) {
+        const date = new Date(timestamp);
+        if (Number.isNaN(date.getTime())) throw new Error("CounterAPI returned an invalid statistics date.");
+        return new Intl.DateTimeFormat(undefined, {
+            timeZone: "UTC",
+            year: "numeric",
+            month: "short",
+            day: "numeric"
+        }).format(date);
     }
 
-    function offsetDate(dateString, offset) {
-        const date = new Date(`${dateString}T00:00:00.000Z`);
-        date.setUTCDate(date.getUTCDate() + offset);
-        return getUtcDate(date);
+    function getUtcWeekStart() {
+        const date = new Date();
+        date.setUTCHours(0, 0, 0, 0);
+        date.setUTCDate(date.getUTCDate() - ((date.getUTCDay() + 6) % 7));
+        return date.toISOString();
     }
 
-    function formatDate(dateString, options = { month: "short", day: "numeric" }) {
-        return new Intl.DateTimeFormat(undefined, { ...options, timeZone: "UTC" })
-            .format(new Date(`${dateString}T00:00:00.000Z`));
+    function readCount(value, description) {
+        const count = Number(value);
+        if (!Number.isFinite(count) || count < 0) {
+            throw new Error(`CounterAPI returned an invalid count for ${description}.`);
+        }
+        return count;
     }
 
-    function appendSvg(parent, name, attributes = {}, text = "") {
-        const element = document.createElementNS(SVG_NS, name);
-        for (const [key, value] of Object.entries(attributes)) {
-            element.setAttribute(key, String(value));
+    async function getStats(name) {
+        const url = new URL(
+            `${encodeURIComponent(config.workspace.trim())}/${encodeURIComponent(name)}/stats`,
+            COUNTER_API_URL
+        );
+        url.searchParams.set("_", `${Date.now()}-${requestSequence++}`);
+        const response = await fetch(url, { cache: "no-store" });
+        if (response.status === 404) {
+            throw new Error(`CounterAPI counter "${name}" was not found. Create it in the configured workspace.`);
         }
-        if (text) element.textContent = text;
-        parent.append(element);
-        return element;
+        if (!response.ok) throw new Error(`Could not load counter "${name}" (HTTP ${response.status}).`);
+        const result = await response.json();
+        if (!result || result.code !== "200" || !result.data) {
+            throw new Error(`CounterAPI returned invalid statistics for "${name}".`);
+        }
+        return result.data;
     }
 
-    function clearChart() {
-        for (const child of [...elements.chart.children]) {
-            if (child.id !== "chart-title" && child.id !== "chart-description") child.remove();
-        }
+    async function getCount(name) {
+        const result = await getStats(name);
+        return readCount(result.up_count, `"${name}"`);
     }
 
-    function drawChart(rows) {
-        clearChart();
-        const width = 900;
-        const height = 330;
-        const margin = { top: 18, right: 24, bottom: 48, left: 60 };
-        const plotWidth = width - margin.left - margin.right;
-        const plotHeight = height - margin.top - margin.bottom;
-        const highest = Math.max(1, ...rows.flatMap((row) => [row.views, row.sessions]));
-        const scale = Math.ceil(highest / 4) * 4 || 1;
-        const x = (index) => margin.left + (rows.length < 2 ? plotWidth / 2 : (index / (rows.length - 1)) * plotWidth);
-        const y = (value) => margin.top + plotHeight - (value / scale) * plotHeight;
-
-        elements.chartDescription.textContent =
-            `Daily page views and browser sessions from ${formatDate(rows[0].date, { year: "numeric", month: "long", day: "numeric" })} through ${formatDate(rows[rows.length - 1].date, { year: "numeric", month: "long", day: "numeric" })}, UTC.`;
-
-        for (let tick = 0; tick <= 4; tick += 1) {
-            const value = (scale / 4) * tick;
-            const tickY = y(value);
-            appendSvg(elements.chart, "line", {
-                class: "statistics-grid-line",
-                x1: margin.left,
-                x2: width - margin.right,
-                y1: tickY,
-                y2: tickY
-            });
-            appendSvg(elements.chart, "text", {
-                class: "statistics-axis-label",
-                x: margin.left - 10,
-                y: tickY + 4,
-                "text-anchor": "end"
-            }, numberFormat.format(value));
-        }
-
-        const labelCount = Math.min(7, rows.length);
-        for (let index = 0; index < labelCount; index += 1) {
-            const rowIndex = Math.round((index / Math.max(1, labelCount - 1)) * (rows.length - 1));
-            const labelX = x(rowIndex);
-            appendSvg(elements.chart, "text", {
-                class: "statistics-axis-label",
-                x: labelX,
-                y: height - 16,
-                "text-anchor": index === 0 ? "start" : index === labelCount - 1 ? "end" : "middle"
-            }, formatDate(rows[rowIndex].date));
-        }
-
-        for (const series of [
-            { key: "views", line: "statistics-line-views", point: "statistics-point-views", label: "Page views" },
-            { key: "sessions", line: "statistics-line-sessions", point: "statistics-point-sessions", label: "Sessions" }
-        ]) {
-            const points = rows.map((row, index) => `${x(index)},${y(row[series.key])}`).join(" ");
-            appendSvg(elements.chart, "polyline", { class: series.line, points });
-            rows.forEach((row, index) => {
-                const point = appendSvg(elements.chart, "circle", {
-                    class: series.point,
-                    cx: x(index),
-                    cy: y(row[series.key]),
-                    r: rows.length > 45 ? 2.5 : 3.5
-                });
-                appendSvg(point, "title", {}, `${formatDate(row.date, { year: "numeric", month: "long", day: "numeric" })}: ${numberFormat.format(row[series.key])} ${series.label.toLowerCase()}`);
-            });
-        }
-
-        if (rows.every((row) => row.views === 0 && row.sessions === 0)) {
-            appendSvg(elements.chart, "text", {
-                class: "statistics-chart-empty",
-                x: width / 2,
-                y: margin.top + plotHeight / 2,
-                "text-anchor": "middle"
-            }, "No daily counts yet. The daily counters need to exist and receive visits.");
-        }
+    function destroyCharts() {
+        charts.forEach((chart) => chart.destroy());
+        charts = [];
     }
 
-    function renderTemporalCharts(temporal) {
-        if (typeof window.Chart !== "function") {
-            throw new Error("The CounterAPI charts could not load. Check your connection and refresh.");
-        }
-        if (!temporal || !temporal.hours || !temporal.weekdays || !temporal.quarters) {
-            throw new Error("CounterAPI did not return the activity breakdown for the page-views counter.");
-        }
-
-        temporalCharts.forEach((chart) => chart.destroy());
-        temporalCharts = [];
-
-        const color = getComputedStyle(document.documentElement);
-        const textColor = color.getPropertyValue("--color-mute").trim();
-        const gridColor = color.getPropertyValue("--border").trim();
-        const viewsColor = color.getPropertyValue("--accent").trim();
-        const datasets = (values) => [
-            {
-                label: "Up counts",
-                data: values.map((entry) => Number(entry && entry.up) || 0),
-                backgroundColor: viewsColor,
-                borderRadius: 4
-            },
-            {
-                label: "Down counts",
-                data: values.map((entry) => Number(entry && entry.down) || 0),
-                backgroundColor: color.getPropertyValue("--success").trim(),
-                borderRadius: 4
-            }
-        ];
-        const options = {
+    function chartOptions(horizontal = false) {
+        const styles = getComputedStyle(document.documentElement);
+        const textColor = styles.getPropertyValue("--color-mute").trim();
+        const gridColor = styles.getPropertyValue("--border").trim();
+        const accentColor = styles.getPropertyValue("--accent").trim();
+        const sessionColor = styles.getPropertyValue("--success").trim();
+        return {
+            indexAxis: horizontal ? "y" : "x",
             responsive: true,
             maintainAspectRatio: false,
             interaction: { mode: "index", intersect: false },
             plugins: {
-                legend: {
-                    labels: { color: textColor, usePointStyle: true, boxWidth: 8 }
+                legend: { display: false },
+                tooltip: {
+                    enabled: true,
+                    backgroundColor: "#10131a",
+                    titleColor: "#f8fafc",
+                    bodyColor: "#cbd5e1",
+                    borderColor: "rgba(148, 163, 184, 0.2)",
+                    borderWidth: 1,
+                    cornerRadius: 8,
+                    padding: 12,
+                    displayColors: false,
+                    callbacks: {
+                        label: (context) => `${numberFormat.format(context.parsed[horizontal ? "x" : "y"])} views`
+                    }
                 }
             },
             scales: {
                 x: {
-                    grid: { display: false },
-                    ticks: { color: textColor, maxRotation: 0, autoSkip: true }
+                    beginAtZero: true,
+                    grid: { color: horizontal ? gridColor : "transparent", drawBorder: false },
+                    border: { display: false },
+                    ticks: { color: textColor, precision: 0, autoSkip: true, font: { size: 11 } }
                 },
                 y: {
                     beginAtZero: true,
-                    grid: { color: gridColor },
-                    ticks: { color: textColor, precision: 0 }
+                    grid: { color: horizontal ? "transparent" : gridColor, drawBorder: false },
+                    border: { display: false },
+                    ticks: { color: textColor, precision: 0, autoSkip: true, font: { size: 11 } }
                 }
-            }
+            },
+            elements: {
+                bar: {
+                    backgroundColor: (context) => horizontal && context.dataIndex === context.dataset.data.length - 1
+                        ? sessionColor
+                        : accentColor,
+                    borderRadius: 6,
+                    borderSkipped: false
+                }
+            },
+            datasets: { bar: { barPercentage: 0.72, categoryPercentage: 0.78 } }
         };
-        const createChart = (canvas, labels, values) => {
-            temporalCharts.push(new window.Chart(canvas, {
-                type: "bar",
-                data: { labels, datasets: datasets(values) },
-                options
-            }));
-        };
+    }
+
+    function renderChart(canvas, labels, values, horizontal = false) {
+        if (typeof window.Chart !== "function") {
+            throw new Error("The statistics charts could not load. Check your connection and refresh.");
+        }
+        charts.push(new window.Chart(canvas, {
+            type: "bar",
+            data: {
+                labels,
+                datasets: [{ label: "Page views", data: values }]
+            },
+            options: chartOptions(horizontal)
+        }));
+    }
+
+    function readTemporalValues(temporal, group, keys) {
+        if (!temporal || !temporal[group]) {
+            throw new Error(`CounterAPI did not return the ${group} page-view breakdown.`);
+        }
+        return keys.map((key) => readCount(temporal[group][key] && temporal[group][key].up, `${group}.${key}`));
+    }
+
+    function renderTemporalCharts(temporal) {
         const hourKeys = Array.from({ length: 24 }, (_, hour) => String(hour).padStart(2, "0"));
         const weekdayKeys = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
         const quarterKeys = ["q1", "q2", "q3", "q4"];
 
-        createChart(elements.hoursChart, hourKeys.map((hour) => `${hour}:00`), hourKeys.map((hour) => temporal.hours[hour]));
-        createChart(elements.weekdaysChart, weekdayKeys.map((day) => day[0].toUpperCase() + day.slice(1)), weekdayKeys.map((day) => temporal.weekdays[day]));
-        createChart(elements.quartersChart, quarterKeys.map((quarter) => quarter.toUpperCase()), quarterKeys.map((quarter) => temporal.quarters[quarter]));
+        renderChart(elements.hoursChart, hourKeys.map((hour) => `${hour}:00`),
+            readTemporalValues(temporal, "hours", hourKeys));
+        renderChart(elements.weekdaysChart, weekdayKeys.map((day) => day[0].toUpperCase() + day.slice(1)),
+            readTemporalValues(temporal, "weekdays", weekdayKeys));
+        renderChart(elements.quartersChart, quarterKeys.map((quarter) => quarter.toUpperCase()),
+            readTemporalValues(temporal, "quarters", quarterKeys));
     }
 
-    async function getCount(name, missingIsZero = false) {
-        let result;
-        try {
-            result = await counter.get(name);
-        } catch (error) {
-            if (missingIsZero && error && error.status === 404) return 0;
-            throw error;
-        }
-        const value = result && Number(result.data && result.data.up_count);
-        if (!Number.isFinite(value) || value < 0) {
-            throw new Error(`CounterAPI returned an invalid count for "${name}".`);
-        }
-        return value;
-    }
-
-    async function getRows(days) {
-        const today = getUtcDate();
-        const dates = Array.from({ length: days }, (_, index) => offsetDate(today, index - days + 1));
-        const rows = [];
-        for (let index = 0; index < dates.length; index += 6) {
-            const batch = dates.slice(index, index + 6);
-            const result = await Promise.all(batch.map(async (date) => {
-                const [views, sessions] = await Promise.all([
-                    getCount(`${config.counters.pageViewsDailyPrefix}-${date}`, true),
-                    getCount(`${config.counters.sessionsDailyPrefix}-${date}`, true)
-                ]);
-                return { date, views, sessions };
-            }));
-            rows.push(...result);
-        }
-        return rows;
-    }
-
-    function renderPages(pages, values) {
-        elements.pagePerformance.replaceChildren();
-        const peak = Math.max(1, ...values);
-        if (!pages.length) {
-            const empty = document.createElement("p");
-            empty.className = "statistics-empty-pages";
-            empty.textContent = "No pages are configured for tracking.";
-            elements.pagePerformance.append(empty);
-            return;
-        }
-
-        pages.forEach((page, index) => {
+    function renderPagePerformance(pages, values, adminViews) {
+        const rows = [
+            ...pages.map((page, index) => ({ name: page.name, path: page.path, count: values[index] })),
+            { name: "Admin area", path: "/admin/", count: adminViews }
+        ];
+        elements.pageList.replaceChildren();
+        const peak = Math.max(1, ...rows.map((row) => row.count));
+        rows.forEach((entry) => {
             const row = document.createElement("div");
             row.className = "statistics-page-row";
+            if (entry.path === "/admin/") row.classList.add("statistics-page-row--admin");
 
             const name = document.createElement("span");
             name.className = "statistics-page-row__name";
-            name.textContent = page.name;
-            name.title = page.path;
+            name.textContent = entry.name;
+            name.title = entry.path;
 
             const track = document.createElement("span");
             track.className = "statistics-page-row__track";
             track.setAttribute("aria-hidden", "true");
             const bar = document.createElement("span");
             bar.className = "statistics-page-row__bar";
-            bar.style.width = `${(values[index] / peak) * 100}%`;
+            bar.style.width = `${(entry.count / peak) * 100}%`;
             track.append(bar);
 
             const count = document.createElement("span");
             count.className = "statistics-page-row__value";
-            count.textContent = numberFormat.format(values[index]);
+            count.textContent = numberFormat.format(entry.count);
 
             row.append(name, track, count);
-            elements.pagePerformance.append(row);
+            elements.pageList.append(row);
         });
+        renderChart(elements.pageChart, rows.map((row) => row.name), rows.map((row) => row.count), true);
     }
 
     function validateConfig(value) {
@@ -283,22 +217,14 @@
         if (value.enabled !== true || typeof value.workspace !== "string" || !value.workspace.trim()) {
             return false;
         }
-        const counters = value.counters;
-        const requiredNames = [
-            "pageViewsTotal",
-            "sessionsTotal",
-            "pageViewsDailyPrefix",
-            "sessionsDailyPrefix",
-            "pageViewsPerPagePrefix",
-            "adminPageViews"
-        ];
-        if (!counters || requiredNames.some((name) => typeof counters[name] !== "string" || !counters[name].trim())) {
-            throw new Error("The analytics configuration is missing one or more CounterAPI counter names.");
-        }
-        if (!Array.isArray(value.pages) || value.pages.some((page) =>
-            !page || typeof page.name !== "string" || typeof page.path !== "string" || typeof page.key !== "string"
-        )) {
-            throw new Error("The analytics pages setting must be a list of pages with name, path, and key values.");
+        if (!value.counters || typeof value.counters.pageViewsTotal !== "string" ||
+            !value.counters.pageViewsTotal.trim() || typeof value.counters.adminPageViews !== "string" ||
+            !value.counters.adminPageViews.trim() || !Array.isArray(value.pages) ||
+            value.pages.length === 0 || value.pages.some((page) =>
+                !page || typeof page.name !== "string" || typeof page.path !== "string" ||
+                typeof page.counter !== "string" || !page.counter.trim()
+            )) {
+            throw new Error("The analytics configuration must define total, admin, and per-page counters.");
         }
         return true;
     }
@@ -307,8 +233,8 @@
         if (loadInProgress) return;
         loadInProgress = true;
         elements.refresh.disabled = true;
-        elements.range.disabled = true;
         setMessage("");
+        destroyCharts();
         try {
             if (!config) {
                 const response = await fetch(CONFIG_URL, { cache: "no-store" });
@@ -321,50 +247,31 @@
                 return;
             }
 
-            if (!rangeInitialized) {
-                const defaultRange = Number(config.defaultRangeDays);
-                elements.range.value = String([7, 30, 90].includes(defaultRange) ? defaultRange : 30);
-                rangeInitialized = true;
-            }
-
-            if (!counter) {
-                setMessage("Connecting to CounterAPI…");
-                const { Counter } = await import(COUNTER_CLIENT_URL);
-                counter = new Counter({ workspace: config.workspace.trim() });
-            }
-
             elements.setup.hidden = true;
             elements.content.hidden = false;
-            const selectedDays = Number(elements.range.value || config.defaultRangeDays || 30);
-            const rangeDays = [7, 30, 90].includes(selectedDays) ? selectedDays : 30;
-            elements.range.value = String(rangeDays);
-            const today = getUtcDate();
-            const [totalStats, totalSessions, adminViews, rows, pageValues] = await Promise.all([
-                counter.stats(config.counters.pageViewsTotal),
-                getCount(config.counters.sessionsTotal, true),
-                getCount(config.counters.adminPageViews, true),
-                getRows(rangeDays),
-                Promise.all(config.pages.map((page) => getCount(`${config.counters.pageViewsPerPagePrefix}-${page.key}`, true)))
+            const [totalStats, adminViews, pageValues] = await Promise.all([
+                getStats(config.counters.pageViewsTotal),
+                getCount(config.counters.adminPageViews),
+                Promise.all(config.pages.map((page) => getCount(page.counter)))
             ]);
-            const totalViews = Number(totalStats && totalStats.data && totalStats.data.up_count);
-            const todayViews = Number(totalStats && totalStats.data && totalStats.data.stats &&
-                totalStats.data.stats.today && totalStats.data.stats.today.up);
-            if (!Number.isFinite(totalViews) || totalViews < 0 || !Number.isFinite(todayViews) || todayViews < 0) {
-                throw new Error("CounterAPI returned invalid page-views statistics.");
+
+            const stats = totalStats.stats;
+            if (!stats || !stats.today || !stats.this_week || !stats.temporal) {
+                throw new Error("CounterAPI returned incomplete page-view statistics.");
             }
+            const totalViews = readCount(totalStats.up_count, "the total page-view counter");
+            const todayViews = readCount(stats.today.up, "today's page views");
+            const weekViews = readCount(stats.this_week.up, "this week's page views");
 
             elements.totalViews.textContent = numberFormat.format(totalViews);
-            elements.totalSessions.textContent = numberFormat.format(totalSessions);
             elements.adminViews.textContent = numberFormat.format(adminViews);
             elements.todayViews.textContent = numberFormat.format(todayViews);
-            elements.todayDate.textContent = `${formatDate(today, { year: "numeric", month: "long", day: "numeric" })} (UTC)`;
-            const average = rows.reduce((sum, row) => sum + row.views, 0) / rows.length;
-            elements.averageViews.textContent = numberFormat.format(Math.round(average * 10) / 10);
-            elements.averagePeriod.textContent = `Page views per day · last ${rangeDays} days`;
+            elements.todayDate.textContent = `${formatDate(stats.today.started_at || new Date().toISOString())} (UTC)`;
+            elements.weekViews.textContent = numberFormat.format(weekViews);
+            elements.weekStart.textContent = `Since ${formatDate(stats.this_week.started_at || getUtcWeekStart())} (UTC)`;
 
-            drawChart(rows);
-            renderTemporalCharts(totalStats.data.stats.temporal);
-            renderPages(config.pages, pageValues);
+            renderTemporalCharts(stats.temporal);
+            renderPagePerformance(config.pages, pageValues, adminViews);
             setMessage("");
         } catch (error) {
             const message = error instanceof Error
@@ -376,16 +283,12 @@
         } finally {
             loadInProgress = false;
             elements.refresh.disabled = false;
-            elements.range.disabled = false;
         }
     }
 
     elements.refresh.addEventListener("click", () => {
         config = undefined;
-        counter = undefined;
-        rangeInitialized = true;
         void loadDashboard();
     });
-    elements.range.addEventListener("change", () => void loadDashboard());
     void loadDashboard();
 })();
