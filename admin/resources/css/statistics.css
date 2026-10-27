@@ -384,16 +384,6 @@
     height: 15rem;
 }
 
-.statistics-page-chart {
-    max-width: 52rem;
-    height: 17rem;
-    margin-top: var(--gap-small);
-    padding: var(--padding-xsmall);
-    border: var(--border-width) solid color-mix(in srgb, var(--statistics-border) 78%, transparent);
-    border-radius: calc(var(--border-radius-medium) + 0.2rem);
-    background: var(--statistics-soft);
-}
-
 .statistics-line-views,
 .statistics-line-sessions {
     fill: none;

@@ -17,7 +17,6 @@
         hoursChart: document.getElementById("counter-hours-chart"),
         weekdaysChart: document.getElementById("counter-weekdays-chart"),
         quartersChart: document.getElementById("counter-quarters-chart"),
-        pageChart: document.getElementById("page-performance-chart"),
         pageList: document.getElementById("page-performance-list")
     };
     const numberFormat = new Intl.NumberFormat();
@@ -86,14 +85,11 @@
         charts = [];
     }
 
-    function chartOptions(horizontal = false) {
+    function chartOptions() {
         const styles = getComputedStyle(document.documentElement);
         const textColor = styles.getPropertyValue("--color-mute").trim();
         const gridColor = styles.getPropertyValue("--border").trim();
-        const accentColor = styles.getPropertyValue("--accent").trim();
-        const sessionColor = styles.getPropertyValue("--success").trim();
         return {
-            indexAxis: horizontal ? "y" : "x",
             responsive: true,
             maintainAspectRatio: false,
             interaction: { mode: "index", intersect: false },
@@ -109,49 +105,52 @@
                     cornerRadius: 8,
                     padding: 12,
                     displayColors: false,
-                    callbacks: {
-                        label: (context) => `${numberFormat.format(context.parsed[horizontal ? "x" : "y"])} views`
-                    }
+                    callbacks: { label: (context) => `${numberFormat.format(context.parsed.y)} views` }
                 }
             },
             scales: {
                 x: {
-                    beginAtZero: true,
-                    grid: { color: horizontal ? gridColor : "transparent", drawBorder: false },
+                    grid: { color: "transparent", drawBorder: false },
                     border: { display: false },
                     ticks: { color: textColor, precision: 0, autoSkip: true, font: { size: 11 } }
                 },
                 y: {
                     beginAtZero: true,
-                    grid: { color: horizontal ? "transparent" : gridColor, drawBorder: false },
+                    grid: { color: gridColor, drawBorder: false },
                     border: { display: false },
                     ticks: { color: textColor, precision: 0, autoSkip: true, font: { size: 11 } }
                 }
             },
             elements: {
-                bar: {
-                    backgroundColor: (context) => horizontal && context.dataIndex === context.dataset.data.length - 1
-                        ? sessionColor
-                        : accentColor,
-                    borderRadius: 6,
-                    borderSkipped: false
-                }
-            },
-            datasets: { bar: { barPercentage: 0.72, categoryPercentage: 0.78 } }
+                line: { borderWidth: 2.5, tension: 0.3 },
+                point: { radius: 3, hoverRadius: 5, hitRadius: 8 }
+            }
         };
     }
 
-    function renderChart(canvas, labels, values, horizontal = false) {
+    function renderChart(canvas, labels, values) {
         if (typeof window.Chart !== "function") {
             throw new Error("The statistics charts could not load. Check your connection and refresh.");
         }
         charts.push(new window.Chart(canvas, {
-            type: "bar",
+            type: "line",
             data: {
                 labels,
-                datasets: [{ label: "Page views", data: values }]
+                datasets: [{
+                    label: "Page views",
+                    data: values,
+                    borderColor: getComputedStyle(document.documentElement)
+                        .getPropertyValue("--accent").trim(),
+                    backgroundColor: "transparent",
+                    pointBackgroundColor: getComputedStyle(document.documentElement)
+                        .getPropertyValue("--accent").trim(),
+                    pointBorderColor: getComputedStyle(document.documentElement)
+                        .getPropertyValue("--background").trim(),
+                    pointBorderWidth: 2,
+                    fill: false
+                }]
             },
-            options: chartOptions(horizontal)
+            options: chartOptions()
         }));
     }
 
@@ -207,7 +206,6 @@
             row.append(name, track, count);
             elements.pageList.append(row);
         });
-        renderChart(elements.pageChart, rows.map((row) => row.name), rows.map((row) => row.count), true);
     }
 
     function validateConfig(value) {
