@@ -7,9 +7,12 @@
     <title>NP Consultants &nbsp;&bull;&nbsp; 404</title>
 
     <script>
-        const pathDepth = location.pathname.split("/").filter(Boolean).length;
+        const prefix = 1;
+        const pagePath = location.pathname.endsWith("/") ? location.pathname : `${location.pathname}/`;
+        const pageUrl = new URL(pagePath, location.origin);
+        const pathDepth = Math.max(0, pageUrl.pathname.split("/").filter(Boolean).length - prefix);
         const base = document.createElement("base");
-        base.href = "../".repeat(pathDepth);
+        base.href = new URL("../".repeat(pathDepth), pageUrl).href;
         document.head.appendChild(base);
     </script>
 
