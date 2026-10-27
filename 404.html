@@ -6,23 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NP Consultants &nbsp;&bull;&nbsp; 404</title>
 
-    <link rel="icon" href="../resources/img/brand/icon_light.png" type="image/png"
+    <script>
+        const pathDepth = location.pathname.split("/").filter(Boolean).length;
+        const base = document.createElement("base");
+        base.href = "../".repeat(pathDepth);
+        document.head.appendChild(base);
+    </script>
+
+    <link rel="icon" href="resources/img/brand/icon_light.png" type="image/png"
         media="(prefers-color-scheme: light)">
-    <link rel="icon" href="../resources/img/brand/icon_dark.png" type="image/png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" href="resources/img/brand/icon_dark.png" type="image/png" media="(prefers-color-scheme: dark)">
 
-    <link rel="stylesheet" href="../resources/css/root.css">
-    <link rel="stylesheet" href="../resources/css/body.css">
-    <!-- <link rel="stylesheet" href="../resources/css/scrollbar.css"> -->
-    <link rel="stylesheet" href="../resources/css/image-loading.css">
+    <link rel="stylesheet" href="resources/css/root.css">
+    <link rel="stylesheet" href="resources/css/body.css">
+    <!-- <link rel="stylesheet" href="resources/css/scrollbar.css"> -->
+    <link rel="stylesheet" href="resources/css/image-loading.css">
 
-    <link rel="stylesheet" href="../resources/css/nav.css">
-    <link rel="stylesheet" href="../resources/css/nav-links.css">
-    <link rel="stylesheet" href="../resources/css/nav-toggle.css">
+    <link rel="stylesheet" href="resources/css/nav.css">
+    <link rel="stylesheet" href="resources/css/nav-links.css">
+    <link rel="stylesheet" href="resources/css/nav-toggle.css">
 
-    <link rel="stylesheet" href="../resources/css/buttons/button-theme-toggle.css">
-    <link rel="stylesheet" href="../resources/css/buttons/button.css">
+    <link rel="stylesheet" href="resources/css/buttons/button-theme-toggle.css">
+    <link rel="stylesheet" href="resources/css/buttons/button.css">
 
-    <link rel="stylesheet" href="../resources/css/footer.css">
+    <link rel="stylesheet" href="resources/css/footer.css">
 
     <style>
         ::-webkit-scrollbar {
@@ -479,7 +486,7 @@
         }
     </style>
 
-    <script src="../resources/js/theme-init.js"></script>
+    <script src="resources/js/theme-init.js"></script>
 
 </head>
 
@@ -521,17 +528,17 @@
         document.getElementById("path404").textContent = location.pathname + location.search;
     </script>
 
-    <script type="module" src="../resources/js/modules/intro.js"></script>
-    <script type="module" src="../resources/js/modules/image-loading.js"></script>
-    <script type="module" src="../resources/js/modules/theme-switch.js"></script>
+    <script type="module" src="resources/js/modules/intro.js"></script>
+    <script type="module" src="resources/js/modules/image-loading.js"></script>
+    <script type="module" src="resources/js/modules/theme-switch.js"></script>
 
-    <script type="module" src="../resources/js/nav/nav-header.js"></script>
-    <script type="module" src="../resources/js/nav/nav-writer.js"></script>
-    <script type="module" src="../resources/js/nav/navbar.js"></script>
-    <script type="module" src="../resources/js/nav/nav-links.js"></script>
-    <script type="module" src="../resources/js/nav/nav-toggle.js"></script>
+    <script type="module" src="resources/js/nav/nav-header.js"></script>
+    <script type="module" src="resources/js/nav/nav-writer.js"></script>
+    <script type="module" src="resources/js/nav/navbar.js"></script>
+    <script type="module" src="resources/js/nav/nav-links.js"></script>
+    <script type="module" src="resources/js/nav/nav-toggle.js"></script>
 
-    <script type="module" src="../resources/js/footer.js"></script>
+    <script type="module" src="resources/js/footer.js"></script>
 
 </body>
 
