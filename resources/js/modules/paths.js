@@ -87,6 +87,10 @@ export async function getPaths() {
 
       for (const [key, value] of Object.entries(data || {})) {
         if (key === "prefix") continue;
+        if (["contactAccessKey", "contactSubject", "contactFromName"].includes(key)) {
+          resolved[key] = value;
+          continue;
+        }
         resolved[key] = resolveObject(value, prefix);
       }
 
