@@ -158,7 +158,24 @@
         if (!temporal || !temporal[group]) {
             throw new Error(`CounterAPI did not return the ${group} page-view breakdown.`);
         }
-        return keys.map((key) => readCount(temporal[group][key] && temporal[group][key].up, `${group}.${key}`));
+
+        const dataset = temporal[group];
+        return keys.map((key) => {
+            const direct = dataset[key];
+            const candidates = [
+                key,
+                String(key),
+                String(Number(key)),
+                String(Number(key)).padStart(2, "0"),
+                String(key).replace(/^0+/, "")
+            ];
+            const match = candidates.find((candidate) => Object.prototype.hasOwnProperty.call(dataset, candidate))
+                ?? Object.keys(dataset).find((candidate) => candidate.toLowerCase() === String(key).toLowerCase());
+            const value = match ? dataset[match] : direct;
+            const raw = value && typeof value === "object" ? value.up : value;
+            if (!Number.isFinite(Number(raw))) return 0;
+            return readCount(raw, `${group}.${key}`);
+        });
     }
 
     function renderTemporalCharts(temporal) {
