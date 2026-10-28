@@ -45,3 +45,4 @@
 - Notes
   - Using the free plan; ∴ 250 form submissions per month
   - Init 28/10/2026
+  - Setup to the base/root. Example: `https://itzmespark116.github.io/NP-Consultants-demo/` & not `https://itzmespark116.github.io/NP-Consultants-demo/contact`
