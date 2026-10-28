@@ -24,6 +24,10 @@
     transition: filter var(--transition-medium) var(--ease);
 }
 
+.map .map-frame.is-loading iframe {
+    visibility: hidden;
+}
+
 .map iframe[hidden] {
     display: none;
 }

@@ -1,13 +1,41 @@
+.image-loading-container {
+    position: relative;
+}
+
 img[data-image-loading="true"] {
-    background-color: color-mix(in srgb, var(--glass) 50%, transparent);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%234077ee' stroke-width='3' stroke-dasharray='42 15' stroke-linecap='round'%3E%3CanimateTransform attributeName='transform' type='rotate' from='0 12 12' to='360 12 12' dur='0.8s' repeatCount='indefinite'/%3E%3C/circle%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: var(--icon-size);
+    visibility: hidden;
+}
+
+.image-loading-indicator {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--glass) 50%, transparent);
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.image-loading-indicator::before {
+    content: "";
+    box-sizing: border-box;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    border: var(--border-width) solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: var(--border-radius-max);
+    animation: image-loading-rotation var(--transition-large) linear infinite;
+}
+
+@keyframes image-loading-rotation {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    img[data-image-loading="true"] {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%234077ee' stroke-width='3' stroke-dasharray='42 15' stroke-linecap='round'/%3E%3C/svg%3E");
+    .image-loading-indicator::before {
+        animation: none;
     }
 }

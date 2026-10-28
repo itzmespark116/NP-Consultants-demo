@@ -606,6 +606,12 @@ setTimeout(() => document.documentElement.classList.add("intro-done"), ms);
 ```
 When `--intro-duration` expires, `intro-done` is added to `<html>`, causing `.intro` to fade out and `<main>` to appear.
 
+#### Image Loading (`image-loading.js`)
+
+The shared image loader keeps each image hidden while it loads and places a spinner over its image container. The image is revealed only after its `load` event; if the requested image fails, the same loading state stays in place while the configured fallback is fetched. The contact map similarly keeps its iframe hidden behind its spinner until the iframe's `load` event.
+
+On public pages, the development helper `imageLoadingDebug` can be used from the browser console: call `imageLoadingDebug.all()` to show the loaders on fully loaded images and map frames, then `imageLoadingDebug.clear()` to restore them. Use `imageLoadingDebug.show("selector")` to target specific elements.
+
 #### Navigation Suite (`nav-*.js`)
 
 - **`nav-writer.js`:** Fetches the navigation path from `paths.json` via `getPath("nav")` and renders `<li><a href="...">...</a></li>` into `<ul id="navLinks">`. Exports a Promise `ready` so dependent modules can await DOM injection.
