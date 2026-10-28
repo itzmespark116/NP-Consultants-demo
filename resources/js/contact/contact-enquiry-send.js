@@ -80,7 +80,7 @@ import { getPaths } from "../modules/paths.js";
   async function send(form) {
     if (sending) return;
 
-    const controls = [...form.querySelectorAll("input, textarea")];
+    const controls = [...form.querySelectorAll('input:not([type="hidden"]), textarea')];
     const invalid = controls.find((control) => !control.checkValidity());
     if (invalid) {
       invalid.reportValidity();
@@ -135,9 +135,12 @@ import { getPaths } from "../modules/paths.js";
     }
   }
 
-  section.addEventListener("click", (event) => {
-    const button = event.target.closest(".form .button");
-    if (button) send(button.closest(".form"));
+  section.addEventListener("submit", (event) => {
+    const form = event.target.closest(".form");
+    if (form) {
+      event.preventDefault();
+      send(form);
+    }
   });
 
   // Enter inside a single-line field sends too (textarea keeps its new line)

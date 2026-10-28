@@ -40,6 +40,8 @@ import { getPaths, resolvePath } from "../modules/paths.js";
         fetch(paths.contact).then((r) => r.json()),
         fetch(paths.contactForm || paths["contact-form"]).then((r) => r.json()),
       ]);
+      const endpoint = paths.contactSubmit || paths["contact-submit"] || "";
+      const accessKey = paths.contactAccessKey || "";
 
       // Rows with the same title share one box
       const groups = new Map();
@@ -103,14 +105,15 @@ import { getPaths, resolvePath } from "../modules/paths.js";
       // --i = intro order
       section.innerHTML = `
             <div class="info" style="--i:1">${boxes}</div>
-            <div class="form" style="--i:2">
+            <form class="form" style="--i:2" action="${escapeHTML(endpoint)}" method="POST">
+                <input type="hidden" name="access_key" value="${escapeHTML(accessKey)}">
                 ${data?.heading ? `<h2>${escapeHTML(data.heading)}</h2>` : ""}
                 ${fields}
                 <div class="button-wrapper">
-                  <button type="button" class="button${escapeHTML(type)}">${escapeHTML(submit.text || "Submit")}${icon}</button>
+                  <button type="submit" class="button${escapeHTML(type)}">${escapeHTML(submit.text || "Submit")}${icon}</button>
                 </div>
                 ${note}
-            </div>`;
+            </form>`;
 
       // Play the entrance animation once, when the section scrolls into view
       new IntersectionObserver(
