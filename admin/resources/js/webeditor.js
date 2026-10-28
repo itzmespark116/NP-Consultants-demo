@@ -1,3 +1,7 @@
+// ────────────────────────────────────────────────────────────────────────────────
+// ──────────────────────────────── NP Consultants ────────────────────────────────
+// ─────────────────────── admin/resources/js/webeditor.js ────────────────────────
+// ────────────────────────────────────────────────────────────────────────────────
 (() => {
     "use strict";
 
@@ -213,7 +217,7 @@
     }
 
     async function loadModel(file) {
-        const response = await fetch(new URL(`../../resources/data/${encodeURIComponent(file.name)}`, window.location.href), {
+        const response = await fetch(new URL(`resources/data/${encodeURIComponent(file.name)}`, document.baseURI), {
             cache: "no-store"
         });
         if (!response.ok) {

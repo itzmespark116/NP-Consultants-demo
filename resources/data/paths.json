@@ -1,5 +1,5 @@
 {
-"prefix": "../",
+"prefix": "./",
 
 "nav": "/resources/data/nav.json",
 "placeholders": "/resources/data/placeholders.json",
@@ -8,8 +8,11 @@
 "contact": "/resources/data/contact.json",
 "contactForm": "/resources/data/contact-form.json",
 "contact-form": "/resources/data/contact-form.json",
-"contactSubmit": "",
+"contactSubmit": "https://api.web3forms.com/submit",
 "contact-submit": "",
+"contactAccessKey": "725b365b-ade6-48e6-9f8d-d5d941ea7af6",
+"contactSubject": "New Enquiry — NP Consultants",
+"contactFromName": "NP Consultants Website",
 "contactPage": "/resources/data/contact-page.json",
 "contact-page": "/resources/data/contact-page.json",
 "about": "/resources/data/about.json",

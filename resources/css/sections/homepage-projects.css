@@ -5,7 +5,7 @@
 /* Featured projects (3 on desktop, 1-card scroll row on phones).                         */
 /* Intro : wrappers (.title, .description, .actions, .item) animate. Hover : .card, .button, img. */
 
-@import url(root.css);
+@import url("../root.css");
 
 .projects {
     box-sizing: border-box;

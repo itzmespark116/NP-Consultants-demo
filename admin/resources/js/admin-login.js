@@ -1,3 +1,7 @@
+// ────────────────────────────────────────────────────────────────────────────────
+// ──────────────────────────────── NP Consultants ────────────────────────────────
+// ────────────────────── admin/resources/js/admin-login.js ───────────────────────
+// ────────────────────────────────────────────────────────────────────────────────
 (() => {
     "use strict";
 
@@ -27,7 +31,7 @@
 
         let credentials;
         try {
-            const response = await fetch("../credentials.json", { cache: "no-store" });
+            const response = await fetch(new URL("admin/credentials.json", document.baseURI), { cache: "no-store" });
             if (!response.ok) throw new Error(`Could not load credentials (HTTP ${response.status}).`);
             credentials = await response.json();
         } catch (error) {

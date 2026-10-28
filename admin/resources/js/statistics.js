@@ -1,7 +1,11 @@
+// ────────────────────────────────────────────────────────────────────────────────
+// ──────────────────────────────── NP Consultants ────────────────────────────────
+// ─────────────────────── admin/resources/js/statistics.js ───────────────────────
+// ────────────────────────────────────────────────────────────────────────────────
 (() => {
     "use strict";
 
-    const CONFIG_URL = "../../resources/data/analytics.json";
+    const CONFIG_URL = new URL("resources/data/analytics.json", document.baseURI);
     const COUNTER_API_URL = "https://api.counterapi.dev/v2/";
     const elements = {
         message: document.getElementById("statistics-message"),

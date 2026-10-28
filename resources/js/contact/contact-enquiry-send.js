@@ -3,10 +3,10 @@
 // ─────────────────────────── contact-enquiry-send.js ────────────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
 // File Type : Behaviour (no markup of its own except a status line)
-// Data      : paths.json -> contactForm (messages?), contactSubmit (endpoint URL)
+// Data      : paths.json -> contactForm (messages?), Web3Forms settings
 // Target    : <section class="enquiry"></section>  (load with <script type="module">, after contact-enquiry.js)
 // Works with the form written by contact-enquiry.js. Events are delegated on the section,
-// so load order and render timing do not matter. POSTs JSON { name, email, phone, message }.
+// so load order and render timing do not matter. POSTs the form as JSON to Web3Forms.
 // Each message key (sending, success, error, missing) becomes the class of the status line:
 // .form .sending, .form .success, .form .error, .form .missing. Icon (SVG path) is optional.
 
@@ -26,7 +26,8 @@ import { getPaths } from "../modules/paths.js";
     missing: { text: "The contact form is not set up yet." },
   };
 
-  // Endpoint from paths.json, messages from contact-form.json (string or { text, icon })
+  // Web3Forms settings from paths.json, messages from contact-form.json
+  // (string or { text, icon })
   const ready = (async () => {
     const paths = await getPaths();
     const data = await fetch(paths.contactForm || paths["contact-form"]).then(
@@ -42,6 +43,9 @@ import { getPaths } from "../modules/paths.js";
     }
     return {
       endpoint: paths.contactSubmit || paths["contact-submit"] || "",
+      accessKey: paths.contactAccessKey || "",
+      subject: paths.contactSubject || "",
+      fromName: paths.contactFromName || "",
       messages,
     };
   })();
@@ -84,7 +88,7 @@ import { getPaths } from "../modules/paths.js";
     }
 
     try {
-      const { endpoint, messages } = await ready;
+      const { endpoint, accessKey, subject, fromName, messages } = await ready;
       if (!endpoint) {
         console.warn("contactSubmit is empty in paths.json");
         setStatus(form, "missing", messages);
@@ -100,6 +104,9 @@ import { getPaths } from "../modules/paths.js";
         const body = Object.fromEntries(
           controls.map((control) => [control.name, control.value.trim()]),
         );
+        body.access_key = accessKey;
+        body.subject = subject;
+        body.from_name = fromName;
         const res = await fetch(endpoint, {
           method: "POST",
           headers: {
@@ -109,7 +116,10 @@ import { getPaths } from "../modules/paths.js";
           body: JSON.stringify(body),
           signal: AbortSignal.timeout(TIMEOUT),
         });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const result = await res.json();
+        if (!res.ok || result?.success !== true) {
+          throw new Error(result?.message || `HTTP ${res.status}`);
+        }
 
         controls.forEach((control) => (control.value = ""));
         setStatus(form, "success", messages);

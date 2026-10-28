@@ -243,7 +243,7 @@ Every JavaScript file loading a JSON data file obtains its path dynamically thro
 
 ```json
 {
-  "prefix": "",
+  "prefix": "./",
   "nav": "/resources/data/nav.json",
   "placeholders": "/resources/data/placeholders.json",
   "about": "/resources/data/about.json",
@@ -254,13 +254,9 @@ Every JavaScript file loading a JSON data file obtains its path dynamically thro
 
 #### How the `"prefix"` works:
 - Every path in `paths.json` is written starting from `/resources/...`.
-- The `"prefix"` property is prepended directly before `/` in `/resources/...`.
-- **Default (root deployment):** When `"prefix": ""`, all paths remain `/resources/data/...`.
-- **Subfolder or nested pages:** If pages are hosted in subdirectories or opened without domain root (e.g. from `/home/index.html`), simply set:
-  ```json
-  "prefix": "../"
-  ```
-  The system automatically transforms all data and placeholder paths to `../resources/data/...` across the entire website without touching any JavaScript files.
+- Each HTML page uses the base script from `404.html`. Its `prefix = 1` setting accounts for the repository path segment; set it to `0` in every HTML page when deploying at the domain root.
+- Keep `"prefix": "./"` so registry paths resolve relative to that base (for example, `/resources/data/nav.json` becomes `./resources/data/nav.json`).
+- Do not add `../` prefixes for nested pages; the HTML base handles the deployment depth consistently.
 - **Subdirectory deployment:** If hosted at a subpath like `/frontend`, set:
   ```json
   "prefix": "/frontend"

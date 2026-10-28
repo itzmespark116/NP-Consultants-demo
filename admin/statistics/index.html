@@ -2,27 +2,36 @@
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
+    <script>
+        const prefix = 1;
+        const pagePath = location.pathname.endsWith("/") ? location.pathname : `${location.pathname}/`;
+        const pageUrl = new URL(pagePath, location.origin);
+        const pathDepth = Math.max(0, pageUrl.pathname.split("/").filter(Boolean).length - prefix);
+        const base = document.createElement("base");
+        base.href = new URL("../".repeat(pathDepth), pageUrl).href;
+        document.head.appendChild(base);
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#000000">
     <title>Statistics · NP Consultants</title>
-    <link rel="icon" href="../../resources/img/brand/icon_dark.png" type="image/png">
-    <link rel="stylesheet" href="../../resources/css/root.css">
-    <link rel="stylesheet" href="../resources/css/statistics.css">
-    <link rel="stylesheet" href="../resources/css/admin-auth.css">
-    <script src="../resources/js/admin-auth.js"></script>
+    <link rel="icon" href="resources/img/brand/icon_dark.png" type="image/png">
+    <link rel="stylesheet" href="resources/css/root.css">
+    <link rel="stylesheet" href="admin/resources/css/statistics.css">
+    <link rel="stylesheet" href="admin/resources/css/admin-auth.css">
+    <script src="admin/resources/js/admin-auth.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
-    <script src="../resources/js/statistics.js" defer></script>
+    <script src="admin/resources/js/statistics.js" defer></script>
 </head>
 <body class="admin-statistics">
     <header class="statistics-topbar">
-        <a class="statistics-brand" href="../" aria-label="Admin home">
+        <a class="statistics-brand" href="admin/" aria-label="Admin home">
             <span class="statistics-brand__mark" aria-hidden="true">NP</span>
             <span>NP Consultants <span>Admin</span></span>
         </a>
         <nav class="statistics-nav" aria-label="Admin navigation">
-            <a href="../">Content</a>
-            <a href="../webeditor/">Editor</a>
-            <a href="../../home/" target="_blank" rel="noreferrer">View website <span aria-hidden="true">↗</span></a>
+            <a href="admin/">Content</a>
+            <a href="admin/webeditor/">Editor</a>
+            <a href="home/" target="_blank" rel="noreferrer">View website <span aria-hidden="true">↗</span></a>
             <button class="statistics-logout" type="button" data-admin-logout>Log out</button>
         </nav>
     </header>
@@ -42,7 +51,7 @@
         <section id="configuration-state" class="statistics-setup" aria-labelledby="setup-title" hidden>
             <h2 id="setup-title">Connect CounterAPI</h2>
             <p>Set your CounterAPI workspace and create the configured public and admin counters to start collecting traffic. Never put an API token in this client-side configuration.</p>
-            <a class="statistics-button" href="../webeditor/?file=analytics.json">Edit analytics settings</a>
+            <a class="statistics-button" href="admin/webeditor/?file=analytics.json">Edit analytics settings</a>
         </section>
 
         <div id="statistics-content" hidden>
@@ -111,6 +120,6 @@
             <p class="statistics-footnote">These are page-load counts, not verified unique people. Admin page views use a separate counter and are excluded from the public website total. Public client-side counters can be affected by automated or repeated requests.</p>
         </div>
     </main>
-    <script type="module" src="../../resources/js/modules/counterapi-tracker.js"></script>
+    <script type="module" src="resources/js/modules/counterapi-tracker.js"></script>
 </body>
 </html>

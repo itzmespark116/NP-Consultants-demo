@@ -1,6 +1,6 @@
 // ────────────────────────────────────────────────────────────────────────────────
 // ──────────────────────────────── NP Consultants ────────────────────────────────
-// ────────────────────────────── modules/paths.js ────────────────────────────────
+// ──────────────────────── resources/js/modules/paths.js ─────────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
 // File Type : Utility / Loader
 // Loads /resources/data/paths.json and resolves all paths using the "prefix".
@@ -74,12 +74,9 @@ export async function getPaths() {
           res = await fetch(primaryUrl);
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
         } catch {
-          try {
-            res = await fetch("/resources/data/paths.json");
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          } catch {
-            res = await fetch("./resources/data/paths.json");
-          }
+          const fallbackUrl = new URL("resources/data/paths.json", document.baseURI);
+          res = await fetch(fallbackUrl);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
         }
         data = await res.json();
       }

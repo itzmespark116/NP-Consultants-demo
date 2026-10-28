@@ -3,32 +3,41 @@
 
 <head>
     <meta charset="UTF-8">
+    <script>
+        const prefix = 1;
+        const pagePath = location.pathname.endsWith("/") ? location.pathname : `${location.pathname}/`;
+        const pageUrl = new URL(pagePath, location.origin);
+        const pathDepth = Math.max(0, pageUrl.pathname.split("/").filter(Boolean).length - prefix);
+        const base = document.createElement("base");
+        base.href = new URL("../".repeat(pathDepth), pageUrl).href;
+        document.head.appendChild(base);
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NP Consultants &nbsp;&bull;&nbsp; Services</title>
 
-    <link rel="icon" href="../resources/img/brand/icon_light.png" type="image/png"
+    <link rel="icon" href="resources/img/brand/icon_light.png" type="image/png"
         media="(prefers-color-scheme: light)">
-    <link rel="icon" href="../resources/img/brand/icon_dark.png" type="image/png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" href="resources/img/brand/icon_dark.png" type="image/png" media="(prefers-color-scheme: dark)">
 
-    <link rel="stylesheet" href="../resources/css/root.css">
-    <link rel="stylesheet" href="../resources/css/body.css">
-    <link rel="stylesheet" href="../resources/css/scrollbar.css">
-    <link rel="stylesheet" href="../resources/css/image-loading.css">
+    <link rel="stylesheet" href="resources/css/root.css">
+    <link rel="stylesheet" href="resources/css/body.css">
+    <link rel="stylesheet" href="resources/css/scrollbar.css">
+    <link rel="stylesheet" href="resources/css/image-loading.css">
 
-    <link rel="stylesheet" href="../resources/css/nav.css">
-    <link rel="stylesheet" href="../resources/css/nav-links.css">
-    <link rel="stylesheet" href="../resources/css/nav-toggle.css">
+    <link rel="stylesheet" href="resources/css/nav.css">
+    <link rel="stylesheet" href="resources/css/nav-links.css">
+    <link rel="stylesheet" href="resources/css/nav-toggle.css">
 
-    <link rel="stylesheet" href="../resources/css/buttons/button-theme-toggle.css">
-    <link rel="stylesheet" href="../resources/css/buttons/button.css">
+    <link rel="stylesheet" href="resources/css/buttons/button-theme-toggle.css">
+    <link rel="stylesheet" href="resources/css/buttons/button.css">
 
-    <link rel="stylesheet" href="../resources/css/sections/sub-banner.css">
-    <link rel="stylesheet" href="../resources/css/sections/services-blocks.css">
+    <link rel="stylesheet" href="resources/css/sections/sub-banner.css">
+    <link rel="stylesheet" href="resources/css/sections/services-blocks.css">
 
-    <link rel="stylesheet" href="../resources/css/footer.css">
+    <link rel="stylesheet" href="resources/css/footer.css">
 
     <!-- Theme init: runs synchronously before first paint to prevent flash -->
-    <script src="../resources/js/theme-init.js"></script>
+    <script src="resources/js/theme-init.js"></script>
 
 </head>
 
@@ -44,22 +53,22 @@
     </main>
 
 
-    <script type="module" src="../resources/js/modules/intro.js"></script>
-    <script type="module" src="../resources/js/modules/image-loading.js"></script>
-    <script type="module" src="../resources/js/debug/image-loading-debug.js"></script>
-    <script type="module" src="../resources/js/modules/theme-switch.js"></script>
+    <script type="module" src="resources/js/modules/intro.js"></script>
+    <script type="module" src="resources/js/modules/image-loading.js"></script>
+    <script type="module" src="resources/js/debug/image-loading-debug.js"></script>
+    <script type="module" src="resources/js/modules/theme-switch.js"></script>
 
-    <script type="module" src="../resources/js/nav/nav-header.js"></script>
-    <script type="module" src="../resources/js/nav/nav-writer.js"></script>
-    <script type="module" src="../resources/js/nav/navbar.js"></script>
-    <script type="module" src="../resources/js/nav/nav-links.js"></script>
-    <script type="module" src="../resources/js/nav/nav-toggle.js"></script>
+    <script type="module" src="resources/js/nav/nav-header.js"></script>
+    <script type="module" src="resources/js/nav/nav-writer.js"></script>
+    <script type="module" src="resources/js/nav/navbar.js"></script>
+    <script type="module" src="resources/js/nav/nav-links.js"></script>
+    <script type="module" src="resources/js/nav/nav-toggle.js"></script>
 
-    <script type="module" src="../resources/js/sub-banner.js"></script>
-    <script type="module" src="../resources/js/services/services-blocks.js"></script>
+    <script type="module" src="resources/js/sub-banner.js"></script>
+    <script type="module" src="resources/js/services/services-blocks.js"></script>
 
-    <script type="module" src="../resources/js/footer.js"></script>
-    <script type="module" src="../resources/js/modules/counterapi-tracker.js"></script>
+    <script type="module" src="resources/js/footer.js"></script>
+    <script type="module" src="resources/js/modules/counterapi-tracker.js"></script>
 
 
 </body>
