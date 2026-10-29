@@ -2,6 +2,9 @@
 // ──────────────────────────────── NP Consultants ────────────────────────────────
 // ─────────────────────── admin/resources/js/webeditor.js ────────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
+// File Type : Content Editor Engine
+// Provides in-browser interactive editing and validation for project JSON data files.
+
 (() => {
     "use strict";
 

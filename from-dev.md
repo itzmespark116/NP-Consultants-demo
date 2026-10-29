@@ -43,6 +43,7 @@
   admin.npconsultants@gmail.com
   ```
 - Notes
-  - Using the free plan; ∴ 250 form submissions per month
+  - Using the free plan; ∴ 1250 form submissions per month
   - Init 28/10/2026
   - Setup to the base/root. Example: `https://itzmespark116.github.io/NP-Consultants-demo/` & not `https://itzmespark116.github.io/NP-Consultants-demo/contact`
+  - Current Submissions Access Link: https://app.web3forms.com/forms/725b365b-ade6-48e6-9f8d-d5d941ea7af6/submissions

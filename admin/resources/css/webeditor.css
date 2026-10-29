@@ -2,6 +2,8 @@
 /* ──────────────────────────────── NP Consultants ──────────────────────────────── */
 /* ────────────────────── admin/resources/css/webeditor.css ─────────────────────── */
 /* ──────────────────────────────────────────────────────────────────────────────── */
+/* In-browser JSON web editor styling: tree navigation, form editors, and live preview. */
+
 .admin-editor {
     --admin-sidebar-width: 19rem;
     --admin-topbar-height: 4.75rem;

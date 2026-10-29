@@ -2,6 +2,8 @@
 /* ──────────────────────────────── NP Consultants ──────────────────────────────── */
 /* ──────────────── resources/css/buttons/button-theme-toggle.css ───────────────── */
 /* ──────────────────────────────────────────────────────────────────────────────── */
+/* Theme toggle button styling: circular glassmorphism button, centered icon layout. */
+
 #ThemeToggle {
     display: grid;
     place-items: center;

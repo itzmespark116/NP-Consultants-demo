@@ -2,6 +2,9 @@
 // ──────────────────────────────── NP Consultants ────────────────────────────────
 // ─────────────────────── admin/resources/js/admin-auth.js ───────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
+// File Type : Authentication Guard
+// Validates session credentials against admin/credentials.json and redirects unauthorized users.
+
 (() => {
     "use strict";
 

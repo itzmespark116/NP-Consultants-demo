@@ -2,6 +2,9 @@
 // ──────────────────────────────── NP Consultants ────────────────────────────────
 // ──────────────────── resources/js/modules/image-loading.js ─────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
+// File Type : Image Loading Utility
+// Manages smooth loading states, skeleton placeholders, and error fallbacks for images.
+
 import { getPaths, resolvePath } from "./paths.js";
 
 const states = new WeakMap();

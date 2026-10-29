@@ -1,3 +1,10 @@
+# ────────────────────────────────────────────────────────────────────────────────
+# ──────────────────────────────── NP Consultants ────────────────────────────────
+# ─────────────────────────── project-line-counter.py ────────────────────────────
+# ────────────────────────────────────────────────────────────────────────────────
+# File Type : Utility Script
+# Scans project directories and reports lines of code, file counts, and folder stats.
+
 import os
 from collections import defaultdict
 

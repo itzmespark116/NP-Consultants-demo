@@ -2,6 +2,8 @@
 /* ──────────────────────────────── NP Consultants ──────────────────────────────── */
 /* ─────────────────────── resources/css/image-loading.css ──────────────────────── */
 /* ──────────────────────────────────────────────────────────────────────────────── */
+/* Image loading skeleton and spinner styles for progressive asset enhancement. */
+
 .image-loading-container {
     position: relative;
 }

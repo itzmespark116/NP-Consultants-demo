@@ -2,6 +2,9 @@
 // ──────────────────────────────── NP Consultants ────────────────────────────────
 // ────────────────── resources/js/modules/counterapi-tracker.js ──────────────────
 // ────────────────────────────────────────────────────────────────────────────────
+// File Type : Analytics Tracker
+// Records page visit metrics via CounterAPI for privacy-focused site statistics.
+
 (() => {
     "use strict";
 

@@ -57,16 +57,26 @@ This section is a practical guide for content editors, project managers, and cli
 
 ### 1. Content Architecture Overview
 
-All text and structural content on the website is decoupled from code into JSON (JavaScript Object Notation) files stored inside:
+All text, media paths, links, and structural content on the website are decoupled from code into JSON (JavaScript Object Notation) files stored inside `resources/data/`:
 
 ```
 resources/data/
-├── about.json               # About Us story and showcase project cards
-├── homepage-banner.json     # Hero banner headline, text, buttons, and video
-├── homepage-services.json   # Services section title, description, and service panels
-├── nav.json                 # Header navigation bar links
-├── placeholders.json        # Fallback images used when any image fails to load
-└── paths.json               # Centralized path routing registry with prefix support
+├── about.json               # About Us story, firm milestones, and showcase project cards
+├── analytics.json           # Site analytics configuration & CounterAPI tracking targets
+├── contact-form.json        # Contact enquiry form fields, validation rules, and status messages
+├── contact-page.json        # Contact sub-page header title, description, and metadata
+├── contact.json             # Corporate contact info, office address, and Google Maps coordinates
+├── footer.json              # Global footer content, multi-column navigation links, and copyright
+├── homepage-banner.json     # Hero banner headline, supporting copy, action buttons, and background video
+├── homepage-contact.json    # Homepage call-to-action enquiry band copy and action buttons
+├── homepage-projects.json   # Homepage featured projects showcase preview configuration
+├── homepage-services.json   # Homepage services section title, description, and preview panels
+├── nav.json                 # Header navigation bar links for desktop menu and mobile drawer
+├── paths.json               # Centralized path routing registry with prefix support for all environments
+├── placeholders.json        # Fallback placeholder images used automatically when media fails to load
+├── projects.json            # Complete projects portfolio catalog, category definitions, and popup details
+├── services.json            # Comprehensive engineering and architectural services breakdown
+└── staff.json               # Leadership directors and engineering team members roster
 ```
 
 When modifying any JSON file:
@@ -74,6 +84,7 @@ When modifying any JSON file:
 > 1. Keep valid JSON syntax: keys and string values must use double quotes (`"`), never single quotes (`'`).
 > 2. Do not leave a trailing comma after the last item in a list or object.
 > 3. Escape double quotes inside text with `\"` if needed.
+> 4. JSON files do not support comments (`//` or `/* */`). Do not add banner headers to JSON files.
 
 ---
 
@@ -365,17 +376,35 @@ The site is built according to modern Web Standards principles:
 
 ```
 frontend/
-├── index.html                           # Root document: redirects to /home/
-├── README.md                            # Documentation and developer tutorial
+├── index.html                           # Root entry point: redirects visitors to /home/
+├── 404.html                             # Custom branded 404 error page
+├── README.md                            # Comprehensive project guide and documentation
+├── project-line-counter.py              # Codebase metrics and line-counter utility
 ├── admin/
-│   ├── index.html                        # Admin workspace overview
-│   ├── webeditor/index.html             # Local JSON content editor
+│   ├── index.html                       # Admin portal dashboard
+│   ├── credentials.json                 # Admin access configuration
+│   ├── login/index.html                 # Admin authentication interface
+│   ├── statistics/index.html            # Visitor analytics & CounterAPI dashboard
+│   ├── webeditor/index.html             # In-browser JSON content editor
 │   └── resources/
-│       ├── css/dashboard.css             # Admin overview styles and design tokens
-│       ├── css/webeditor.css            # Editor-only styles and design tokens
-│       └── js/webeditor.js              # Editor-only data loading and interactions
+│       ├── css/
+│       │   ├── admin-auth.css           # Login form styling & layout
+│       │   ├── dashboard.css            # Dashboard navigation & cards
+│       │   ├── statistics.css           # Analytics view & metric cards
+│       │   └── webeditor.css            # Editor split-panel & tree styling
+│       └── js/
+│           ├── admin-auth.js            # Authentication guard & session check
+│           ├── admin-login.js           # Login form submission & token storage
+│           ├── statistics.js            # CounterAPI stats fetching & rendering
+│           └── webeditor.js             # JSON data editing engine & schema forms
 ├── home/
-│   └── index.html                       # Primary homepage entry document
+│   └── index.html                       # Primary homepage
+├── services/
+│   └── index.html                       # Dedicated Services page
+├── projects/
+│   └── index.html                       # Dedicated Projects portfolio page
+├── contact/
+│   └── index.html                       # Dedicated Contact Us & enquiry page
 └── resources/
     ├── css/
     │   ├── root.css                     # Global design tokens, palettes & variables
@@ -385,38 +414,77 @@ frontend/
     │   ├── nav.css                      # Fixed header & scroll-shrink pill navbar
     │   ├── nav-links.css                # Underline indicator (desktop) & dropdown (mobile)
     │   ├── nav-toggle.css               # Hamburger button morphing animation
+    │   ├── footer.css                   # Global footer layout & navigation links
+    │   ├── image-loading.css            # Skeleton loader styles for progressive images
     │   ├── buttons/
     │   │   ├── button.css               # Reusable pill buttons (.button, .secondary)
     │   │   └── button-theme-toggle.css  # Header theme switcher button styles
     │   └── sections/
+    │       ├── sub-banner.css           # Sub-page hero banner styling
     │       ├── homepage-banner.css      # Hero video & floating glass panel styles
     │       ├── homepage-about.css       # About Us grid & 3D hover project cards
     │       ├── homepage-services.css    # Interactive services grid & sliding panels
-    │       └── homepage-projects.css    # Dedicated projects showcase styles
+    │       ├── homepage-projects.css    # Homepage featured projects showcase preview
+    │       ├── homepage-contact.css     # Homepage call-to-action enquiry band
+    │       ├── services-blocks.css      # Dedicated services blocks layout
+    │       ├── projects-grid.css        # Interactive filterable projects portfolio grid
+    │       ├── contact-enquiry.css      # Contact enquiry form layout & feedback
+    │       ├── contact-map.css          # Interactive office location map embed
+    │       └── staff/
+    │           ├── team.css             # Team section grid layout
+    │           ├── director-card.css    # Director featured card styles
+    │           └── team-card.css        # Team member profile card styles
     ├── data/
-    │   ├── about.json                   # About section data
-    │   ├── homepage-banner.json         # Hero banner data
-    │   ├── homepage-services.json       # Services section data
-    │   ├── nav.json                     # Main navigation links
-    │   ├── paths.json                   # Centralized routing registry with prefix
-    │   └── placeholders.json            # Fallback placeholder images
+    │   ├── about.json                   # About section story & showcase cards
+    │   ├── analytics.json               # Site analytics & visit tracking configuration
+    │   ├── contact-form.json            # Contact enquiry form schema & messages
+    │   ├── contact-page.json            # Contact sub-page header data
+    │   ├── contact.json                 # Company contact details & map coordinates
+    │   ├── footer.json                  # Footer content, navigation & copyright
+    │   ├── homepage-banner.json         # Hero banner video, headline & CTAs
+    │   ├── homepage-contact.json        # Homepage call-to-action banner data
+    │   ├── homepage-projects.json       # Homepage projects showcase data
+    │   ├── homepage-services.json       # Homepage services showcase data
+    │   ├── nav.json                     # Primary navigation links
+    │   ├── paths.json                   # Centralized path routing registry with prefix
+    │   ├── placeholders.json            # Fallback placeholder images
+    │   ├── projects.json                # Projects portfolio data & categories
+    │   ├── services.json                # Detailed services offerings & items
+    │   └── staff.json                   # Leadership directors & staff members
     ├── icons/                           # SVG icons (lightMode.svg, darkMode.svg)
     ├── img/                             # Logos, team photos, placeholders, posters
     ├── js/
     │   ├── theme-init.js                # Pre-render theme blocker (in <head>)
+    │   ├── footer.js                    # Footer renderer via paths.json
+    │   ├── sub-banner.js                # Sub-page banner renderer & scroll shrink
     │   ├── modules/
     │   │   ├── intro.js                 # Splash screen timer controller
     │   │   ├── paths.js                 # Centralized path loader & prefix resolver
-    │   │   └── theme-switch.js          # Theme toggling & persistence engine
+    │   │   ├── theme-switch.js          # Theme toggling & persistence engine
+    │   │   ├── image-loading.js         # Smooth image load state & error fallback
+    │   │   └── counterapi-tracker.js    # Visit metric recorder via CounterAPI
     │   ├── nav/
+    │   │   ├── nav-header.js            # Writes full <header> DOM via paths.json
     │   │   ├── nav-writer.js            # Injects nav links via paths.json
     │   │   ├── navbar.js                # Scroll listener (adds [data-scrolled])
     │   │   ├── nav-links.js             # Active page matcher & sliding underline
     │   │   └── nav-toggle.js            # Mobile hamburger drawer accessibility
-    │   └── homepage/
-    │       ├── homepage-banner.js       # Hero video & content renderer (via paths.json)
-    │       ├── homepage-about.js        # About Us card grid renderer (via paths.json)
-    │       └── homepage-services.js     # Services grid & interaction renderer (via paths.json)
+    │   ├── homepage/
+    │   │   ├── homepage-banner.js       # Hero video & content renderer (via paths.json)
+    │   │   ├── homepage-about.js        # About Us card grid renderer (via paths.json)
+    │   │   ├── homepage-services.js     # Services grid & interaction renderer
+    │   │   ├── homepage-projects.js     # Projects showcase preview renderer
+    │   │   ├── homepage-contact.js      # Homepage CTA contact band renderer
+    │   │   └── team.js                  # Team & director cards renderer
+    │   ├── services/
+    │   │   └── services-blocks.js       # Detailed services blocks renderer
+    │   ├── projects/
+    │   │   └── projects-grid.js         # Interactive projects grid & popup dialog
+    │   ├── contact/
+    │   │   ├── contact-enquiry.js       # Enquiry form renderer & field validator
+    │   │   ├── contact-enquiry-send.js  # Web3Forms submission & status feedback
+    │   │   └── contact-map.js           # Interactive map renderer
+    │   └── debug/                       # Development debug helpers
     └── vid/
         └── banner-vid.mp4               # Background looping video
 ```
@@ -729,16 +797,53 @@ To build a dedicated page (e.g. `services/index.html`):
 
 ### 7. Code Standards & Contribution Rules
 
-To preserve codebase consistency:
+To preserve codebase consistency and comply with the project standards:
 
-1. **Header Block:** Every new CSS and JS file must include the standardized project comment header:
-   ```javascript
-   // ────────────────────────────────────────────────────────────────────────────────
-   // ──────────────────────────────── NP Consultants ────────────────────────────────
-   // ────────────────────────────── filename.js ─────────────────────────────────────
-   // ────────────────────────────────────────────────────────────────────────────────
-   // File Type : Writer | Event Listener | Init
-   ```
+1. **Standardized Banner Header (Every Code File):**
+   Every code file (`.html`, `.css`, `.js`, `.py`) must begin with a standardized 4-line banner header, formatted to exactly 80 characters of `─` and centered content inside comment markers, followed by implementation notes:
+
+   - **JavaScript (`//`):**
+     ```javascript
+     // ────────────────────────────────────────────────────────────────────────────────
+     // ──────────────────────────────── NP Consultants ────────────────────────────────
+     // ────────────────────────────── filename.js ─────────────────────────────────────
+     // ────────────────────────────────────────────────────────────────────────────────
+     // File Type : Writer (InnerHTML) | Event Listener | Init | Utility | Guard
+     // 1-3 lines implementation note explaining purpose and dependencies.
+     ```
+
+   - **CSS (`/* */`):**
+     ```css
+     /* ──────────────────────────────────────────────────────────────────────────────── */
+     /* ──────────────────────────────── NP Consultants ──────────────────────────────── */
+     /* ────────────────────────────── filename.css ──────────────────────────────────── */
+     /* ──────────────────────────────────────────────────────────────────────────────── */
+     /* Implementation note explaining layout, section scope, and responsive rules.    */
+     ```
+
+   - **HTML (`<!-- -->`):**
+     ```html
+     <!-- ──────────────────────────────────────────────────────────────────────────────── -->
+     <!-- ──────────────────────────────── NP Consultants ──────────────────────────────── -->
+     <!-- ────────────────────────────── filename.html ────────────────────────────────── -->
+     <!-- ──────────────────────────────────────────────────────────────────────────────── -->
+     <!-- File Type : Shell / Page Type -->
+     <!-- Implementation note explaining page contents and rendered sections. -->
+     ```
+
+   - **Python (`#`):**
+     ```python
+     # ────────────────────────────────────────────────────────────────────────────────
+     # ──────────────────────────────── NP Consultants ────────────────────────────────
+     # ────────────────────────────── script.py ───────────────────────────────────────
+     # ────────────────────────────────────────────────────────────────────────────────
+     # File Type : Utility Script
+     # Implementation note explaining execution requirements and purpose.
+     ```
+
+   > [!NOTE]
+   > JSON files cannot contain comments and therefore do **not** receive a banner header.
+
 2. **Token Integrity:** Never hardcode pixel colors or fixed font sizes in section CSS. Add a token to `root.css` and reference it via `var(--token-name)`.
 3. **Defensive DOM Operations:** Always verify elements exist before querying or attaching listeners (`if (!element) return;`).
 4. **HTML Escaping:** Never insert raw unescaped JSON text directly into `innerHTML`. Always use `escapeHTML()`.

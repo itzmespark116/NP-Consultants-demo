@@ -2,6 +2,9 @@
 // ──────────────────────────────── NP Consultants ────────────────────────────────
 // ────────────────────── admin/resources/js/admin-login.js ───────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
+// File Type : Authentication Form Handler
+// Handles login submission, validates username/password, and sets session state.
+
 (() => {
     "use strict";
 

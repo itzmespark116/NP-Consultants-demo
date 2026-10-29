@@ -2,6 +2,8 @@
 /* ──────────────────────────────── NP Consultants ──────────────────────────────── */
 /* ────────────────────── admin/resources/css/admin-auth.css ────────────────────── */
 /* ──────────────────────────────────────────────────────────────────────────────── */
+/* Admin authentication styles: login card, form controls, and feedback messages. */
+
 .admin-login {
     min-height: 100vh;
     min-height: 100dvh;

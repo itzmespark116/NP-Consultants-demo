@@ -2,6 +2,8 @@
 /* ──────────────────────────────── NP Consultants ──────────────────────────────── */
 /* ────────────────────── admin/resources/css/dashboard.css ─────────────────────── */
 /* ──────────────────────────────────────────────────────────────────────────────── */
+/* Admin dashboard layout: metrics summary cards, navigation grid, and management links. */
+
 .admin-dashboard {
     --dashboard-width: 70rem;
     --dashboard-padding: var(--padding-medium);

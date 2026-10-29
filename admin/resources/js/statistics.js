@@ -2,6 +2,9 @@
 // ──────────────────────────────── NP Consultants ────────────────────────────────
 // ─────────────────────── admin/resources/js/statistics.js ───────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
+// File Type : Analytics Renderer
+// Fetches website visitor analytics from CounterAPI and renders metrics to the statistics view.
+
 (() => {
     "use strict";
 

@@ -2,6 +2,8 @@
 /* ──────────────────────────────── NP Consultants ──────────────────────────────── */
 /* ────────────────────── admin/resources/css/statistics.css ────────────────────── */
 /* ──────────────────────────────────────────────────────────────────────────────── */
+/* Admin statistics dashboard styling: CounterAPI metrics display, charts, and tables. */
+
 .admin-statistics {
     --statistics-width: 76rem;
     --statistics-padding: clamp(1rem, 3vw, 2.5rem);
